@@ -1,0 +1,288 @@
+/* 
+* Harmony Theme (Light Mode)
+* Project: AI Automation Interface
+* Description: Light theme with soft, harmonious colors
+*/
+
+body.harmony-theme {
+    /* Colors */
+    --primary-color: #3498db;         /* Blue */
+    --secondary-color: #2ecc71;       /* Green */
+    --accent-color: #9b59b6;          /* Purple */
+    --text-color: #333333;            /* Dark gray for text */
+    --background-color: #ffffff;      /* White background */
+    --card-bg-color: #f8f9fa;         /* Very light gray for cards */
+    --border-color: #e0e0e0;          /* Light gray for borders */
+    --error-color: #e74c3c;           /* Red for errors */
+    --success-color: #27ae60;         /* Green for success */
+    
+    /* Additional colors for harmony theme */
+    --muted-color: #95a5a6;           /* Muted text color */
+    --info-color: #3498db;            /* Blue for info messages */
+    --warning-color: #f39c12;         /* Orange for warnings */
+    --light-accent: #f0f6fc;          /* Very light blue for highlights */
+    --hover-overlay: rgba(0, 0, 0, 0.05); /* Light hover effect */
+    
+    /* Shadows with softer edges for harmony theme */
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Custom components styling for harmony theme */
+  
+  /* Buttons with softer gradients */
+  body.harmony-theme .btn-primary {
+    background: linear-gradient(to bottom right, #3498db, #2980b9);
+    border: none;
+  }
+  
+  body.harmony-theme .btn-secondary {
+    background: linear-gradient(to bottom right, #2ecc71, #27ae60);
+    border: none;
+  }
+  
+  body.harmony-theme .btn-outline {
+    background: transparent;
+    border: 1px solid #3498db;
+    color: #3498db;
+  }
+  
+  body.harmony-theme .btn-outline:hover {
+    background: rgba(52, 152, 219, 0.1);
+    color: #2980b9;
+  }
+  
+  /* Cards with subtle borders and shadows */
+  body.harmony-theme .card {
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    background-color: white;
+  }
+  
+  body.harmony-theme .card:hover {
+    box-shadow: var(--shadow-md);
+  }
+  
+  /* Custom form controls */
+  body.harmony-theme .form-control {
+    border: 1px solid var(--border-color);
+    background-color: white;
+  }
+  
+  body.harmony-theme .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+  }
+  
+  /* Navigation with subtle indicators */
+  body.harmony-theme .navbar {
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  body.harmony-theme .nav-link {
+    color: var(--text-color);
+    position: relative;
+  }
+  
+  body.harmony-theme .nav-link:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width var(--transition-normal);
+  }
+  
+  body.harmony-theme .nav-link:hover:after,
+  body.harmony-theme .nav-link.active:after {
+    width: 100%;
+  }
+  
+  /* Tables with alternating row colors */
+  body.harmony-theme table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  body.harmony-theme th,
+  body.harmony-theme td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+  }
+  
+  body.harmony-theme th {
+    background-color: var(--light-accent);
+    font-weight: 600;
+  }
+  
+  body.harmony-theme tr:nth-child(even) {
+    background-color: rgba(248, 249, 250, 0.7);
+  }
+  
+  body.harmony-theme tr:hover {
+    background-color: var(--hover-overlay);
+  }
+  
+  /* Alerts and notifications */
+  body.harmony-theme .alert {
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-md);
+    border-left: 4px solid transparent;
+  }
+  
+  body.harmony-theme .alert-info {
+    background-color: rgba(52, 152, 219, 0.1);
+    border-left-color: var(--info-color);
+    color: var(--info-color);
+  }
+  
+  body.harmony-theme .alert-success {
+    background-color: rgba(46, 204, 113, 0.1);
+    border-left-color: var(--success-color);
+    color: var(--success-color);
+  }
+  
+  body.harmony-theme .alert-warning {
+    background-color: rgba(243, 156, 18, 0.1);
+    border-left-color: var(--warning-color);
+    color: var(--warning-color);
+  }
+  
+  body.harmony-theme .alert-error {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left-color: var(--error-color);
+    color: var(--error-color);
+  }
+  
+  /* Badges */
+  body.harmony-theme .badge {
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 10px;
+  }
+  
+  body.harmony-theme .badge-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  body.harmony-theme .badge-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+  }
+  
+  body.harmony-theme .badge-accent {
+    background-color: var(--accent-color);
+    color: white;
+  }
+  
+  /* Focus indicators for accessibility */
+  body.harmony-theme :focus {
+    outline: 3px solid rgba(52, 152, 219, 0.25);
+    outline-offset: 2px;
+  }
+  
+  /* Progress bars */
+  body.harmony-theme .progress {
+    height: 8px;
+    background-color: var(--light-accent);
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  body.harmony-theme .progress-bar {
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width var(--transition-normal);
+  }
+  
+  /* Custom checkboxes and radio buttons */
+  body.harmony-theme .form-check {
+    padding-left: 1.75rem;
+    position: relative;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  body.harmony-theme .form-check-input {
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    appearance: none;
+    background-color: white;
+  }
+  
+  body.harmony-theme .form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  body.harmony-theme .form-check-input:focus {
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+  }
+  
+  /* Enhanced typography for readability */
+  body.harmony-theme {
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+  
+  body.harmony-theme h1, 
+  body.harmony-theme h2, 
+  body.harmony-theme h3, 
+  body.harmony-theme h4, 
+  body.harmony-theme h5, 
+  body.harmony-theme h6 {
+    letter-spacing: -0.01em;
+  }
+  
+  /* Blockquotes */
+  body.harmony-theme blockquote {
+    border-left: 3px solid var(--primary-color);
+    padding-left: var(--spacing-md);
+    margin-left: 0;
+    color: var(--muted-color);
+    font-style: italic;
+  }
+  
+  /* Code blocks */
+  body.harmony-theme code {
+    background-color: var(--light-accent);
+    padding: 0.2em 0.4em;
+    border-radius: var(--border-radius-sm);
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 85%;
+  }
+  
+  body.harmony-theme pre {
+    background-color: var(--light-accent);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    overflow-x: auto;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  body.harmony-theme pre code {
+    background-color: transparent;
+    padding: 0;
+  }
+  
+  /* Dividers */
+  body.harmony-theme hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: var(--spacing-lg) 0;
+  }

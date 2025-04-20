@@ -1,0 +1,19 @@
+{
+    "level": "INFO",
+    "console": {
+      "enabled": true,
+      "level": "INFO",
+      "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    },
+    "file": {
+      "enabled": true,
+      "level": "DEBUG",
+      "filename": "app.log",
+      "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    },
+    "audit": {
+      "enabled": true,
+      "filename": "audit.log",
+      "format": "%(asctime)s - %(message)s"
+    }
+  }

@@ -1,0 +1,10 @@
+{
+    "app": {
+      "name": "My Application",
+      "version": "1.0.0",
+      "performance": {
+        "max_workers": 4,
+        "cache_size": 1000
+      }
+    }
+  }

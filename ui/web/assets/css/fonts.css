@@ -1,0 +1,208 @@
+/* 
+* fonts.css - 界面字体定义
+* 项目: AI 自动化界面
+* 
+* 这个文件定义了所有界面字体及其渲染设置，
+* 确保字体在所有设备上都清晰、锐利，没有重影或模糊感。
+*/
+
+/* 字体声明 - Interface 字体家族 */
+@font-face {
+    font-family: 'Interface';
+    src: url('../fonts/interface/interface-regular.woff2') format('woff2'),
+         url('../fonts/interface/interface-regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Interface';
+    src: url('../fonts/interface/interface-medium.woff2') format('woff2'),
+         url('../fonts/interface/interface-medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Interface';
+    src: url('../fonts/interface/interface-semibold.woff2') format('woff2'),
+         url('../fonts/interface/interface-semibold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Interface';
+    src: url('../fonts/interface/interface-bold.woff2') format('woff2'),
+         url('../fonts/interface/interface-bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  /* 备用字体 - 如果你想使用Inter字体 (开源且高质量) */
+  /*
+  @font-face {
+    font-family: 'Inter';
+    src: url('../fonts/inter/Inter-Regular.woff2') format('woff2'),
+         url('../fonts/inter/Inter-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Inter';
+    src: url('../fonts/inter/Inter-Medium.woff2') format('woff2'),
+         url('../fonts/inter/Inter-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Inter';
+    src: url('../fonts/inter/Inter-SemiBold.woff2') format('woff2'),
+         url('../fonts/inter/Inter-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Inter';
+    src: url('../fonts/inter/Inter-Bold.woff2') format('woff2'),
+         url('../fonts/inter/Inter-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  */
+  
+  /* 基本字体变量 */
+  :root {
+    /* 主字体堆栈 - 替换'Interface'为你所选字体名称 */
+    --font-family-base: 'Interface', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-family-heading: 'Interface', var(--font-family-base);
+    --font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    
+    /* 字体大小 - 使用相对单位确保响应式 */
+    --font-size-xs: 0.75rem;     /* 12px at 16px base */
+    --font-size-sm: 0.875rem;    /* 14px at 16px base */
+    --font-size-md: 1rem;        /* 16px at 16px base */
+    --font-size-lg: 1.125rem;    /* 18px at 16px base */
+    --font-size-xl: 1.25rem;     /* 20px at 16px base */
+    --font-size-2xl: 1.5rem;     /* 24px at 16px base */
+    --font-size-3xl: 1.875rem;   /* 30px at 16px base */
+    --font-size-4xl: 2.25rem;    /* 36px at 16px base */
+    
+    /* 字重 */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    
+    /* 行高 */
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --line-height-loose: 1.8;
+    
+    /* 字间距 */
+    --letter-spacing-tight: -0.01em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.01em;
+  }
+  
+  /* 基本标签样式 */
+  html {
+    font-size: 16px; /* 基准字体大小 */
+    text-size-adjust: 100%; /* 防止移动端浏览器自动调整字体大小 */
+  }
+  
+  body {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+    -webkit-font-smoothing: antialiased; /* 平滑字体渲染 - WebKit */
+    -moz-osx-font-smoothing: grayscale; /* 平滑字体渲染 - Mozilla */
+    text-rendering: optimizeLegibility; /* 优化可读性 */
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1; /* 字体特性优化 */
+  }
+  
+  /* 标题样式 */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    margin-top: 0;
+  }
+  
+  h1 { font-size: var(--font-size-4xl); }
+  h2 { font-size: var(--font-size-3xl); }
+  h3 { font-size: var(--font-size-2xl); }
+  h4 { font-size: var(--font-size-xl); }
+  h5 { font-size: var(--font-size-lg); }
+  h6 { font-size: var(--font-size-md); }
+  
+  /* 段落样式 */
+  p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  
+  /* 代码样式 */
+  code, pre, kbd, samp {
+    font-family: var(--font-family-mono);
+    font-size: 0.9em;
+  }
+  
+  /* 小字体 */
+  small {
+    font-size: var(--font-size-sm);
+  }
+  
+  /* 响应式字体大小调整 */
+  @media (max-width: 768px) {
+    html {
+      font-size: 15px; /* 在小屏幕上略微减小字体基准 */
+    }
+    
+    h1 { font-size: var(--font-size-3xl); }
+    h2 { font-size: var(--font-size-2xl); }
+    h3 { font-size: var(--font-size-xl); }
+  }
+  
+  @media (max-width: 480px) {
+    html {
+      font-size: 14px; /* 在更小屏幕上进一步减小字体基准 */
+    }
+  }
+  
+  /* 确保字体渲染清晰的额外技巧 */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* 高DPI屏幕优化 */
+    body {
+      -webkit-font-smoothing: subpixel-antialiased;
+    }
+  }
+  
+  /* 辅助类 */
+  .text-normal { font-weight: var(--font-weight-normal); }
+  .text-medium { font-weight: var(--font-weight-medium); }
+  .text-semibold { font-weight: var(--font-weight-semibold); }
+  .text-bold { font-weight: var(--font-weight-bold); }
+  
+  .text-xs { font-size: var(--font-size-xs); }
+  .text-sm { font-size: var(--font-size-sm); }
+  .text-md { font-size: var(--font-size-md); }
+  .text-lg { font-size: var(--font-size-lg); }
+  .text-xl { font-size: var(--font-size-xl); }
+  
+  .line-height-tight { line-height: var(--line-height-tight); }
+  .line-height-normal { line-height: var(--line-height-normal); }
+  .line-height-loose { line-height: var(--line-height-loose); }

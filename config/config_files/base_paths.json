@@ -1,0 +1,7 @@
+{
+    "dirs": {
+      "data": "data",
+      "logs": "logs",
+      "temp": "temp"
+    }
+  }

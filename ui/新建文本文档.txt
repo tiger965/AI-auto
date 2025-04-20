@@ -1,0 +1,58 @@
+ui/
+│
+├── __init__.py                  # UI模块入口，定义UIManager和ThemeManager
+│
+├── components/                  # UI组件
+│   ├── __init__.py
+│   ├── strategy_status.py       # 策略状态组件
+│   ├── notification.py          # 通知组件
+│   ├── data_display.py          # 数据展示组件
+│   └── form_elements.py         # 表单元素组件
+│
+├── web/                         # Web界面
+│   ├── __init__.py              # Web界面入口
+│   ├── routes.py                # URL路由定义
+│   ├── forms.py                 # 表单处理和验证
+│   ├── views.py                 # 视图渲染逻辑
+│   ├── assets/                  # 静态资源
+│   │   ├── css/                 # 样式表
+│   │   ├── js/                  # JavaScript文件
+│   │   ├── audio/               # 音效文件
+│   │   └── images/              # 图片资源
+│   └── middlewares/             # 中间件
+│       ├── __init__.py
+│       ├── auth.py              # 认证中间件
+│       └── response.py          # 响应处理中间件
+│
+├── cli/                         # 命令行界面
+│   ├── __init__.py              # CLI入口
+│   ├── commands.py              # 命令定义
+│   ├── helpers.py               # 辅助功能
+│   └── formatters.py            # 输出格式化
+│
+├── views/                       # 视图模块
+│   ├── __init__.py
+│   ├── dashboard_view.py        # 仪表盘视图
+│   ├── trading_view.py          # 交易视图
+│   ├── settings_view.py         # 设置视图
+│   └── profile_view.py          # 用户资料视图
+│
+├── templates/                   # HTML模板
+│   ├── base.html                # 基础模板
+│   ├── dashboard.html           # 仪表盘页面
+│   ├── components/              # 组件模板
+│   │   ├── header.html          # 页头组件
+│   │   ├── footer.html          # 页脚组件
+│   │   └── sidebar.html         # 侧边栏组件
+│   ├── trading/                 # 交易相关模板
+│   │   ├── strategy_list.html   # 策略列表
+│   │   └── strategy_detail.html # 策略详情
+│   └── settings/                # 设置相关模板
+│       ├── profile.html         # 用户资料设置
+│       └── appearance.html      # 外观设置
+│
+└── utils/                       # UI工具函数
+    ├── __init__.py
+    ├── theme_utils.py           # 主题处理工具
+    ├── animation.py             # 动画效果工具
+    └── audio.py                 # 音效处理工具

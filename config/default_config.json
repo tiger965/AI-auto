@@ -1,0 +1,57 @@
+{
+    "system": {
+      "debug_mode": false,
+      "log_level": "INFO",
+      "log_file": "logs/system.log",
+      "max_threads": 2,
+      "environment": "development"
+    },
+    "api": {
+      "enabled": true,
+      "host": "localhost",
+      "port": 5000,
+      "timeout": 10,
+      "max_connections": 10,
+      "rate_limit": 20
+    },
+    "modules": {
+      "knowledge_core": {
+        "enabled": true,
+        "database_path": "data/knowledge.db",
+        "max_entries": 1000,
+        "auto_save": true,
+        "save_interval": 60
+      },
+      "training_local": {
+        "enabled": true,
+        "model_path": "models/local_model",
+        "batch_size": 16,
+        "learning_rate": 0.01,
+        "epochs": 5,
+        "validation_split": 0.2
+      },
+      "repair_backup": {
+        "enabled": true,
+        "backup_dir": "backups/",
+        "max_backups": 3,
+        "backup_interval": 3600,
+        "compression": true
+      }
+    },
+    "ui": {
+      "default_mode": "console",
+      "theme": "light",
+      "auto_refresh": true,
+      "refresh_interval": 3,
+      "console": {
+        "color_enabled": true,
+        "history_size": 100
+      },
+      "gui": {
+        "width": 800,
+        "height": 600,
+        "fullscreen": false,
+        "font_size": 12
+      }
+    }
+  }

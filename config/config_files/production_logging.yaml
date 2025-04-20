@@ -1,0 +1,13 @@
+level: INFO
+console:
+  enabled: false
+  level: WARNING
+file:
+  enabled: true
+  level: INFO
+  filename: app.log
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+audit:
+  enabled: true
+  filename: audit.log
+  format: "%(asctime)s - %(message)s"

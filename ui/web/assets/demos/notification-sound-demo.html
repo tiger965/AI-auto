@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification Sound Demo</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f6fc;
+      flex-direction: column;
+    }
+    .demo-container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+    h1 {
+      color: #3498db;
+      margin-top: 0;
+    }
+    p {
+      color: #333;
+      line-height: 1.6;
+    }
+    .btn {
+      background: linear-gradient(to bottom right, #3498db, #2980b9);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin: 0.5rem;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+    .controls {
+      margin-top: 1.5rem;
+    }
+    .volume-control {
+      margin-top: 1rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+    .status {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: #666;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h1>Notification Sound Demo</h1>
+    <p>Click the buttons below to play different notification sounds for the AI Automation Interface.</p>
+    
+    <div class="controls">
+      <button id="notification-btn" class="btn">Play Notification</button>
+      <button id="click-btn" class="btn">Play Click</button>
+      <button id="success-btn" class="btn">Play Success</button>
+      <button id="error-btn" class="btn">Play Error</button>
+    </div>
+    
+    <div class="volume-control">
+      <label for="volume">Volume:</label>
+      <input type="range" id="volume" min="0" max="100" value="70">
+    </div>
+    
+    <p class="status" id="status">Ready to play sounds</p>
+  </div>
+
+  <script>
+    // Audio context for sound generation
+    let audioContext;
+    let volume = 0.7;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize audio context on first user interaction
+      document.addEventListener('click', initAudioContext, { once: true });
+      
+      // Setup buttons
+      document.getElementById('notification-btn').addEventListener('click', () => {
+        playSound('notification');
+        updateStatus('Played notification sound');
+      });
+      
+      document.getElementById('click-btn').addEventListener('click', () => {
+        playSound('click');
+        updateStatus('Played click sound');
+      });
+      
+      document.getElementById('success-btn').addEventListener('click', () => {
+        playStatusSound('success');
+        updateStatus('Played success sound');
+      });
+      
+      document.getElementById('error-btn').addEventListener('click', () => {
+        playStatusSound('error');
+        updateStatus('Played error sound');
+      });
+      
+      // Volume control
+      document.getElementById('volume').addEventListener('input', function() {
+        volume = parseInt(this.value) / 100;
+        updateStatus(`Volume set to ${Math.round(volume * 100)}%`);
+      });
+    });
+    
+    function initAudioContext() {
+      if (!audioContext) {
+        try {
+          window.AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioContext = new AudioContext();
+          updateStatus('Audio initialized');
+        } catch (e) {
+          console.error('Web Audio API not supported:', e);
+          updateStatus('Error: Web Audio not supported');
+        }
+      }
+    }
+    
+    function playSound(type) {
+      if (!audioContext) {
+        initAudioContext();
+      }
+      
+      if (!audioContext) return;
+      
+      // Define sound parameters based on type
+      let params;
+      
+      switch (type) {
+        case 'notification':
+          params = {
+            frequency: 880,
+            duration: 0.1,
+            type: 'sine',
+            steps: [
+              { freq: 880, dur: 0.1 },
+              { freq: 770, dur: 0.1, delay: 0.12 }
+            ]
+          };
+          break;
+          
+        case 'click':
+          params = {
+            frequency: 1200,
+            duration: 0.05,
+            type: 'sine'
+          };
+          break;
+          
+        default:
+          params = {
+            frequency: 660,
+            duration: 0.1,
+            type: 'sine'
+          };
+      }
+      
+      // Play sequenced sound if available
+      if (params.steps) {
+        let promise = Promise.resolve();
+        params.steps.forEach(step => {
+          promise = promise.then(() => {
+            return createBeep(step.freq, step.dur, {
+              type: params.type || 'sine',
+              delay: step.delay || 0
+            });
+          });
+        });
+      } else {
+        // Play single beep
+        createBeep(params.frequency, params.duration, { type: params.type });
+      }
+    }
+    
+    function playStatusSound(status) {
+      switch (status) {
+        case 'success':
+          // Rising two-tone beep
+          createBeep(660, 0.1, { type: 'sine' })
+            .then(() => createBeep(880, 0.1, { delay: 0.1, type: 'sine' }));
+          break;
+          
+        case 'error':
+          // Descending two-tone beep
+          createBeep(440, 0.1, { type: 'square' })
+            .then(() => createBeep(330, 0.1, { delay: 0.1, type: 'square' }));
+          break;
+      }
+    }
+    
+    function createBeep(frequency, duration, options = {}) {
+      return new Promise(resolve => {
+        if (!audioContext) {
+          resolve();
+          return;
+        }
+        
+        // Default options
+        const defaultOptions = {
+          type: 'sine',
+          delay: 0,
+          fadeIn: 0.01,
+          fadeOut: 0.05
+        };
+        
+        // Merge options
+        const beepOptions = { ...defaultOptions, ...options };
+        
+        // Create oscillator
+        const oscillator = audioContext.createOscillator();
+        oscillator.type = beepOptions.type;
+        oscillator.frequency.value = frequency;
+        
+        // Create gain node for volume and fades
+        const gainNode = audioContext.createGain();
+        gainNode.gain.value = 0;
+        
+        // Connect nodes
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        // Calculate start time with delay
+        const startTime = audioContext.currentTime + beepOptions.delay;
+        const fadeInEnd = startTime + beepOptions.fadeIn;
+        const fadeOutStart = startTime + duration - beepOptions.fadeOut;
+        const endTime = startTime + duration;
+        
+        // Schedule volume changes
+        gainNode.gain.setValueAtTime(0, startTime);
+        gainNode.gain.linearRampToValueAtTime(volume, fadeInEnd);
+        gainNode.gain.setValueAtTime(volume, fadeOutStart);
+        gainNode.gain.linearRampToValueAtTime(0, endTime);
+        
+        // Start and stop the oscillator
+        oscillator.start(startTime);
+        oscillator.stop(endTime);
+        
+        // Resolve promise when beep completes
+        setTimeout(() => {
+          resolve();
+        }, (beepOptions.delay + duration) * 1000);
+      });
+    }
+    
+    function updateStatus(message) {
+      document.getElementById('status').textContent = message;
+    }
+  </script>
+</body>
+</html>

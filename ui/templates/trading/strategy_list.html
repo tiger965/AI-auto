@@ -1,0 +1,452 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>策略列表 - 量化交易平台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .filter-dropdown {
+            min-width: 200px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <span class="font-bold text-xl">量化交易平台</span>
+                <div class="ml-10 hidden md:flex items-center space-x-4">
+                    <a href="#" class="text-white hover:text-blue-200">首页</a>
+                    <a href="#" class="text-white hover:text-blue-200 border-b-2 border-white">策略中心</a>
+                    <a href="#" class="text-white hover:text-blue-200">市场行情</a>
+                    <a href="#" class="text-white hover:text-blue-200">回测分析</a>
+                    <a href="#" class="text-white hover:text-blue-200">账户管理</a>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <i class="fas fa-bell text-xl cursor-pointer"></i>
+                    <span class="absolute -top-1 -right-1 bg-red-500 rounded-full w-4 h-4 text-xs flex items-center justify-center">3</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-2">
+                    <img src="/api/placeholder/40/40" alt="用户头像" class="w-8 h-8 rounded-full">
+                    <span>用户名</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-6 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">策略列表</h1>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow flex items-center">
+                <i class="fas fa-plus mr-2"></i> 创建新策略
+            </button>
+        </div>
+
+        <!-- 筛选和排序区域 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0">
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                    <!-- 策略类型筛选 -->
+                    <div class="relative inline-block filter-dropdown">
+                        <select class="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="">全部策略类型</option>
+                            <option value="trend">趋势策略</option>
+                            <option value="momentum">动量策略</option>
+                            <option value="mean_reversion">均值回归</option>
+                            <option value="arbitrage">套利策略</option>
+                            <option value="fundamental">基本面策略</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <!-- 交易品种筛选 -->
+                    <div class="relative inline-block filter-dropdown">
+                        <select class="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="">全部交易品种</option>
+                            <option value="stock">股票</option>
+                            <option value="futures">期货</option>
+                            <option value="options">期权</option>
+                            <option value="crypto">数字货币</option>
+                            <option value="forex">外汇</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <!-- 时间周期筛选 -->
+                    <div class="relative inline-block filter-dropdown">
+                        <select class="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="">全部时间周期</option>
+                            <option value="m1">1分钟</option>
+                            <option value="m5">5分钟</option>
+                            <option value="m15">15分钟</option>
+                            <option value="m30">30分钟</option>
+                            <option value="h1">1小时</option>
+                            <option value="h4">4小时</option>
+                            <option value="d1">日线</option>
+                            <option value="w1">周线</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 排序选项 -->
+                <div class="relative inline-block filter-dropdown">
+                    <select class="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="profit_desc">收益率 (高到低)</option>
+                        <option value="profit_asc">收益率 (低到高)</option>
+                        <option value="sharp_desc">夏普比率 (高到低)</option>
+                        <option value="maxdrawdown_asc">最大回撤 (低到高)</option>
+                        <option value="created_desc">创建时间 (最新)</option>
+                        <option value="popular">热门程度</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 搜索框 -->
+            <div class="mt-6">
+                <div class="relative">
+                    <input type="search" class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="搜索策略名称、描述或创建者...">
+                    <div class="absolute left-3 top-2.5">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 策略卡片列表 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 策略卡片 1 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 strategy-card">
+                <div class="relative">
+                    <img src="/api/placeholder/400/200" alt="策略图表" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 right-3 bg-green-500 text-white rounded-full px-3 py-1 text-xs font-semibold">
+                        收益率 +32.8%
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xl font-bold text-gray-800">双均线趋势跟踪</h3>
+                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">趋势策略</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm h-12 overflow-hidden">基于短期和长期移动平均线的交叉信号进行趋势跟踪交易，适用于波动明显的市场环境。</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
+                        <span><i class="fas fa-chart-line mr-1"></i> 股票</span>
+                        <span><i class="fas fa-clock mr-1"></i> 日线</span>
+                        <span><i class="fas fa-calendar-alt mr-1"></i> 2025/03/15</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="/api/placeholder/32/32" alt="创建者头像" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-700">张量化</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 2.4k</span>
+                            <span class="text-gray-500 text-sm"><i class="fas fa-star mr-1"></i> 4.7</span>
+                        </div>
+                    </div>
+                    <a href="strategy_detail.html" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-4">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+
+            <!-- 策略卡片 2 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 strategy-card">
+                <div class="relative">
+                    <img src="/api/placeholder/400/200" alt="策略图表" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 right-3 bg-green-500 text-white rounded-full px-3 py-1 text-xs font-semibold">
+                        收益率 +24.5%
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xl font-bold text-gray-800">波动率突破</h3>
+                        <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">动量策略</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm h-12 overflow-hidden">基于布林带通道的价格突破策略，结合RSI指标过滤假突破信号，降低回撤提高胜率。</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
+                        <span><i class="fas fa-coins mr-1"></i> 数字货币</span>
+                        <span><i class="fas fa-clock mr-1"></i> 4小时</span>
+                        <span><i class="fas fa-calendar-alt mr-1"></i> 2025/04/02</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="/api/placeholder/32/32" alt="创建者头像" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-700">李数据</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 1.8k</span>
+                            <span class="text-gray-500 text-sm"><i class="fas fa-star mr-1"></i> 4.2</span>
+                        </div>
+                    </div>
+                    <a href="strategy_detail.html" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-4">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+
+            <!-- 策略卡片 3 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 strategy-card">
+                <div class="relative">
+                    <img src="/api/placeholder/400/200" alt="策略图表" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 right-3 bg-yellow-500 text-white rounded-full px-3 py-1 text-xs font-semibold">
+                        收益率 +18.3%
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xl font-bold text-gray-800">统计套利策略</h3>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">套利策略</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm h-12 overflow-hidden">基于协整关系的配对交易策略，通过统计方法发现价格相关性强的资产组合进行套利。</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
+                        <span><i class="fas fa-chart-line mr-1"></i> 期货</span>
+                        <span><i class="fas fa-clock mr-1"></i> 日线</span>
+                        <span><i class="fas fa-calendar-alt mr-1"></i> 2025/03/28</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="/api/placeholder/32/32" alt="创建者头像" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-700">王量化</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 1.2k</span>
+                            <span class="text-gray-500 text-sm"><i class="fas fa-star mr-1"></i> 4.5</span>
+                        </div>
+                    </div>
+                    <a href="strategy_detail.html" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-4">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+
+            <!-- 策略卡片 4 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 strategy-card">
+                <div class="relative">
+                    <img src="/api/placeholder/400/200" alt="策略图表" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 right-3 bg-green-500 text-white rounded-full px-3 py-1 text-xs font-semibold">
+                        收益率 +29.7%
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xl font-bold text-gray-800">多因子选股模型</h3>
+                        <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">基本面策略</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm h-12 overflow-hidden">结合价值、成长、质量、动量等多维度因子，构建低相关性的多因子选股体系。</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
+                        <span><i class="fas fa-chart-line mr-1"></i> 股票</span>
+                        <span><i class="fas fa-clock mr-1"></i> 周线</span>
+                        <span><i class="fas fa-calendar-alt mr-1"></i> 2025/04/05</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="/api/placeholder/32/32" alt="创建者头像" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-700">赵数据</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 3.6k</span>
+                            <span class="text-gray-500 text-sm"><i class="fas fa-star mr-1"></i> 4.9</span>
+                        </div>
+                    </div>
+                    <a href="strategy_detail.html" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-4">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+
+            <!-- 策略卡片 5 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 strategy-card">
+                <div class="relative">
+                    <img src="/api/placeholder/400/200" alt="策略图表" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 right-3 bg-red-500 text-white rounded-full px-3 py-1 text-xs font-semibold">
+                        收益率 +15.2%
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xl font-bold text-gray-800">网格交易系统</h3>
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">均值回归</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm h-12 overflow-hidden">基于价格区间的自动网格交易系统，在震荡行情中高效获利，并设有自适应网格间距。</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
+                        <span><i class="fas fa-coins mr-1"></i> 数字货币</span>
+                        <span><i class="fas fa-clock mr-1"></i> 1小时</span>
+                        <span><i class="fas fa-calendar-alt mr-1"></i> 2025/03/20</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="/api/placeholder/32/32" alt="创建者头像" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-700">陈交易</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 2.1k</span>
+                            <span class="text-gray-500 text-sm"><i class="fas fa-star mr-1"></i> 4.3</span>
+                        </div>
+                    </div>
+                    <a href="strategy_detail.html" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-4">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+
+            <!-- 策略卡片 6 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 strategy-card">
+                <div class="relative">
+                    <img src="/api/placeholder/400/200" alt="策略图表" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 right-3 bg-green-500 text-white rounded-full px-3 py-1 text-xs font-semibold">
+                        收益率 +21.9%
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xl font-bold text-gray-800">波动率择时策略</h3>
+                        <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">动量策略</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm h-12 overflow-hidden">基于VIX指数和历史波动率的市场择时策略，在低波动率期间增加仓位，高波动率期间降低风险敞口。</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
+                        <span><i class="fas fa-chart-line mr-1"></i> 期权</span>
+                        <span><i class="fas fa-clock mr-1"></i> 日线</span>
+                        <span><i class="fas fa-calendar-alt mr-1"></i> 2025/04/10</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="/api/placeholder/32/32" alt="创建者头像" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-700">吴期权</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 1.6k</span>
+                            <span class="text-gray-500 text-sm"><i class="fas fa-star mr-1"></i> 4.4</span>
+                        </div>
+                    </div>
+                    <a href="strategy_detail.html" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-4">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 分页控件 -->
+        <div class="mt-12 flex justify-center">
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    <span class="sr-only">上一页</span>
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-blue-600 text-sm font-medium text-white hover:bg-blue-700">
+                    1
+                </a>
+                <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    2
+                </a>
+                <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    3
+                </a>
+                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                    ...
+                </span>
+                <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    8
+                </a>
+                <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    9
+                </a>
+                <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    <span class="sr-only">下一页</span>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </nav>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-xl font-bold mb-4">量化交易平台</h2>
+                    <p class="text-gray-400">专业的量化策略开发与交易平台</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">产品</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">策略市场</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">回测系统</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">实盘交易</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">API接口</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">资源</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">帮助中心</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">文档</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">社区论坛</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">博客</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">关于我们</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">公司简介</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">联系我们</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">加入我们</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">合作伙伴</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">© 2025 量化交易平台 版权所有</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-weixin text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-weibo text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 这里可以添加交互功能，如筛选、排序等JS逻辑
+        document.addEventListener('DOMContentLoaded', function() {
+            // 筛选功能
+            const filters = document.querySelectorAll('.filter-dropdown select');
+            filters.forEach(filter => {
+                filter.addEventListener('change', function() {
+                    // 实际应用中这里会实现筛选逻辑
+                    console.log('Filter changed:', this.value);
+                });
+            });
+
+            // 搜索功能
+            const searchInput = document.querySelector('input[type="search"]');
+            searchInput.addEventListener('input', function() {
+                // 实际应用中这里会实现搜索逻辑
+                console.log('Search input:', this.value);
+            });
+        });
+    </script>
+</body>
+</html>

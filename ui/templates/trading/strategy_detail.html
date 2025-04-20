@@ -1,0 +1,1036 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双均线趋势跟踪策略详情 - 量化交易平台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+        .parameter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border-radius: 0.375rem;
+            font-family: 'Courier New', monospace;
+        }
+        .tabs-container .tab {
+            cursor: pointer;
+        }
+        .tabs-container .tab.active {
+            color: #2563eb;
+            border-bottom: 2px solid #2563eb;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <span class="font-bold text-xl">量化交易平台</span>
+                <div class="ml-10 hidden md:flex items-center space-x-4">
+                    <a href="#" class="text-white hover:text-blue-200">首页</a>
+                    <a href="strategy_list.html" class="text-white hover:text-blue-200 border-b-2 border-white">策略中心</a>
+                    <a href="#" class="text-white hover:text-blue-200">市场行情</a>
+                    <a href="#" class="text-white hover:text-blue-200">回测分析</a>
+                    <a href="#" class="text-white hover:text-blue-200">账户管理</a>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <i class="fas fa-bell text-xl cursor-pointer"></i>
+                    <span class="absolute -top-1 -right-1 bg-red-500 rounded-full w-4 h-4 text-xs flex items-center justify-center">3</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-2">
+                    <img src="/api/placeholder/40/40" alt="用户头像" class="w-8 h-8 rounded-full">
+                    <span>用户名</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- 面包屑导航 -->
+        <div class="flex items-center text-sm text-gray-600 mb-6">
+            <a href="#" class="hover:text-blue-600">首页</a>
+            <span class="mx-2">/</span>
+            <a href="strategy_list.html" class="hover:text-blue-600">策略列表</a>
+            <span class="mx-2">/</span>
+            <span class="text-gray-800">双均线趋势跟踪策略</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- 左侧策略信息 -->
+            <div class="lg:col-span-2">
+                <!-- 策略标题和基本信息 -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center">
+                                <h1 class="text-3xl font-bold text-gray-800">双均线趋势跟踪策略</h1>
+                                <span class="ml-4 bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">趋势策略</span>
+                            </div>
+                            <div class="flex items-center mt-3 space-x-4 text-sm">
+                                <span class="text-gray-600"><i class="fas fa-chart-line mr-1"></i> 股票</span>
+                                <span class="text-gray-600"><i class="fas fa-clock mr-1"></i> 日线</span>
+                                <span class="text-gray-600"><i class="fas fa-calendar-alt mr-1"></i> 更新于 2025/03/15</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow">
+                                <i class="fas fa-star mr-1"></i> 收藏
+                            </button>
+                            <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow">
+                                <i class="fas fa-code-branch mr-1"></i> 复制
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex mt-6 space-x-8">
+                        <div class="flex items-center">
+                            <img src="/api/placeholder/48/48" alt="创建者头像" class="w-12 h-12 rounded-full mr-3">
+                            <div>
+                                <p class="font-semibold">张量化</p>
+                                <p class="text-sm text-gray-600">策略专家</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-6">
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-green-600">+32.8%</p>
+                                <p class="text-sm text-gray-600">年化收益率</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-blue-600">2.45</p>
+                                <p class="text-sm text-gray-600">夏普比率</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-red-600">-12.6%</p>
+                                <p class="text-sm text-gray-600">最大回撤</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 策略图表 -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">策略表现</h2>
+                    
+                    <!-- 图表控制栏 -->
+                    <div class="flex flex-wrap justify-between items-center mb-4">
+                        <div class="flex space-x-2 mb-3 sm:mb-0">
+                            <button class="bg-blue-600 text-white px-3 py-1 rounded text-sm">全部</button>
+                            <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">1月</button>
+                            <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">3月</button>
+                            <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">6月</button>
+                            <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">1年</button>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">收益曲线</button>
+                            <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">对比基准</button>
+                            <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">回撤分析</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 图表容器 -->
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 策略详情选项卡 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                    <!-- 选项卡导航 -->
+                    <div class="tabs-container flex border-b">
+                        <div class="tab active px-6 py-3 font-medium" data-tab="strategy-overview">策略概述</div>
+                        <div class="tab px-6 py-3 font-medium" data-tab="parameters">参数设置</div>
+                        <div class="tab px-6 py-3 font-medium" data-tab="backtest-report">回测报告</div>
+                        <div class="tab px-6 py-3 font-medium" data-tab="code">策略代码</div>
+                    </div>
+
+                    <!-- 策略概述 -->
+                    <div id="strategy-overview" class="tab-content active p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">策略介绍</h3>
+                        <p class="text-gray-700 mb-4">
+                            双均线趋势跟踪策略是一种经典的技术分析交易策略，通过观察短期与长期移动平均线之间的关系来判断市场趋势并进行交易。本策略采用了优化后的参数设置，结合了动态止损机制和波动率过滤器，使其在大多数市场环境中都能取得稳定的收益。
+                        </p>
+                        
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 mt-8">策略逻辑</h3>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-2 mb-6">
+                            <li>使用短期（5日）和长期（20日）移动平均线来判断趋势方向</li>
+                            <li>当短期均线上穿长期均线时，产生买入信号；当短期均线下穿长期均线时，产生卖出信号</li>
+                            <li>引入波动率过滤器，当市场波动率过大时，减小仓位以控制风险</li>
+                            <li>采用移动止损策略，根据ATR指标动态设置止损点位</li>
+                            <li>加入交易量确认机制，避免假突破信号</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 mt-8">适用市场</h3>
+                        <p class="text-gray-700 mb-4">
+                            该策略主要适用于具有明显趋势特性的市场，如大盘股、蓝筹股及主要指数。在震荡市中表现一般，但通过波动率过滤和仓位控制可以有效降低回撤。不建议在高频震荡或者流动性较差的小盘股中使用。
+                        </p>
+                        
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 mt-8">风险提示</h3>
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-yellow-700">
+                                        过去的交易表现不代表未来收益，策略回测结果仅供参考，实盘交易可能面临市场风险、流动性风险等多种风险因素。使用本策略前，请确保您充分了解相关风险并根据自身风险承受能力做出决策。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 参数设置 -->
+                    <div id="parameters" class="tab-content p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-6">核心参数设置</h3>
+                        
+                        <div class="parameter-grid mb-8">
+                            <!-- 均线参数组 -->
+                            <div class="border rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-3">均线参数</h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">短期均线周期</label>
+                                        <div class="flex items-center">
+                                            <input type="range" min="1" max="30" value="5" class="w-full mr-3">
+                                            <span class="text-sm font-medium w-8">5</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">长期均线周期</label>
+                                        <div class="flex items-center">
+                                            <input type="range" min="10" max="100" value="20" class="w-full mr-3">
+                                            <span class="text-sm font-medium w-8">20</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">均线类型</label>
+                                        <select class="w-full border rounded p-1.5 text-sm">
+                                            <option>简单移动平均线(SMA)</option>
+                                            <option>指数移动平均线(EMA)</option>
+                                            <option>加权移动平均线(WMA)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 仓位控制参数组 -->
+                            <div class="border rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-3">仓位控制</h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">初始仓位比例</label>
+                                        <div class="flex items-center">
+                                            <input type="range" min="0" max="100" value="50" class="w-full mr-3">
+                                            <span class="text-sm font-medium w-8">50%</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">单次最大仓位</label>
+                                        <div class="flex items-center">
+                                            <input type="range" min="0" max="100" value="20" class="w-full mr-3">
+                                            <span class="text-sm font-medium w-8">20%</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">仓位加码策略</label>
+                                        <select class="w-full border rounded p-1.5 text-sm">
+                                            <option>固定比例</option>
+                                            <option>动态比例</option>
+                                            <option>不加码</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 止损参数组 -->
+                            <div class="border rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-3">止损设置</h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">ATR周期</label>
+                                        <div class="flex items-center">
+                                            <input type="range" min="1" max="30" value="14" class="w-full mr-3">
+                                            <span class="text-sm font-medium w-8">14</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">ATR倍数</label>
+                                        <div class="flex items-center">
+                                            <input type="range" min="1" max="10" value="3" step="0.5" class="w-full mr-3">
+                                            <span class="text-sm font-medium w-8">3</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">止损类型</label>
+                                        <select class="w-full border rounded p-1.5 text-sm">
+                                            <option>移动止损</option>
+                                            <option>固定止损</option>
+                                            <option>百分比止损</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 过滤器参数组 -->
+                            <div class="border rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-3">信号过滤</h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">波动率周期</label>
+                                        <div class="flex items-center">
+                                            <input type="range" min="1" max="30" value="20" class="w-full mr-3">
+                                            <span class="text-sm font-medium w-8">20</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">波动率阈值</label>
+                                        <div class="flex items-center">
+                                            <input type="range" min="0" max="100" value="30" class="w-full mr-3">
+                                            <span class="text-sm font-medium w-8">30%</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="flex items-center text-sm text-gray-600 mb-1">
+                                            <input type="checkbox" checked class="mr-2">
+                                            启用交易量确认
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 mt-8">高级参数设置</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">交易时间段</label>
+                                <select class="w-full border rounded p-2">
+                                    <option>全天交易</option>
+                                    <option>仅开盘前30分钟</option>
+                                    <option>仅收盘前30分钟</option>
+                                    <option>避开中午休市</option>
+                                    <option>自定义</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">交易频率限制</label>
+                                <select class="w-full border rounded p-2">
+                                    <option>无限制</option>
+                                    <option>每日最多1次</option>
+                                    <option>每周最多3次</option>
+                                    <option>自定义</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">资金管理模式</label>
+                                <select class="w-full border rounded p-2">
+                                    <option>固定资金</option>
+                                    <option>复合收益</option>
+                                    <option>凯利公式</option>
+                                    <option>自定义</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">交易成本设置</label>
+                                <div class="flex">
+                                    <div class="w-1/2 pr-2">
+                                        <input type="text" placeholder="手续费率%" class="w-full border rounded p-2" value="0.05">
+                                    </div>
+                                    <div class="w-1/2 pl-2">
+                                        <input type="text" placeholder="滑点" class="w-full border rounded p-2" value="0.01">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end space-x-4 mt-8">
+                            <button class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                                恢复默认
+                            </button>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                应用参数
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 回测报告 -->
+                    <div id="backtest-report" class="tab-content p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-6">回测结果摘要</h3>
+                        
+                        <!-- 回测概览卡片 -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                            <div class="bg-blue-50 rounded-lg p-4 text-center">
+                                <p class="text-sm text-gray-600">回测周期</p>
+                                <p class="text-xl font-bold text-gray-800">2023/01 - 2025/03</p>
+                            </div>
+                            <div class="bg-green-50 rounded-lg p-4 text-center">
+                                <p class="text-sm text-gray-600">年化收益</p>
+                                <p class="text-xl font-bold text-green-600">+32.8%</p>
+                            </div>
+                            <div class="bg-blue-50 rounded-lg p-4 text-center">
+                                <p class="text-sm text-gray-600">基准收益</p>
+                                <p class="text-xl font-bold text-gray-800">+15.2%</p>
+                            </div>
+                            <div class="bg-purple-50 rounded-lg p-4 text-center">
+                                <p class="text-sm text-gray-600">超额收益</p>
+                                <p class="text-xl font-bold text-purple-600">+17.6%</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 回测性能指标 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                            <div class="border rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-3">风险指标</h4>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">最大回撤</span>
+                                        <span class="font-medium text-red-600">-12.6%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">年化波动率</span>
+                                        <span class="font-medium">13.4%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">下行风险</span>
+                                        <span class="font-medium">8.7%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">最大连续亏损天数</span>
+                                        <span class="font-medium">14</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="border rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-3">收益指标</h4>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">夏普比率</span>
+                                        <span class="font-medium text-blue-600">2.45</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">索提诺比率</span>
+                                        <span class="font-medium">3.12</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">卡尔玛比率</span>
+                                        <span class="font-medium">2.60</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">信息比率</span>
+                                        <span class="font-medium">1.87</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="border rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-3">交易统计</h4>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">总交易次数</span>
+                                        <span class="font-medium">86</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">胜率</span>
+                                        <span class="font-medium text-green-600">62.8%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">平均盈利</span>
+                                        <span class="font-medium">3.2%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">平均亏损</span>
+                                        <span class="font-medium">-1.8%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 图表区域 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="border rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-3">月度收益热力图</h4>
+                                <div class="h-64 bg-gray-100 rounded flex items-center justify-center">
+                                    <!-- 此处放置月度收益热力图 -->
+                                    <img src="/api/placeholder/500/250" alt="月度收益热力图" class="max-w-full max-h-full">
+                                </div>
+                            </div>
+                            <div class="border rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-3">回撤分析</h4>
+                                <div class="h-64 bg-gray-100 rounded flex items-center justify-center">
+                                    <!-- 此处放置回撤分析图 -->
+                                    <img src="/api/placeholder/500/250" alt="回撤分析图" class="max-w-full max-h-full">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 交易记录 -->
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">最近交易记录</h3>
+                        <div class="overflow-x-auto mb-8">
+                            <table class="min-w-full bg-white border">
+                                <thead>
+                                    <tr>
+                                        <th class="py-2 px-4 border-b">日期</th>
+                                        <th class="py-2 px-4 border-b">方向</th>
+                                        <th class="py-2 px-4 border-b">价格</th>
+                                        <th class="py-2 px-4 border-b">数量</th>
+                                        <th class="py-2 px-4 border-b">收益</th>
+                                        <th class="py-2 px-4 border-b">原因</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="py-2 px-4 border-b">2025/03/15</td>
+                                        <td class="py-2 px-4 border-b text-green-600">买入</td>
+                                        <td class="py-2 px-4 border-b">￥38.75</td>
+                                        <td class="py-2 px-4 border-b">1000</td>
+                                        <td class="py-2 px-4 border-b">-</td>
+                                        <td class="py-2 px-4 border-b">短期均线上穿长期均线</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-4 border-b">2025/03/05</td>
+                                        <td class="py-2 px-4 border-b text-red-600">卖出</td>
+                                        <td class="py-2 px-4 border-b">￥41.20</td>
+                                        <td class="py-2 px-4 border-b">1000</td>
+                                        <td class="py-2 px-4 border-b text-green-600">+6.32%</td>
+                                        <td class="py-2 px-4 border-b">短期均线下穿长期均线</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-4 border-b">2025/02/18</td>
+                                        <td class="py-2 px-4 border-b text-green-600">买入</td>
+                                        <td class="py-2 px-4 border-b">￥38.75</td>
+                                        <td class="py-2 px-4 border-b">1000</td>
+                                        <td class="py-2 px-4 border-b">-</td>
+                                        <td class="py-2 px-4 border-b">短期均线上穿长期均线</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-4 border-b">2025/02/02</td>
+                                        <td class="py-2 px-4 border-b text-red-600">卖出</td>
+                                        <td class="py-2 px-4 border-b">￥37.90</td>
+                                        <td class="py-2 px-4 border-b">1000</td>
+                                        <td class="py-2 px-4 border-b text-red-600">-2.18%</td>
+                                        <td class="py-2 px-4 border-b">止损触发</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-4 border-b">2025/01/25</td>
+                                        <td class="py-2 px-4 border-b text-green-600">买入</td>
+                                        <td class="py-2 px-4 border-b">￥38.75</td>
+                                        <td class="py-2 px-4 border-b">1000</td>
+                                        <td class="py-2 px-4 border-b">-</td>
+                                        <td class="py-2 px-4 border-b">短期均线上穿长期均线</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="flex justify-end">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                导出完整回测报告
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 策略代码 -->
+                    <div id="code" class="tab-content p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">策略代码</h3>
+                            <div class="flex space-x-2">
+                                <button class="flex items-center px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm">
+                                    <i class="fas fa-copy mr-1"></i> 复制代码
+                                </button>
+                                <button class="flex items-center px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm">
+                                    <i class="fas fa-download mr-1"></i> 下载
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="code-block p-4 overflow-x-auto text-sm mb-6">
+<pre>
+# 双均线趋势跟踪策略
+# 作者: 张量化
+# 版本: 1.2.0
+
+import numpy as np
+import pandas as pd
+import talib as ta
+
+# 策略参数
+SHORT_PERIOD = 5      # 短期均线周期
+LONG_PERIOD = 20      # 长期均线周期
+ATR_PERIOD = 14       # ATR周期
+ATR_MULTIPLE = 3      # ATR倍数，用于设置止损
+VOL_PERIOD = 20       # 波动率计算周期
+VOL_THRESHOLD = 0.3   # 波动率阈值
+INITIAL_POSITION = 0.5  # 初始仓位比例
+MAX_POSITION = 0.2    # 单次最大仓位
+
+class DualMAStrategy:
+    def __init__(self, context):
+        self.context = context
+        self.context.set_benchmark('000300.XSHG')  # 设置基准为沪深300
+        self.context.set_commission(commission=0.0005)  # 设置手续费
+        self.context.set_slippage(slippage=0.001)  # 设置滑点
+        
+        # 注册日线级别数据
+        self.context.add_history('1d', [SHORT_PERIOD, LONG_PERIOD, ATR_PERIOD, VOL_PERIOD])
+        
+        # 记录每只股票的止损价
+        self.stop_loss_prices = {}
+        
+    def before_trading(self, context):
+        """盘前准备"""
+        self.context.log.info('Trading day start: {}'.format(context.current_dt))
+    
+    def handle_bar(self, context, bar_dict):
+        """盘中策略逻辑"""
+        # 遍历当前关注的股票
+        for stock in context.portfolio.positions:
+            # 获取历史数据
+            prices = history(stock, 'close', LONG_PERIOD + 10, '1d')
+            volumes = history(stock, 'volume', LONG_PERIOD + 10, '1d')
+            highs = history(stock, 'high', ATR_PERIOD + 10, '1d')
+            lows = history(stock, 'low', ATR_PERIOD + 10, '1d')
+            
+            # 计算技术指标
+            short_ma = ta.SMA(prices, timeperiod=SHORT_PERIOD)
+            long_ma = ta.SMA(prices, timeperiod=LONG_PERIOD)
+            atr = ta.ATR(highs, lows, prices, timeperiod=ATR_PERIOD)
+            
+            # 计算历史波动率
+            returns = np.log(prices / prices.shift(1))
+            volatility = returns.rolling(window=VOL_PERIOD).std() * np.sqrt(252)
+            
+            current_price = bar_dict[stock].close
+            current_position = context.portfolio.positions[stock].quantity
+            
+            # 检查是否需要止损
+            if stock in self.stop_loss_prices and current_price <= self.stop_loss_prices[stock]:
+                self.context.log.info('Stop loss triggered for {}'.format(stock))
+                order_target_percent(stock, 0)
+                self.stop_loss_prices.pop(stock)
+                continue
+            
+            # 交易信号生成
+            if short_ma[-1] > long_ma[-1] and short_ma[-2] <= long_ma[-2]:
+                # 买入信号
+                if volatility[-1] <= VOL_THRESHOLD:
+                    # 波动率正常，可以交易
+                    # 检查交易量确认
+                    if volumes[-1] > volumes[-2] * 1.2:
+                        # 计算买入仓位
+                        position_size = min(INITIAL_POSITION, MAX_POSITION)
+                        order_target_percent(stock, position_size)
+                        
+                        # 设置止损价格
+                        self.stop_loss_prices[stock] = current_price - atr[-1] * ATR_MULTIPLE
+                        self.context.log.info('Buy {} at {} with stop loss at {}'.format(
+                            stock, current_price, self.stop_loss_prices[stock]))
+            
+            elif short_ma[-1] < long_ma[-1] and short_ma[-2] >= long_ma[-2]:
+                # 卖出信号
+                order_target_percent(stock, 0)
+                self.context.log.info('Sell {} at {}'.format(stock, current_price))
+                if stock in self.stop_loss_prices:
+                    self.stop_loss_prices.pop(stock)
+                    
+            # 更新移动止损
+            if stock in self.stop_loss_prices and current_position > 0:
+                new_stop_loss = current_price - atr[-1] * ATR_MULTIPLE
+                if new_stop_loss > self.stop_loss_prices[stock]:
+                    self.stop_loss_prices[stock] = new_stop_loss
+                    self.context.log.info('Update stop loss for {} to {}'.format(
+                        stock, self.stop_loss_prices[stock]))
+    
+    def after_trading(self, context):
+        """盘后处理"""
+        self.context.log.info('Trading day end: {}'.format(context.current_dt))
+        self.context.log.info('Current portfolio value: {}'.format(context.portfolio.total_value))
+
+# 策略初始化
+def initialize(context):
+    # 创建策略实例
+    context.strategy = DualMAStrategy(context)
+    
+    # 设置股票池
+    context.universe = ['000001.XSHE', '600000.XSHG', '000300.XSHG']
+    
+    # 设置运行频率
+    run_daily(context.strategy.before_trading, 'before_trading')
+    run_daily(context.strategy.handle_bar, 'bar')
+    run_daily(context.strategy.after_trading, 'after_trading')
+</pre>
+                        </div>
+                        
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-info-circle text-blue-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-blue-700">
+                                        上述代码仅供参考学习，实际应用需要根据特定交易平台API进行调整。该策略使用了talib库进行技术指标计算，运行前请确保已安装相关依赖库。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 mt-8">注释与说明</h3>
+                        <div class="space-y-4 text-gray-700">
+                            <p>
+                                <span class="font-semibold">策略初始化:</span> 在initialize函数中设置了基本参数，包括股票池和运行频率。策略实例化后会自动注册相关回调函数。
+                            </p>
+                            <p>
+                                <span class="font-semibold">交易信号生成:</span> 策略通过比较短期和长期移动平均线的交叉来生成交易信号。当短期均线上穿长期均线时，产生买入信号；反之则产生卖出信号。
+                            </p>
+                            <p>
+                                <span class="font-semibold">风险控制:</span> 策略实现了三层风险控制机制：1) 波动率过滤，2) 交易量确认，3) 基于ATR的移动止损。
+                            </p>
+                            <p>
+                                <span class="font-semibold">仓位管理:</span> 通过参数INITIAL_POSITION和MAX_POSITION控制仓位大小，避免过度集中风险。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧边栏 -->
+            <div class="lg:col-span-1">
+                <!-- 操作卡片 -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">策略操作</h3>
+                    <div class="space-y-4">
+                        <button class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg flex justify-center items-center">
+                            <i class="fas fa-play mr-2"></i> 开始实盘交易
+                        </button>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg flex justify-center items-center">
+                            <i class="fas fa-chart-line mr-2"></i> 运行回测
+                        </button>
+                        <button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg flex justify-center items-center">
+                            <i class="fas fa-code-branch mr-2"></i> 复制策略
+                        </button>
+                        <button class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded-lg flex justify-center items-center">
+                            <i class="fas fa-edit mr-2"></i> 编辑策略
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 创作者信息 -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">策略创作者</h3>
+                    <div class="flex items-center mb-4">
+                        <img src="/api/placeholder/80/80" alt="创建者头像" class="w-16 h-16 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold text-gray-800">张量化</p>
+                            <p class="text-sm text-gray-600">策略专家 | 量化交易员</p>
+                            <div class="flex items-center mt-1">
+                                <span class="text-yellow-500"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                                <span class="text-sm text-gray-600 ml-1">4.8 (36 评价)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 text-sm mb-4">
+                        专注于趋势和动量类交易策略开发，拥有8年量化交易经验。曾任某大型证券公司量化投资部经理，现为独立量化交易员。
+                    </p>
+                    <div class="flex justify-between">
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 text-sm">
+                            <i class="fas fa-user-plus mr-1"></i> 关注
+                        </button>
+                        <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 text-sm">
+                            <i class="fas fa-envelope mr-1"></i> 联系
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 相关策略推荐 -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">相关策略推荐</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <img src="/api/placeholder/64/64" alt="策略缩略图" class="w-16 h-16 object-cover rounded mr-3">
+                            <div>
+                                <h4 class="font-medium text-gray-800">MACD趋势动量策略</h4>
+                                <div class="flex items-center mt-1 mb-1">
+                                    <span class="text-yellow-500 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span>
+                                    <span class="text-xs text-gray-600 ml-1">4.0</span>
+                                </div>
+                                <span class="text-green-600 text-sm">+28.5% 年化收益</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <img src="/api/placeholder/64/64" alt="策略缩略图" class="w-16 h-16 object-cover rounded mr-3">
+                            <div>
+                                <h4 class="font-medium text-gray-800">三重滤网交易系统</h4>
+                                <div class="flex items-center mt-1 mb-1">
+                                    <span class="text-yellow-500 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                                    <span class="text-xs text-gray-600 ml-1">4.5</span>
+                                </div>
+                                <span class="text-green-600 text-sm">+35.2% 年化收益</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <img src="/api/placeholder/64/64" alt="策略缩略图" class="w-16 h-16 object-cover rounded mr-3">
+                            <div>
+                                <h4 class="font-medium text-gray-800">突破回踩策略</h4>
+                                <div class="flex items-center mt-1 mb-1">
+                                    <span class="text-yellow-500 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span>
+                                    <span class="text-xs text-gray-600 ml-1">4.1</span>
+                                </div>
+                                <span class="text-green-600 text-sm">+26.8% 年化收益</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <img src="/api/placeholder/64/64" alt="策略缩略图" class="w-16 h-16 object-cover rounded mr-3">
+                            <div>
+                                <h4 class="font-medium text-gray-800">RSI动量反转策略</h4>
+                                <div class="flex items-center mt-1 mb-1">
+                                    <span class="text-yellow-500 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                                    <span class="text-xs text-gray-600 ml-1">4.9</span>
+                                </div>
+                                <span class="text-green-600 text-sm">+31.5% 年化收益</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="strategy_list.html" class="block w-full text-center text-blue-600 hover:text-blue-800 mt-4">
+                        查看更多 <i class="fas fa-angle-right ml-1"></i>
+                    </a>
+                </div>
+                
+                <!-- 用户评价 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold text-gray-800">用户评价</h3>
+                        <span class="text-blue-600 text-sm cursor-pointer">查看全部 36 条</span>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <div class="flex items-center">
+                                    <img src="/api/placeholder/32/32" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
+                                    <span class="font-medium text-gray-800">王投资</span>
+                                </div>
+                                <span class="text-yellow-500"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-gray-700 text-sm">
+                                这个策略在牛市中表现出色，我使用了三个月收益率达到15%，参数设置也很人性化，推荐大家尝试。
+                            </p>
+                            <p class="text-gray-500 text-xs mt-1">2025/04/10</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <div class="flex items-center">
+                                    <img src="/api/placeholder/32/32" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
+                                    <span class="font-medium text-gray-800">李交易</span>
+                                </div>
+                                <span class="text-yellow-500"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span>
+                            </div>
+                            <p class="text-gray-700 text-sm">
+                                策略逻辑清晰，代码实现也很规范，但在震荡市场中表现一般，建议作者可以增加一些过滤条件来提高胜率。
+                            </p>
+                            <p class="text-gray-500 text-xs mt-1">2025/04/05</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <div class="flex items-center">
+                                    <img src="/api/placeholder/32/32" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
+                                    <span class="font-medium text-gray-800">张程序</span>
+                                </div>
+                                <span class="text-yellow-500"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                            </div>
+                            <p class="text-gray-700 text-sm">
+                                代码质量很高，注释也很详细，我在此基础上增加了一些自己的改进，效果不错。还有就是作者的技术支持也很及时。
+                            </p>
+                            <p class="text-gray-500 text-xs mt-1">2025/03/28</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 添加评价 -->
+                    <div class="mt-6 pt-6 border-t">
+                        <h4 class="font-medium text-gray-800 mb-3">添加您的评价</h4>
+                        <div class="flex items-center mb-4">
+                            <span class="mr-3 text-sm text-gray-600">评分:</span>
+                            <div class="text-gray-400 text-xl cursor-pointer">
+                                <i class="far fa-star hover:text-yellow-500"></i>
+                                <i class="far fa-star hover:text-yellow-500"></i>
+                                <i class="far fa-star hover:text-yellow-500"></i>
+                                <i class="far fa-star hover:text-yellow-500"></i>
+                                <i class="far fa-star hover:text-yellow-500"></i>
+                            </div>
+                        </div>
+                        <textarea class="w-full border rounded-lg p-3 text-sm" rows="3" placeholder="分享您的使用体验..."></textarea>
+                        <button class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm">
+                            提交评价
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-xl font-bold mb-4">量化交易平台</h2>
+                    <p class="text-gray-400">专业的量化策略开发与交易平台</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">产品</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">策略市场</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">回测系统</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">实盘交易</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">API接口</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">资源</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">帮助中心</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">文档</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">社区论坛</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">博客</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">关于我们</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">公司简介</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">联系我们</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">加入我们</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">合作伙伴</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">© 2025 量化交易平台 版权所有</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-weixin text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-weibo text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 选项卡切换
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 移除所有tab的active类
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // 当前点击的tab添加active类
+                    this.classList.add('active');
+                    
+                    // 隐藏所有内容
+                    const tabContents = document.querySelectorAll('.tab-content');
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // 显示对应内容
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // 性能图表
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 24}, (_, i) => `${2023 + Math.floor(i/12)}/${(i%12+1).toString().padStart(2, '0')}`),
+                    datasets: [{
+                        label: '策略收益',
+                        data: [0, 2.3, 5.1, 7.8, 6.5, 8.9, 12.4, 15.7, 14.2, 18.3, 21.5, 24.8, 23.6, 26.1, 28.3, 27.5, 29.8, 31.2, 30.5, 27.8, 29.3, 30.6, 31.8, 32.8],
+                        borderColor: 'rgba(37, 99, 235, 1)',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: '基准收益',
+                        data: [0, 1.2, 2.5, 3.8, 3.2, 4.1, 5.6, 7.3, 6.8, 8.4, 9.6, 10.8, 9.7, 11.2, 12.5, 11.8, 13.1, 14.2, 13.6, 12.1, 13.5, 14.1, 14.8, 15.2],
+                        borderColor: 'rgba(156, 163, 175, 1)',
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.parsed.y + '%';
+                                    return label;
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 评分星星交互
+            const stars = document.querySelectorAll('.far.fa-star');
+            stars.forEach((star, index) => {
+                star.addEventListener('click', function() {
+                    // 重置所有星星
+                    stars.forEach(s => s.className = 'far fa-star hover:text-yellow-500');
+                    
+                    // 点亮当前及之前的星星
+                    for(let i = 0; i <= index; i++) {
+                        stars[i].className = 'fas fa-star text-yellow-500';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

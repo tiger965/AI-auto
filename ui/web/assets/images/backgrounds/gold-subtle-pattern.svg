@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <!-- 金色底色渐变 -->
+    <linearGradient id="goldBackground" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5d76e" />
+      <stop offset="100%" stop-color="#f1c40f" />
+    </linearGradient>
+    
+    <!-- 暗花花纹颜色（轻微深一点的金色） -->
+    <linearGradient id="subtlePattern" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6b422" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#d4ac0d" stop-opacity="0.15" />
+    </linearGradient>
+    
+    <!-- 花纹图案 -->
+    <pattern id="subtleGoldPattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+      <!-- 金色背景 -->
+      <rect width="100" height="100" fill="url(#goldBackground)"/>
+      
+      <!-- 非常淡的网格线 -->
+      <path d="M 25 0 L 25 100" stroke="#e6b422" stroke-width="0.3" stroke-opacity="0.1"/>
+      <path d="M 50 0 L 50 100" stroke="#e6b422" stroke-width="0.3" stroke-opacity="0.1"/>
+      <path d="M 75 0 L 75 100" stroke="#e6b422" stroke-width="0.3" stroke-opacity="0.1"/>
+      <path d="M 0 25 L 100 25" stroke="#e6b422" stroke-width="0.3" stroke-opacity="0.1"/>
+      <path d="M 0 50 L 100 50" stroke="#e6b422" stroke-width="0.3" stroke-opacity="0.1"/>
+      <path d="M 0 75 L 100 75" stroke="#e6b422" stroke-width="0.3" stroke-opacity="0.1"/>
+      
+      <!-- 中心花纹 - 非常微妙 -->
+      <g transform="translate(50,50)">
+        <!-- 中央花纹 -->
+        <path d="M -20,0 C -15,-15 0,-20 0,-20 C 0,-20 15,-15 20,0 C 15,15 0,20 0,20 C 0,20 -15,15 -20,0 Z" 
+              fill="none" stroke="url(#subtlePattern)" stroke-width="0.7" />
+        
+        <!-- 内部花纹 -->
+        <path d="M -10,0 C -7,-7 0,-10 0,-10 C 0,-10 7,-7 10,0 C 7,7 0,10 0,10 C 0,10 -7,7 -10,0 Z" 
+              fill="none" stroke="url(#subtlePattern)" stroke-width="0.5" />
+              
+        <!-- 中心点 -->
+        <circle cx="0" cy="0" r="1" fill="#e6b422" fill-opacity="0.2" />
+      </g>
+      
+      <!-- 角落花纹 - 非常淡 -->
+      <g opacity="0.1">
+        <!-- 左上角 -->
+        <path d="M 0,0 C 10,5 5,10 0,0 Z" fill="url(#subtlePattern)" />
+        <!-- 右上角 -->
+        <path d="M 100,0 C 90,5 95,10 100,0 Z" fill="url(#subtlePattern)" />
+        <!-- 左下角 -->
+        <path d="M 0,100 C 10,95 5,90 0,100 Z" fill="url(#subtlePattern)" />
+        <!-- 右下角 -->
+        <path d="M 100,100 C 90,95 95,90 100,100 Z" fill="url(#subtlePattern)" />
+      </g>
+      
+      <!-- 小装饰点 -->
+      <circle cx="25" cy="25" r="0.5" fill="#e6b422" fill-opacity="0.2"/>
+      <circle cx="75" cy="25" r="0.5" fill="#e6b422" fill-opacity="0.2"/>
+      <circle cx="25" cy="75" r="0.5" fill="#e6b422" fill-opacity="0.2"/>
+      <circle cx="75" cy="75" r="0.5" fill="#e6b422" fill-opacity="0.2"/>
+      
+      <!-- 更多极微小的装饰元素 -->
+      <g opacity="0.1">
+        <circle cx="12.5" cy="12.5" r="0.3" fill="#e6b422"/>
+        <circle cx="37.5" cy="12.5" r="0.3" fill="#e6b422"/>
+        <circle cx="62.5" cy="12.5" r="0.3" fill="#e6b422"/>
+        <circle cx="87.5" cy="12.5" r="0.3" fill="#e6b422"/>
+        
+        <circle cx="12.5" cy="37.5" r="0.3" fill="#e6b422"/>
+        <circle cx="87.5" cy="37.5" r="0.3" fill="#e6b422"/>
+        
+        <circle cx="12.5" cy="62.5" r="0.3" fill="#e6b422"/>
+        <circle cx="87.5" cy="62.5" r="0.3" fill="#e6b422"/>
+        
+        <circle cx="12.5" cy="87.5" r="0.3" fill="#e6b422"/>
+        <circle cx="37.5" cy="87.5" r="0.3" fill="#e6b422"/>
+        <circle cx="62.5" cy="87.5" r="0.3" fill="#e6b422"/>
+        <circle cx="87.5" cy="87.5" r="0.3" fill="#e6b422"/>
+      </g>
+      
+      <!-- 轻微纹理叠加 -->
+      <rect width="100" height="100" fill="url(#noise)" opacity="0.02"/>
+    </pattern>
+    
+    <!-- 噪点纹理 - 用于增加微妙的纹理感 -->
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0"/>
+    </filter>
+  </defs>
+  
+  <!-- 填充整个SVG -->
+  <rect width="100%" height="100%" fill="url(#subtleGoldPattern)"/>
+</svg>

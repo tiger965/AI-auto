@@ -1,0 +1,173 @@
+﻿{% extends "base.html" %}
+
+{% block title %}仪表盘 - AI交易平台{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container animate-fade-in">
+    <div class="dashboard-header">
+        <h1 class="page-title">欢迎回来，{{ user.name }}</h1>
+        <p class="last-login">上次登录: {{ user.last_login|date_format }}</p>
+        <div class="quick-actions">
+            <button class="btn btn-primary" data-sound="click" onclick="location.href='{{ url_for('trading.new_strategy') }}'">
+                <i class="bi bi-plus-circle"></i> 创建策略
+            </button>
+            <button class="btn btn-outline" data-sound="click" onclick="location.href='{{ url_for('analytics.reports') }}'">
+                <i class="bi bi-bar-chart"></i> 查看报告
+            </button>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- 策略概览卡片 -->
+        <div class="dashboard-card animate-slide-up" style="--delay: 0.1s">
+            <div class="card-header">
+                <h2 class="card-title">策略概览</h2>
+                <span class="card-badge {{ 'success' if active_strategies > 0 else 'neutral' }}">
+                    {{ active_strategies }} 个活跃
+                </span>
+            </div>
+            <div class="card-content">
+                <div class="strategy-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">{{ total_strategies }}</span>
+                        <span class="stat-label">总策略</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">{{ strategies_profit|percentage }}</span>
+                        <span class="stat-label">平均收益</span>
+                    </div>
+                </div>
+                <div class="strategy-actions">
+                    <a href="{{ url_for('trading.strategy_list') }}" class="text-link" data-sound="click">
+                        查看所有策略 <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 市场摘要卡片 -->
+        <div class="dashboard-card animate-slide-up" style="--delay: 0.2s">
+            <div class="card-header">
+                <h2 class="card-title">市场摘要</h2>
+                <span class="card-timestamp">更新于 {{ market_data.updated_at|time_ago }}</span>
+            </div>
+            <div class="card-content">
+                <div class="market-indices">
+                    {% for index in market_data.indices %}
+                    <div class="market-index">
+                        <span class="index-name">{{ index.name }}</span>
+                        <span class="index-value">{{ index.value }}</span>
+                        <span class="index-change {{ 'positive' if index.change > 0 else 'negative' if index.change < 0 else '' }}">
+                            {{ index.change|percentage }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="market-chart">
+                    <canvas id="marketTrendsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 最近交易卡片 -->
+        <div class="dashboard-card animate-slide-up" style="--delay: 0.3s">
+            <div class="card-header">
+                <h2 class="card-title">最近交易</h2>
+                <span class="card-badge {{ 'success' if recent_trades|length > 0 else 'neutral' }}">
+                    {{ recent_trades|length }} 笔
+                </span>
+            </div>
+            <div class="card-content">
+                {% if recent_trades|length > 0 %}
+                <div class="trades-list">
+                    {% for trade in recent_trades %}
+                    <div class="trade-item">
+                        <div class="trade-info">
+                            <span class="trade-symbol">{{ trade.symbol }}</span>
+                            <span class="trade-type {{ 'buy' if trade.type == 'buy' else 'sell' }}">
+                                {{ '买入' if trade.type == 'buy' else '卖出' }}
+                            </span>
+                        </div>
+                        <div class="trade-details">
+                            <span class="trade-value">{{ trade.amount|currency }}</span>
+                            <span class="trade-time">{{ trade.timestamp|time_ago }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="bi bi-clock-history"></i>
+                    <p>暂无最近交易记录</p>
+                </div>
+                {% endif %}
+                <div class="trades-actions">
+                    <a href="{{ url_for('trading.history') }}" class="text-link" data-sound="click">
+                        查看交易历史 <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 性能分析卡片 -->
+        <div class="dashboard-card animate-slide-up" style="--delay: 0.4s">
+            <div class="card-header">
+                <h2 class="card-title">性能分析</h2>
+                <div class="card-controls">
+                    <button class="btn btn-sm" data-period="week" data-sound="click">周</button>
+                    <button class="btn btn-sm active" data-period="month" data-sound="click">月</button>
+                    <button class="btn btn-sm" data-period="year" data-sound="click">年</button>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="performance-chart">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+                <div class="performance-stats">
+                    <div class="stat-item">
+                        <span class="stat-value {{ 'positive' if performance.total_profit > 0 else 'negative' if performance.total_profit < 0 else '' }}">
+                            {{ performance.total_profit|currency }}
+                        </span>
+                        <span class="stat-label">总收益</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">{{ performance.win_rate|percentage }}</span>
+                        <span class="stat-label">胜率</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">{{ performance.average_holding|duration }}</span>
+                        <span class="stat-label">平均持仓</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard-charts.js') }}"></script>
+<script>
+    // 初始化图表
+    document.addEventListener('DOMContentLoaded', function() {
+        initMarketTrendsChart();
+        initPerformanceChart('month');
+        
+        // 性能周期切换
+        const periodButtons = document.querySelectorAll('.card-controls .btn');
+        periodButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                periodButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                initPerformanceChart(this.dataset.period);
+                playSound('click');
+            });
+        });
+    });
+</script>
+{% endblock %}

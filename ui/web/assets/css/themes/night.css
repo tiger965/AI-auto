@@ -1,0 +1,365 @@
+/* 
+* Night Theme (Dark Mode)
+* Project: AI Automation Interface
+* Description: Dark theme optimized for reduced eye strain and nighttime use
+*/
+
+body.night-theme {
+    /* Colors - optimized for dark mode with reduced blue light */
+    --primary-color: #64b5f6;         /* Lighter blue - reduced blue light */
+    --secondary-color: #66bb6a;       /* Softer green */
+    --accent-color: #ba68c8;          /* Lighter purple */
+    --text-color: #e0e0e0;            /* Light gray for text */
+    --background-color: #121212;      /* Very dark gray background */
+    --card-bg-color: #1e1e1e;         /* Dark gray for cards */
+    --border-color: #333333;          /* Medium gray for borders */
+    --error-color: #ef5350;           /* Softer red for errors */
+    --success-color: #4caf50;         /* Softer green for success */
+    
+    /* Additional colors for night theme */
+    --muted-color: #757575;           /* Medium gray for muted text */
+    --info-color: #64b5f6;            /* Lighter blue for info */
+    --warning-color: #ffb74d;         /* Softer orange for warnings */
+    --dark-accent: #252525;           /* Slightly lighter than background for contrast */
+    --hover-overlay: rgba(255, 255, 255, 0.05); /* Light hover effect */
+    
+    /* Shadows with stronger contrast for visibility in dark mode */
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.4);
+    
+    /* Adjust global text color */
+    color: var(--text-color);
+    background-color: var(--background-color);
+  }
+  
+  /* Custom components styling for night theme */
+  
+  /* Buttons with subtle gradients */
+  body.night-theme .btn-primary {
+    background: linear-gradient(to bottom right, #64b5f6, #42a5f5);
+    border: none;
+    color: #121212;
+  }
+  
+  body.night-theme .btn-secondary {
+    background: linear-gradient(to bottom right, #66bb6a, #4caf50);
+    border: none;
+    color: #121212;
+  }
+  
+  body.night-theme .btn-outline {
+    background: transparent;
+    border: 1px solid #64b5f6;
+    color: #64b5f6;
+  }
+  
+  body.night-theme .btn-outline:hover {
+    background: rgba(100, 181, 246, 0.1);
+    color: #90caf9;
+  }
+  
+  /* Cards with subtle glow effect */
+  body.night-theme .card {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  body.night-theme .card:hover {
+    box-shadow: 0 5px 15px rgba(100, 181, 246, 0.1);
+  }
+  
+  /* Custom form controls */
+  body.night-theme .form-control {
+    background-color: #252525;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+  }
+  
+  body.night-theme .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.15);
+  }
+  
+  body.night-theme .form-control::placeholder {
+    color: var(--muted-color);
+  }
+  
+  /* Navigation with subtle glow indicators */
+  body.night-theme .navbar {
+    background-color: #121212;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  body.night-theme .nav-link {
+    color: var(--text-color);
+    position: relative;
+  }
+  
+  body.night-theme .nav-link:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(100, 181, 246, 0.5);
+    transition: width var(--transition-normal);
+  }
+  
+  body.night-theme .nav-link:hover:after,
+  body.night-theme .nav-link.active:after {
+    width: 100%;
+  }
+  
+  /* Tables with subtle row highlighting */
+  body.night-theme table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  body.night-theme th,
+  body.night-theme td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  body.night-theme th {
+    background-color: var(--dark-accent);
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  body.night-theme tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+  
+  body.night-theme tr:hover {
+    background-color: var(--hover-overlay);
+  }
+  
+  /* Alerts and notifications */
+  body.night-theme .alert {
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-md);
+    border-left: 4px solid transparent;
+    background-color: #252525;
+  }
+  
+  body.night-theme .alert-info {
+    border-left-color: var(--info-color);
+    color: var(--info-color);
+  }
+  
+  body.night-theme .alert-success {
+    border-left-color: var(--success-color);
+    color: var(--success-color);
+  }
+  
+  body.night-theme .alert-warning {
+    border-left-color: var(--warning-color);
+    color: var(--warning-color);
+  }
+  
+  body.night-theme .alert-error {
+    border-left-color: var(--error-color);
+    color: var(--error-color);
+  }
+  
+  /* Badges */
+  body.night-theme .badge {
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 10px;
+    background-color: #252525;
+  }
+  
+  body.night-theme .badge-primary {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+  }
+  
+  body.night-theme .badge-secondary {
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+  }
+  
+  body.night-theme .badge-accent {
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+  }
+  
+  /* Focus indicators for accessibility with higher contrast */
+  body.night-theme :focus {
+    outline: 3px solid rgba(100, 181, 246, 0.3);
+    outline-offset: 2px;
+  }
+  
+  /* Progress bars */
+  body.night-theme .progress {
+    height: 8px;
+    background-color: #252525;
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  body.night-theme .progress-bar {
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width var(--transition-normal);
+  }
+  
+  /* Custom checkboxes and radio buttons */
+  body.night-theme .form-check {
+    padding-left: 1.75rem;
+    position: relative;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  body.night-theme .form-check-input {
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    appearance: none;
+    background-color: #252525;
+  }
+  
+  body.night-theme .form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  body.night-theme .form-check-input:focus {
+    box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.15);
+  }
+  
+  /* Enhanced typography for readability in dark mode */
+  body.night-theme {
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+  
+  body.night-theme h1, 
+  body.night-theme h2, 
+  body.night-theme h3, 
+  body.night-theme h4, 
+  body.night-theme h5, 
+  body.night-theme h6 {
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+  
+  /* Links with better contrast */
+  body.night-theme a {
+    color: var(--primary-color);
+  }
+  
+  body.night-theme a:hover {
+    color: #90caf9;
+  }
+  
+  /* Blockquotes */
+  body.night-theme blockquote {
+    border-left: 3px solid var(--primary-color);
+    padding-left: var(--spacing-md);
+    margin-left: 0;
+    color: var(--muted-color);
+    font-style: italic;
+  }
+  
+  /* Code blocks */
+  body.night-theme code {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.2em 0.4em;
+    border-radius: var(--border-radius-sm);
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 85%;
+    color: #e0e0e0;
+  }
+  
+  body.night-theme pre {
+    background-color: #1a1a1a;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    overflow-x: auto;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  body.night-theme pre code {
+    background-color: transparent;
+    padding: 0;
+  }
+  
+  /* Dividers */
+  body.night-theme hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: var(--spacing-lg) 0;
+  }
+  
+  /* Selection color */
+  body.night-theme ::selection {
+    background-color: rgba(100, 181, 246, 0.3);
+    color: #fff;
+  }
+  
+  /* Scrollbar customization */
+  body.night-theme ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  
+  body.night-theme ::-webkit-scrollbar-track {
+    background: #1a1a1a;
+  }
+  
+  body.night-theme ::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 6px;
+    border: 3px solid #1a1a1a;
+  }
+  
+  body.night-theme ::-webkit-scrollbar-thumb:hover {
+    background-color: #444;
+  }
+  
+  /* Modal dialogs */
+  body.night-theme .modal {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  body.night-theme .modal-content {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+  }
+  
+  body.night-theme .modal-header {
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  body.night-theme .modal-footer {
+    border-top: 1px solid var(--border-color);
+  }
+  
+  /* Tooltips */
+  body.night-theme .tooltip {
+    background-color: #252525;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--shadow-md);
+  }

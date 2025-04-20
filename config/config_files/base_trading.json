@@ -1,0 +1,45 @@
+{
+    "freqtrade": {
+      "base_path": "/path/to/freqtrade",
+      "strategy_path": "/path/to/strategies",
+      "user_data_dir": "/path/to/user_data"
+    },
+    "exchange": {
+      "name": "binance",
+      "ccxt_config": {
+        "enableRateLimit": true,
+        "rateLimit": 200
+      },
+      "ccxt_async_config": {
+        "enableRateLimit": true,
+        "rateLimit": 200
+      }
+    },
+    "strategy": {
+      "default_timeframe": "1h",
+      "default_stoploss": -0.1,
+      "default_roi": {
+        "0": 0.05,
+        "30": 0.025,
+        "60": 0.01
+      },
+      "default_max_open_trades": 5,
+      "default_stake_amount": "unlimited",
+      "default_stake_currency": "USDT"
+    },
+    "bot": {
+      "dry_run": true,
+      "max_open_trades": 5,
+      "stake_amount": "unlimited",
+      "minimal_roi": {
+        "0": 0.05,
+        "30": 0.025,
+        "60": 0.01
+      },
+      "stoploss": -0.1,
+      "trailing_stop": false,
+      "trailing_stop_positive": 0.01,
+      "trailing_stop_positive_offset": 0.02,
+      "trailing_only_offset_is_reached": true
+    }
+  }

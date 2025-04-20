@@ -1,0 +1,10 @@
+{
+    "server": {
+      "url": "http://dev-api.example.com",
+      "version": "v1"
+    },
+    "request": {
+      "timeout": 60,
+      "max_retries": 5
+    }
+  }

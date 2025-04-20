@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard - Reports</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Analytics Dashboard</h1>
+            <p class="text-gray-600">Comprehensive analytics reports</p>
+            <nav class="mt-4">
+                <ul class="flex space-x-4">
+                    <li><a href="charts.html" class="px-4 py-2 bg-gray-200 text-gray-700 rounded font-medium hover:bg-gray-300">Charts</a></li>
+                    <li><a href="reports.html" class="px-4 py-2 bg-blue-600 text-white rounded font-medium">Reports</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Report Controls -->
+        <div class="mb-6 bg-white p-4 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-4">Report Controls</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label for="report-type" class="block text-sm font-medium text-gray-700">Report Type</label>
+                    <select id="report-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="summary">Executive Summary</option>
+                        <option value="detailed">Detailed Analysis</option>
+                        <option value="performance">Performance Report</option>
+                        <option value="trends">Trend Analysis</option>
+                        <option value="custom">Custom Report</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="report-period" class="block text-sm font-medium text-gray-700">Time Period</label>
+                    <select id="report-period" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="week">Weekly</option>
+                        <option value="month" selected>Monthly</option>
+                        <option value="quarter">Quarterly</option>
+                        <option value="year">Yearly</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="report-format" class="block text-sm font-medium text-gray-700">Format</label>
+                    <select id="report-format" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="online" selected>Web View</option>
+                        <option value="pdf">PDF</option>
+                        <option value="excel">Excel</option>
+                        <option value="csv">CSV</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="report-comparison" class="block text-sm font-medium text-gray-700">Comparison</label>
+                    <select id="report-comparison" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="none">None</option>
+                        <option value="prev-period" selected>Previous Period</option>
+                        <option value="prev-year">Previous Year</option>
+                        <option value="target">Against Target</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="md:col-span-2">
+                    <label for="report-sections" class="block text-sm font-medium text-gray-700">Report Sections</label>
+                    <div class="mt-1 grid grid-cols-2 gap-2">
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" checked class="rounded text-blue-600">
+                            <span class="ml-2 text-sm text-gray-700">Executive Summary</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" checked class="rounded text-blue-600">
+                            <span class="ml-2 text-sm text-gray-700">Key Metrics</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" checked class="rounded text-blue-600">
+                            <span class="ml-2 text-sm text-gray-700">Detailed Analysis</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" checked class="rounded text-blue-600">
+                            <span class="ml-2 text-sm text-gray-700">Visual Charts</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" class="rounded text-blue-600">
+                            <span class="ml-2 text-sm text-gray-700">Recommendations</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" checked class="rounded text-blue-600">
+                            <span class="ml-2 text-sm text-gray-700">Data Tables</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="md:col-span-2">
+                    <label for="report-audience" class="block text-sm font-medium text-gray-700">Report Audience</label>
+                    <select id="report-audience" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="executive">Executive Leadership</option>
+                        <option value="management" selected>Management Team</option>
+                        <option value="operational">Operational Team</option>
+                        <option value="technical">Technical Team</option>
+                        <option value="stakeholders">External Stakeholders</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button id="generate-report" class="px-4 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700">Generate Report</button>
+                <button id="schedule-report" class="ml-2 px-4 py-2 bg-gray-200 text-gray-700 rounded font-medium hover:bg-gray-300">Schedule Report</button>
+                <button id="save-template" class="ml-2 px-4 py-2 bg-gray-200 text-gray-700 rounded font-medium hover:bg-gray-300">Save as Template</button>
+            </div>
+        </div>
+
+        <!-- Report Content -->
+        <div id="report-container" class="bg-white p-6 rounded-lg shadow">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Monthly Performance Report</h2>
+                    <p class="text-gray-600">April 2025</p>
+                </div>
+                <div>
+                    <button id="print-report" class="px-3 py-1 bg-gray-200 text-gray-700 rounded font-medium hover:bg-gray-300 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                        </svg>
+                        Print
+                    </button>
+                    <button id="export-pdf" class="ml-2 px-3 py-1 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Export PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Executive Summary Section -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">Executive Summary</h3>
+                <div class="text-gray-700">
+                    <p class="mb-3">This report presents the performance analysis for April 2025, compared against previous periods and established targets. Overall, the business has shown a <span class="font-medium text-green-600">8.3% growth</span> compared to the previous month, with key metrics exceeding targets in most areas.</p>
+                    <p>The most significant improvements have been observed in the customer acquisition rate and average order value, while customer retention slightly decreased. The report recommends focusing on improving the retention strategies while maintaining the current growth trajectory.</p>
+                </div>
+            </div>
+
+            <!-- Key Metrics Section -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">Key Metrics</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Metric Card 1 -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-gray-800 mb-2">Revenue</h4>
+                        <div class="flex items-end">
+                            <span class="text-3xl font-bold text-gray-900">$486,245</span>
+                            <span class="ml-2 text-sm font-medium text-green-600">+12.4%</span>
+                        </div>
+                        <div class="mt-4 h-2 bg-gray-200 rounded">
+                            <div class="h-2 bg-blue-600 rounded" style="width: 87%;"></div>
+                        </div>
+                        <div class="mt-1 flex justify-between text-xs text-gray-500">
+                            <span>Target: $450,000</span>
+                            <span>87% achieved</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Metric Card 2 -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-gray-800 mb-2">New Customers</h4>
+                        <div class="flex items-end">
+                            <span class="text-3xl font-bold text-gray-900">1,245</span>
+                            <span class="ml-2 text-sm font-medium text-green-600">+8.7%</span>
+                        </div>
+                        <div class="mt-4 h-2 bg-gray-200 rounded">
+                            <div class="h-2 bg-blue-600 rounded" style="width: 112%;"></div>
+                        </div>
+                        <div class="mt-1 flex justify-between text-xs text-gray-500">
+                            <span>Target: 1,100</span>
+                            <span>112% achieved</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Metric Card 3 -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-gray-800 mb-2">Conversion Rate</h4>
+                        <div class="flex items-end">
+                            <span class="text-3xl font-bold text-gray-900">3.8%</span>
+                            <span class="ml-2 text-sm font-medium text-green-600">+0.5%</span>
+                        </div>
+                        <div class="mt-4 h-2 bg-gray-200 rounded">
+                            <div class="h-2 bg-blue-600 rounded" style="width: 95%;"></div>
+                        </div>
+                        <div class="mt-1 flex justify-between text-xs text-gray-500">
+                            <span>Target: 4.0%</span>
+                            <span>95% achieved</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Trend Chart -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">Performance Trends</h3>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <canvas id="trend-chart" height="300"></canvas>
+                </div>
+            </div>
+
+            <!-- Detailed Analysis Section -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">Detailed Analysis</h3>
+                
+                <!-- Product Performance -->
+                <div class="mb-6">
+                    <h4 class="text-lg font-medium text-gray-800 mb-3">Product Performance</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Units Sold</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Avg. Price</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">YoY Change</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Product A</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$185,430</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1,245</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$148.94</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">+24.5%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Product B</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$142,680</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">834</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$171.08</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">+12.3%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Product C</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$98,450</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1,842</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$53.45</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">-3.1%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Product D</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$59,685</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">524</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$113.90</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">+8.7%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Regional Performance -->
+                <div class="mb-6">
+                    <h4 class="text-lg font-medium text-gray-800 mb-3">Regional Performance</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <canvas id="regional-chart" height="250"></canvas>
+                        </div>
+                        <div>
+                            <p class="text-gray-700 mb-3">The North American region continues to be the strongest performer, accounting for 42% of total revenue. European markets have shown the highest growth rate at 15.3% compared to the previous month.</p>
+                            <p class="text-gray-700 mb-3">Asia-Pacific regions show promising growth opportunities, particularly in emerging markets like Indonesia and Vietnam. Latin American performance remains below target, primarily due to economic challenges in the region.</p>
+                            <div class="mt-4">
+                                <h5 class="text-sm font-medium text-gray-700 mb-2">Growth Rates by Region</h5>
+                                <div class="space-y-2">
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span class="text-xs font-medium text-gray-700">North America</span>
+                                            <span class="text-xs font-medium text-gray-700">+8.4%</span>
+                                        </div>
+                                        <div class="h-1.5 bg-gray-200 rounded-full">
+                                            <div class="h-1.5 bg-blue-600 rounded-full" style="width: 84%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span class="text-xs font-medium text-gray-700">Europe</span>
+                                            <span class="text-xs font-medium text-gray-700">+15.3%</span>
+                                        </div>
+                                        <div class="h-1.5 bg-gray-200 rounded-full">
+                                            <div class="h-1.5 bg-blue-600 rounded-full" style="width: 153%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span class="text-xs font-medium text-gray-700">Asia-Pacific</span>
+                                            <span class="text-xs font-medium text-gray-700">+12.1%</span>
+                                        </div>
+                                        <div class="h-1.5 bg-gray-200 rounded-full">
+                                            <div class="h-1.5 bg-blue-600 rounded-full" style="width: 121%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span class="text-xs font-medium text-gray-700">Latin America</span>
+                                            <span class="text-xs font-medium text-gray-700">-2.3%</span>
+                                        </div>
+                                        <div class="h-1.5 bg-gray-200 rounded-full">
+                                            <div class="h-1.5 bg-red-600 rounded-full" style="width: 23%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations Section -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">Recommendations</h3>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-blue-800">Expand market presence in Asia-Pacific</h3>
+                            <div class="mt-2 text-sm text-blue-700">
+                                <p>The significant growth potential in the Asia-Pacific region, particularly in emerging markets, suggests an opportunity to increase marketing investment and establish stronger distribution networks in these areas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-yellow-800">Address declining Product C performance</h3>
+                            <div class="mt-2 text-sm text-yellow-700">
+                                <p>Product C shows a 3.1% YoY decline, which requires immediate attention. Consider a product refresh, pricing strategy adjustment, or targeted marketing campaign to reverse this trend before it impacts overall portfolio performance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-green-800">Leverage success of Product A</h3>
+                            <div class="mt-2 text-sm text-green-700">
+                                <p>With a 24.5% YoY growth, Product A has significantly outperformed expectations. Consider analyzing the success factors and applying similar strategies to other product lines, particularly Product C which is currently underperforming.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appendix Section -->
+            <div>
+                <h3 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">Appendix</h3>
+                <div class="text-gray-700 mb-4">
+                    <h4 class="text-lg font-medium mb-2">Methodology</h4>
+                    <p class="mb-3">This report used data from our internal analytics platform, combining sales data, website analytics, and customer relationship management information. Year-over-year (YoY) comparisons are calculated based on the same month from the previous year. Growth percentages are calculated using the formula: (Current Period - Previous Period) / Previous Period × 100%.</p>
+                </div>
+                <div class="text-gray-700">
+                    <h4 class="text-lg font-medium mb-2">Data Sources</h4>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Sales data: Enterprise Resource Planning (ERP) system</li>
+                        <li>Customer metrics: Customer Relationship Management (CRM) platform</li>
+                        <li>Website metrics: Web Analytics Platform</li>
+                        <li>Market comparison data: Industry Research Reports</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize charts when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Trend Chart Data
+            const trendChartData = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Revenue (2025)',
+                    data: [320000, 350000, 410000, 486245, null, null, null, null, null, null, null, null],
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Revenue (2024)',
+                    data: [280000, 310000, 360000, 395000, 420000, 450000, 430000, 460000, 480000, 510000, 530000, 580000],
+                    borderColor: 'rgba(156, 163, 175, 1)',
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0.4
+                }]
+            };
+
+            // Create Trend Chart
+            const trendCtx = document.getElementById('trend-chart').getContext('2d');
+            const trendChart = new Chart(trendCtx, {
+                type: 'line',
+                data: trendChartData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Regional Chart Data
+            const regionalChartData = {
+                labels: ['North America', 'Europe', 'Asia-Pacific', 'Latin America', 'Middle East', 'Africa'],
+                datasets: [{
+                    label: 'Revenue Distribution',
+                    data: [204220, 112320, 97250, 38900, 21980, 11575],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.7)', // Blue
+                        'rgba(16, 185, 129, 0.7)', // Green
+                        'rgba(245, 158, 11, 0.7)', // Yellow
+                        'rgba(239, 68, 68, 0.7)',  // Red
+                        'rgba(139, 92, 246, 0.7)', // Purple
+                        'rgba(75, 85, 99, 0.7)'    // Gray
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            // Create Regional Chart
+            const regionalCtx = document.getElementById('regional-chart').getContext('2d');
+            const regionalChart = new Chart(regionalCtx, {
+                type: 'doughnut',
+                data: regionalChartData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(context.parsed);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Handle report generation
+            document.getElementById('generate-report').addEventListener('click', function() {
+                alert('Report generated with the selected parameters!');
+            });
+
+            // Handle PDF export (simplified for demonstration)
+            document.getElementById('export-pdf').addEventListener('click', function() {
+                alert('In a real implementation, this would generate and download a PDF of the report.');
+            });
+
+            // Handle print function
+            document.getElementById('print-report').addEventListener('click', function() {
+                window.print();
+            });
+
+            // Handle report type changes
+            document.getElementById('report-type').addEventListener('change', function(e) {
+                alert(`Report type changed to "${e.target.options[e.target.selectedIndex].text}". In a real implementation, this would update the report content accordingly.`);
+            });
+
+            // Handle schedule report button
+            document.getElementById('schedule-report').addEventListener('click', function() {
+                alert('This would open a modal to schedule recurring reports. You could set frequency, recipients, and delivery format.');
+            });
+        });
+    </script>
+</body>
+</html>

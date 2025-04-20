@@ -1,0 +1,590 @@
+﻿<!-- 
+    Sidebar Component
+    Features: Collapsible navigation, Multi-level menu support, Active states
+    Supports theme switching
+-->
+<aside class="sidebar" id="main-sidebar">
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+        <div class="sidebar-brand">
+            <img src="/images/logo-icon-light.svg" alt="Logo" class="sidebar-logo sidebar-logo-light">
+            <img src="/images/logo-icon-dark.svg" alt="Logo" class="sidebar-logo sidebar-logo-dark">
+            <span class="sidebar-title">AI自动化平台</span>
+        </div>
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="折叠侧边栏">
+            <i class="toggle-icon">◀</i>
+        </button>
+    </div>
+    
+    <!-- User Profile Section -->
+    <div class="sidebar-profile">
+        <div class="profile-avatar">
+            <img src="/images/default-avatar.png" alt="用户头像" id="sidebar-avatar">
+        </div>
+        <div class="profile-info">
+            <h4 class="profile-name" id="sidebar-username">游客</h4>
+            <span class="profile-role">AI开发初学者</span>
+        </div>
+    </div>
+    
+    <!-- Sidebar Search -->
+    <div class="sidebar-search">
+        <div class="search-input-wrapper">
+            <i class="search-icon">🔍</i>
+            <input type="text" class="search-input" placeholder="搜索...">
+        </div>
+    </div>
+    
+    <!-- Navigation Menu -->
+    <nav class="sidebar-nav">
+        <ul class="sidebar-menu">
+            <!-- Dashboard Section -->
+            <li class="menu-item">
+                <a href="/dashboard" class="menu-link active">
+                    <i class="menu-icon">📊</i>
+                    <span class="menu-text">控制台</span>
+                </a>
+            </li>
+            
+            <!-- Projects Section (Collapsible) -->
+            <li class="menu-item has-submenu">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon">🗂️</i>
+                    <span class="menu-text">项目管理</span>
+                    <i class="submenu-arrow">▼</i>
+                </a>
+                <ul class="submenu">
+                    <li class="submenu-item">
+                        <a href="/projects/list" class="submenu-link">所有项目</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/projects/new" class="submenu-link">新建项目</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/projects/templates" class="submenu-link">项目模板</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/projects/shared" class="submenu-link">共享项目</a>
+                    </li>
+                </ul>
+            </li>
+            
+            <!-- AI Tools Section (Collapsible) -->
+            <li class="menu-item has-submenu">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon">🤖</i>
+                    <span class="menu-text">AI工具</span>
+                    <i class="submenu-arrow">▼</i>
+                </a>
+                <ul class="submenu">
+                    <li class="submenu-item">
+                        <a href="/tools/code-generator" class="submenu-link">代码生成器</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/tools/text-analyzer" class="submenu-link">文本分析器</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/tools/image-processor" class="submenu-link">图像处理器</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/tools/workflow-designer" class="submenu-link">工作流设计器</a>
+                    </li>
+                </ul>
+            </li>
+            
+            <!-- Learning Resources -->
+            <li class="menu-item has-submenu">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon">📚</i>
+                    <span class="menu-text">学习资源</span>
+                    <i class="submenu-arrow">▼</i>
+                </a>
+                <ul class="submenu">
+                    <li class="submenu-item">
+                        <a href="/learn/tutorials" class="submenu-link">入门教程</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/learn/documentation" class="submenu-link">API文档</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/learn/examples" class="submenu-link">示例代码</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/learn/courses" class="submenu-link">在线课程</a>
+                    </li>
+                </ul>
+            </li>
+            
+            <!-- Settings -->
+            <li class="menu-item">
+                <a href="/settings" class="menu-link">
+                    <i class="menu-icon">⚙️</i>
+                    <span class="menu-text">设置</span>
+                </a>
+            </li>
+            
+            <!-- Help & Support -->
+            <li class="menu-item">
+                <a href="/support" class="menu-link">
+                    <i class="menu-icon">❓</i>
+                    <span class="menu-text">帮助与支持</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+        <div class="usage-info">
+            <div class="usage-label">AI 算力使用量</div>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 35%;"></div>
+            </div>
+            <div class="usage-details">35% · 剩余 6500 积分</div>
+        </div>
+        
+        <a href="/upgrade" class="upgrade-button">
+            <i class="upgrade-icon">⭐</i>
+            <span class="upgrade-text">升级账户</span>
+        </a>
+    </div>
+</aside>
+
+<style>
+    /* Sidebar Root Styles */
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 260px;
+        background-color: var(--sidebar-bg);
+        border-right: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    
+    .sidebar.collapsed {
+        width: 70px;
+    }
+    
+    /* Sidebar Header */
+    .sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-light);
+    }
+    
+    .sidebar-brand {
+        display: flex;
+        align-items: center;
+    }
+    
+    .sidebar-logo {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .sidebar-logo-light {
+        display: var(--show-light);
+    }
+    
+    .sidebar-logo-dark {
+        display: var(--show-dark);
+    }
+    
+    .sidebar-title {
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-left: 0.8rem;
+        font-size: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        transition: opacity 0.3s ease;
+    }
+    
+    .sidebar-toggle {
+        width: 28px;
+        height: 28px;
+        border-radius: 4px;
+        border: none;
+        background-color: var(--bg-tertiary);
+        color: var(--text-secondary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+    }
+    
+    .sidebar-toggle:hover {
+        background-color: var(--hover-bg);
+        color: var(--text-primary);
+    }
+    
+    .toggle-icon {
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.collapsed .toggle-icon {
+        transform: rotate(180deg);
+    }
+    
+    /* User Profile Section */
+    .sidebar-profile {
+        display: flex;
+        align-items: center;
+        padding: 1.2rem 1rem;
+        border-bottom: 1px solid var(--border-light);
+        transition: padding 0.3s ease;
+    }
+    
+    .profile-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid var(--accent);
+    }
+    
+    .profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .profile-info {
+        margin-left: 0.8rem;
+        overflow: hidden;
+        transition: opacity 0.3s ease;
+    }
+    
+    .profile-name {
+        color: var(--text-primary);
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin: 0 0 0.2rem;
+        white-space: nowrap;
+    }
+    
+    .profile-role {
+        color: var(--text-tertiary);
+        font-size: 0.8rem;
+    }
+    
+    /* Sidebar Search */
+    .sidebar-search {
+        padding: 1rem;
+        transition: padding 0.3s ease;
+    }
+    
+    .search-input-wrapper {
+        position: relative;
+        width: 100%;
+    }
+    
+    .search-icon {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        color: var(--text-tertiary);
+        font-size: 0.85rem;
+    }
+    
+    .search-input {
+        width: 100%;
+        padding: 0.6rem 0.6rem 0.6rem 2rem;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-tertiary);
+        color: var(--text-primary);
+        font-size: 0.85rem;
+        transition: all 0.2s ease;
+    }
+    
+    .search-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.2);
+    }
+    
+    .search-input::placeholder {
+        color: var(--text-tertiary);
+    }
+    
+    /* Navigation Menu */
+    .sidebar-nav {
+        flex: 1;
+        padding: 1rem 0;
+        overflow-y: auto;
+    }
+    
+    .sidebar-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .menu-item {
+        margin-bottom: 0.3rem;
+    }
+    
+    .menu-link {
+        display: flex;
+        align-items: center;
+        padding: 0.8rem 1rem;
+        color: var(--text-secondary);
+        text-decoration: none;
+        border-radius: 6px;
+        margin: 0 0.5rem;
+        transition: all 0.2s ease;
+    }
+    
+    .menu-link:hover {
+        background-color: var(--hover-bg);
+        color: var(--text-primary);
+    }
+    
+    .menu-link.active {
+        background-color: var(--accent-transparent);
+        color: var(--accent);
+    }
+    
+    .menu-icon {
+        font-size: 1.2rem;
+        min-width: 24px;
+        margin-right: 0.8rem;
+    }
+    
+    .menu-text {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        transition: opacity 0.3s ease;
+    }
+    
+    .submenu-arrow {
+        font-size: 0.7rem;
+        transition: transform 0.3s ease;
+    }
+    
+    /* Submenu Styles */
+    .has-submenu.open .submenu-arrow {
+        transform: rotate(180deg);
+    }
+    
+    .submenu {
+        list-style: none;
+        padding: 0.5rem 0 0.5rem 2.8rem;
+        margin: 0;
+        display: none;
+    }
+    
+    .has-submenu.open .submenu {
+        display: block;
+    }
+    
+    .submenu-link {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: var(--text-tertiary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+    
+    .submenu-link:hover {
+        color: var(--accent);
+        background-color: var(--hover-bg);
+    }
+    
+    /* Sidebar Footer */
+    .sidebar-footer {
+        padding: 1rem;
+        border-top: 1px solid var(--border-light);
+        transition: padding 0.3s ease;
+    }
+    
+    .usage-info {
+        margin-bottom: 1rem;
+    }
+    
+    .usage-label {
+        font-size: 0.8rem;
+        color: var(--text-tertiary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .progress-container {
+        height: 6px;
+        background-color: var(--bg-tertiary);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+    }
+    
+    .progress-bar {
+        height: 100%;
+        background-color: var(--accent);
+        border-radius: 3px;
+    }
+    
+    .usage-details {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+    }
+    
+    .upgrade-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--accent);
+        color: var(--text-on-accent);
+        padding: 0.6rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+    
+    .upgrade-button:hover {
+        background-color: var(--accent-hover);
+        transform: translateY(-1px);
+    }
+    
+    .upgrade-icon {
+        margin-right: 0.5rem;
+    }
+    
+    /* Collapsed State Styles */
+    .sidebar.collapsed .sidebar-title,
+    .sidebar.collapsed .profile-info,
+    .sidebar.collapsed .menu-text,
+    .sidebar.collapsed .submenu-arrow,
+    .sidebar.collapsed .search-input-wrapper {
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    .sidebar.collapsed .menu-link {
+        justify-content: center;
+    }
+    
+    .sidebar.collapsed .menu-icon {
+        margin-right: 0;
+    }
+    
+    .sidebar.collapsed .sidebar-profile,
+    .sidebar.collapsed .sidebar-search,
+    .sidebar.collapsed .sidebar-footer {
+        padding: 1rem 0;
+        justify-content: center;
+    }
+    
+    .sidebar.collapsed .has-submenu .submenu {
+        display: none;
+    }
+    
+    .sidebar.collapsed .usage-info,
+    .sidebar.collapsed .upgrade-text {
+        display: none;
+    }
+    
+    .sidebar.collapsed .upgrade-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    
+    .sidebar.collapsed .upgrade-icon {
+        margin-right: 0;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+        .sidebar {
+            transform: translateX(-100%);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sidebar.mobile-open {
+            transform: translateX(0);
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('main-sidebar');
+        const toggleBtn = document.getElementById('sidebar-toggle');
+        
+        // Toggle sidebar collapse
+        toggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+            localStorage.setItem('sidebar-collapsed', sidebar.classList.contains('collapsed'));
+        });
+        
+        // Check for saved sidebar state
+        const sidebarState = localStorage.getItem('sidebar-collapsed');
+        if (sidebarState === 'true') {
+            sidebar.classList.add('collapsed');
+        }
+        
+        // Handle submenu toggles
+        const menuItemsWithSubmenu = document.querySelectorAll('.has-submenu > .menu-link');
+        menuItemsWithSubmenu.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const parent = this.parentElement;
+                
+                // Close other open submenus
+                const openMenus = document.querySelectorAll('.has-submenu.open');
+                openMenus.forEach(menu => {
+                    if (menu !== parent) {
+                        menu.classList.remove('open');
+                    }
+                });
+                
+                // Toggle current submenu
+                parent.classList.toggle('open');
+            });
+        });
+        
+        // For mobile: close sidebar when clicking outside
+        document.addEventListener('click', function(e) {
+            const isClickInside = sidebar.contains(e.target);
+            const isMobileOpen = sidebar.classList.contains('mobile-open');
+            
+            if (!isClickInside && isMobileOpen && window.innerWidth <= 992) {
+                sidebar.classList.remove('mobile-open');
+            }
+        });
+        
+        // Mobile toggle for the sidebar
+        document.querySelector('.mobile-menu-toggle')?.addEventListener('click', function() {
+            sidebar.classList.toggle('mobile-open');
+        });
+        
+        // Update profile information if available
+        const userAvatar = localStorage.getItem('user-avatar');
+        const userName = localStorage.getItem('user-name');
+        
+        if (userAvatar) {
+            document.getElementById('sidebar-avatar').src = userAvatar;
+        }
+        
+        if (userName) {
+            document.getElementById('sidebar-username').textContent = userName;
+        }
+    });
+</script>

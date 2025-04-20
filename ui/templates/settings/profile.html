@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户资料设置</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto px-4 py-8" x-data="profileSettings()">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+            <!-- 页面标题 -->
+            <div class="bg-blue-600 px-6 py-4">
+                <h1 class="text-xl font-semibold text-white">用户资料设置</h1>
+            </div>
+
+            <!-- 设置菜单导航 -->
+            <div class="flex border-b">
+                <nav class="flex">
+                    <button 
+                        @click="activeTab = 'personal'" 
+                        :class="{'bg-blue-50 border-b-2 border-blue-600': activeTab === 'personal', 'hover:bg-gray-50': activeTab !== 'personal'}" 
+                        class="px-6 py-3 font-medium text-sm">
+                        个人信息
+                    </button>
+                    <button 
+                        @click="activeTab = 'security'" 
+                        :class="{'bg-blue-50 border-b-2 border-blue-600': activeTab === 'security', 'hover:bg-gray-50': activeTab !== 'security'}" 
+                        class="px-6 py-3 font-medium text-sm">
+                        安全设置
+                    </button>
+                </nav>
+            </div>
+
+            <!-- 表单内容区域 -->
+            <div class="p-6">
+                <!-- 个人信息表单 -->
+                <div x-show="activeTab === 'personal'">
+                    <form @submit.prevent="savePersonalInfo" class="space-y-6">
+                        <div class="flex items-center space-x-6">
+                            <div class="shrink-0">
+                                <img class="h-24 w-24 object-cover rounded-full" :src="avatar || '/api/placeholder/100/100'" alt="当前头像">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">更改头像</label>
+                                <div class="mt-1 flex items-center space-x-3">
+                                    <button type="button" class="px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                        上传头像
+                                    </button>
+                                    <button type="button" class="text-sm text-red-600 hover:text-red-700" @click="removeAvatar">
+                                        移除
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                            <div>
+                                <label for="displayName" class="block text-sm font-medium text-gray-700">显示名称</label>
+                                <input type="text" id="displayName" x-model="displayName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">电子邮箱</label>
+                                <input type="email" id="email" x-model="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            </div>
+
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">手机号码</label>
+                                <input type="tel" id="phone" x-model="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            </div>
+
+                            <div>
+                                <label for="language" class="block text-sm font-medium text-gray-700">系统语言</label>
+                                <select id="language" x-model="language" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    <option value="zh-CN">简体中文</option>
+                                    <option value="en-US">English (US)</option>
+                                    <option value="ja-JP">日本語</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="bio" class="block text-sm font-medium text-gray-700">个人简介</label>
+                            <textarea id="bio" x-model="bio" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
+                            <p class="mt-1 text-sm text-gray-500">简短介绍自己，最多200字</p>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                保存修改
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 安全设置表单 -->
+                <div x-show="activeTab === 'security'">
+                    <form @submit.prevent="saveSecuritySettings" class="space-y-6">
+                        <div>
+                            <h2 class="text-lg font-medium text-gray-900">修改密码</h2>
+                            <p class="mt-1 text-sm text-gray-500">确保你的密码包含字母、数字和特殊符号以增强安全性</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label for="currentPassword" class="block text-sm font-medium text-gray-700">当前密码</label>
+                                <input type="password" id="currentPassword" x-model="currentPassword" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            </div>
+
+                            <div>
+                                <label for="newPassword" class="block text-sm font-medium text-gray-700">新密码</label>
+                                <input type="password" id="newPassword" x-model="newPassword" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            </div>
+
+                            <div>
+                                <label for="confirmPassword" class="block text-sm font-medium text-gray-700">确认新密码</label>
+                                <input type="password" id="confirmPassword" x-model="confirmPassword" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <h2 class="text-lg font-medium text-gray-900">两步验证</h2>
+                            <p class="mt-1 text-sm text-gray-500">增强账户安全性，登录时需要额外验证</p>
+                        </div>
+
+                        <div class="flex items-center">
+                            <button type="button" @click="twoFactorEnabled = !twoFactorEnabled" 
+                                :class="{'bg-blue-600': twoFactorEnabled, 'bg-gray-200': !twoFactorEnabled}"
+                                class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <span :class="{'translate-x-5': twoFactorEnabled, 'translate-x-0': !twoFactorEnabled}"
+                                    class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"></span>
+                            </button>
+                            <span class="ml-3 text-sm text-gray-900" x-text="twoFactorEnabled ? '已启用两步验证' : '未启用两步验证'"></span>
+                        </div>
+
+                        <div x-show="twoFactorEnabled" class="pl-6 border-l-2 border-blue-200 space-y-3">
+                            <div class="flex items-center space-x-2">
+                                <input id="sms" type="radio" x-model="twoFactorMethod" value="sms" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <label for="sms" class="text-sm font-medium text-gray-700">短信验证</label>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input id="app" type="radio" x-model="twoFactorMethod" value="app" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <label for="app" class="text-sm font-medium text-gray-700">认证器应用</label>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <h2 class="text-lg font-medium text-gray-900">登录会话</h2>
+                            <p class="mt-1 text-sm text-gray-500">管理当前登录的设备</p>
+                        </div>
+
+                        <div class="border rounded-md overflow-hidden">
+                            <div class="bg-gray-50 px-4 py-3 border-b flex justify-between">
+                                <span class="text-sm font-medium text-gray-700">设备</span>
+                                <span class="text-sm font-medium text-gray-700">最后活动</span>
+                            </div>
+                            <ul class="divide-y divide-gray-200">
+                                <template x-for="(session, index) in activeSessions" :key="index">
+                                    <li class="px-4 py-3 flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            <div class="ml-3">
+                                                <p class="text-sm font-medium text-gray-900" x-text="session.device"></p>
+                                                <p class="text-sm text-gray-500" x-text="session.location"></p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <span class="text-sm text-gray-500" x-text="session.lastActivity"></span>
+                                            <button type="button" @click="removeSession(index)" class="text-sm text-red-600 hover:text-red-900">注销</button>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                保存修改
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function profileSettings() {
+            return {
+                activeTab: 'personal',
+                // 个人信息
+                avatar: null,
+                displayName: '用户名',
+                email: 'user@example.com',
+                phone: '+86 123 4567 8901',
+                language: 'zh-CN',
+                bio: '',
+                
+                // 安全设置
+                currentPassword: '',
+                newPassword: '',
+                confirmPassword: '',
+                twoFactorEnabled: false,
+                twoFactorMethod: 'sms',
+                activeSessions: [
+                    {
+                        device: '当前设备 (Chrome/Windows)',
+                        location: '北京, 中国',
+                        lastActivity: '刚刚'
+                    },
+                    {
+                        device: 'iPhone 13',
+                        location: '上海, 中国',
+                        lastActivity: '昨天 14:30'
+                    }
+                ],
+
+                // 方法
+                removeAvatar() {
+                    this.avatar = null;
+                },
+                
+                savePersonalInfo() {
+                    // 保存个人信息的逻辑
+                    alert('个人信息已保存');
+                },
+                
+                saveSecuritySettings() {
+                    // 保存安全设置的逻辑
+                    if (this.newPassword !== this.confirmPassword) {
+                        alert('两次输入的密码不一致');
+                        return;
+                    }
+                    alert('安全设置已保存');
+                },
+                
+                removeSession(index) {
+                    this.activeSessions.splice(index, 1);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

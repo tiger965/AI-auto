@@ -1,0 +1,291 @@
+﻿<!-- 
+    Header Component
+    Contains: Logo, Navigation, User Information
+    Supports theme switching
+-->
+<header class="site-header">
+    <div class="header-container">
+        <!-- Logo Section -->
+        <div class="logo-container">
+            <a href="/" class="logo-link">
+                <img src="/images/logo-light.svg" alt="Logo" class="logo logo-light">
+                <img src="/images/logo-dark.svg" alt="Logo" class="logo logo-dark">
+                <span class="logo-text">AI Automation</span>
+            </a>
+        </div>
+        
+        <!-- Main Navigation -->
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/" class="nav-link active">首页</a></li>
+                <li class="nav-item"><a href="/projects" class="nav-link">项目</a></li>
+                <li class="nav-item"><a href="/documentation" class="nav-link">文档</a></li>
+                <li class="nav-item"><a href="/tutorials" class="nav-link">教程</a></li>
+                <li class="nav-item"><a href="/community" class="nav-link">社区</a></li>
+            </ul>
+        </nav>
+        
+        <!-- User Information and Theme Toggle -->
+        <div class="user-controls">
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="切换主题">
+                <i class="theme-icon light-icon">☀️</i>
+                <i class="theme-icon dark-icon">🌙</i>
+            </button>
+            
+            <!-- User Information -->
+            <div class="user-info">
+                <div class="user-avatar">
+                    <img src="/images/default-avatar.png" alt="用户头像" id="user-avatar">
+                </div>
+                <div class="user-dropdown">
+                    <span class="username" id="username">游客</span>
+                    <i class="dropdown-icon">▼</i>
+                    <div class="dropdown-menu">
+                        <a href="/profile" class="dropdown-item">个人资料</a>
+                        <a href="/settings" class="dropdown-item">设置</a>
+                        <a href="/logout" class="dropdown-item">退出登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    /* Header Styles */
+    .site-header {
+        width: 100%;
+        background-color: var(--header-bg);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.8rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    /* Logo Styles */
+    .logo-container {
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--text-primary);
+    }
+    
+    .logo {
+        height: 40px;
+        margin-right: 0.8rem;
+    }
+    
+    .logo-light {
+        display: var(--show-light);
+    }
+    
+    .logo-dark {
+        display: var(--show-dark);
+    }
+    
+    .logo-text {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+    
+    /* Navigation Styles */
+    .main-nav {
+        margin: 0 1rem;
+    }
+    
+    .nav-list {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .nav-item {
+        margin: 0 0.8rem;
+    }
+    
+    .nav-link {
+        display: block;
+        padding: 0.5rem 0.8rem;
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+    }
+    
+    .nav-link:hover {
+        color: var(--text-primary);
+        background-color: var(--hover-bg);
+    }
+    
+    .nav-link.active {
+        color: var(--accent);
+        font-weight: 600;
+    }
+    
+    /* User Controls Styles */
+    .user-controls {
+        display: flex;
+        align-items: center;
+    }
+    
+    .theme-toggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-right: 1.5rem;
+        position: relative;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
+    }
+    
+    .theme-toggle:hover {
+        background-color: var(--hover-bg);
+    }
+    
+    .theme-icon {
+        font-size: 1.2rem;
+    }
+    
+    .light-icon {
+        display: var(--show-dark);
+    }
+    
+    .dark-icon {
+        display: var(--show-light);
+    }
+    
+    /* User Information Styles */
+    .user-info {
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+    }
+    
+    .user-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 0.8rem;
+        border: 2px solid var(--border-color);
+    }
+    
+    .user-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .user-dropdown {
+        display: flex;
+        align-items: center;
+    }
+    
+    .username {
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-right: 0.3rem;
+    }
+    
+    .dropdown-icon {
+        font-size: 0.7rem;
+        color: var(--text-secondary);
+    }
+    
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 180px;
+        background-color: var(--bg-secondary);
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+        z-index: 10;
+        margin-top: 0.5rem;
+        padding: 0.5rem 0;
+    }
+    
+    .user-info:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .dropdown-item {
+        display: block;
+        padding: 0.7rem 1.2rem;
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+    
+    .dropdown-item:hover {
+        background-color: var(--hover-bg);
+        color: var(--accent);
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .header-container {
+            padding: 0.6rem 1rem;
+        }
+        
+        .main-nav {
+            display: none;
+        }
+        
+        .logo-text {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<script>
+    // Theme toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+    });
+</script>

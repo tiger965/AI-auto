@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>外观设置</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-50 text-gray-800" x-data="appearanceSettings()" :class="currentTheme">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-colors duration-200">
+            <!-- 页面标题 -->
+            <div class="bg-blue-600 dark:bg-blue-800 px-6 py-4">
+                <h1 class="text-xl font-semibold text-white">外观设置</h1>
+            </div>
+
+            <!-- 表单内容区域 -->
+            <div class="p-6">
+                <form @submit.prevent="saveAppearanceSettings" class="space-y-8">
+                    <!-- 主题选择 -->
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-white">主题设置</h2>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">选择您喜欢的显示主题</p>
+                        
+                        <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                            <div 
+                                @click="setTheme('light')" 
+                                :class="{'ring-2 ring-offset-2 ring-blue-500': currentTheme === 'light'}"
+                                class="relative rounded-lg border border-gray-200 bg-white p-4 cursor-pointer focus:outline-none">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="text-sm">
+                                            <p class="font-medium text-gray-900">浅色主题</p>
+                                            <p class="text-gray-500">明亮的背景，深色文字</p>
+                                        </div>
+                                    </div>
+                                    <svg :class="{'text-blue-600': currentTheme === 'light', 'text-gray-400': currentTheme !== 'light'}" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="mt-4 h-24 bg-white border border-gray-200 rounded p-2">
+                                    <div class="w-full h-4 bg-gray-800 rounded mb-2"></div>
+                                    <div class="w-3/4 h-3 bg-gray-600 rounded mb-2"></div>
+                                    <div class="w-1/2 h-3 bg-gray-400 rounded"></div>
+                                </div>
+                            </div>
+
+                            <div 
+                                @click="setTheme('dark')" 
+                                :class="{'ring-2 ring-offset-2 ring-blue-500': currentTheme === 'dark'}"
+                                class="relative rounded-lg border border-gray-200 bg-white p-4 cursor-pointer focus:outline-none">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="text-sm">
+                                            <p class="font-medium text-gray-900">深色主题</p>
+                                            <p class="text-gray-500">深色背景，浅色文字</p>
+                                        </div>
+                                    </div>
+                                    <svg :class="{'text-blue-600': currentTheme === 'dark', 'text-gray-400': currentTheme !== 'dark'}" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="mt-4 h-24 bg-gray-800 border border-gray-700 rounded p-2">
+                                    <div class="w-full h-4 bg-gray-200 rounded mb-2"></div>
+                                    <div class="w-3/4 h-3 bg-gray-300 rounded mb-2"></div>
+                                    <div class="w-1/2 h-3 bg-gray-400 rounded"></div>
+                                </div>
+                            </div>
+
+                            <div 
+                                @click="setTheme('system')" 
+                                :class="{'ring-2 ring-offset-2 ring-blue-500': currentTheme === 'system'}"
+                                class="relative rounded-lg border border-gray-200 bg-white p-4 cursor-pointer focus:outline-none">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="text-sm">
+                                            <p class="font-medium text-gray-900">系统主题</p>
+                                            <p class="text-gray-500">跟随系统设置</p>
+                                        </div>
+                                    </div>
+                                    <svg :class="{'text-blue-600': currentTheme === 'system', 'text-gray-400': currentTheme !== 'system'}" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="mt-4 h-24 bg-gradient-to-r from-white to-gray-800 border border-gray-200 rounded p-2">
+                                    <div class="w-full h-4 bg-gradient-to-r from-gray-800 to-gray-200 rounded mb-2"></div>
+                                    <div class="w-3/4 h-3 bg-gradient-to-r from-gray-600 to-gray-300 rounded mb-2"></div>
+                                    <div class="w-1/2 h-3 bg-gradient-to-r from-gray-400 to-gray-400 rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 颜色主题 -->
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-white">强调色</h2>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">选择系统主色调</p>
+                        
+                        <div class="mt-4 grid grid-cols-6 gap-3">
+                            <template x-for="color in accentColors" :key="color.name">
+                                <div 
+                                    @click="setAccentColor(color.name)" 
+                                    :class="{'ring-2 ring-offset-2 ring-gray-500': currentAccentColor === color.name}"
+                                    class="relative rounded-full h-10 w-10 cursor-pointer focus:outline-none"
+                                    :style="`background-color: ${color.value};`">
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- 字体设置 -->
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-white">字体设置</h2>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">选择显示字体和大小</p>
+                        
+                        <div class="mt-4 grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6">
+                            <div>
+                                <label for="fontFamily" class="block text-sm font-medium text-gray-700 dark:text-gray-300">字体</label>
+                                <select id="fontFamily" x-model="fontFamily" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    <option value="sans">无衬线字体 (Sans-serif)</option>
+                                    <option value="serif">衬线字体 (Serif)</option>
+                                    <option value="mono">等宽字体 (Monospace)</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="fontSize" class="block text-sm font-medium text-gray-700 dark:text-gray-300">字体大小</label>
+                                <div class="mt-1 flex items-center">
+                                    <input type="range" id="fontSize" x-model="fontSize" min="12" max="20" step="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+                                    <span class="ml-3 text-sm text-gray-700 dark:text-gray-300" x-text="`${fontSize}px`"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">字体预览</h3>
+                            <p :style="`font-family: ${getFontFamily()}; font-size: ${fontSize}px;`" class="text-gray-800 dark:text-gray-200 transition-all duration-200">
+                                这是使用所选字体和大小显示的文本示例。这样您可以预览设置效果。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 布局设置 -->
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-white">布局设置</h2>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">自定义界面显示方式</p>
+                        
+                        <div class="mt-4 space-y-4">
+                            <div class="flex items-center">
+                                <input id="compactMode" type="checkbox" x-model="compactMode" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700">
+                                <label for="compactMode" class="ml-3 text-sm text-gray-700 dark:text-gray-300">紧凑模式</label>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input id="animationsEnabled" type="checkbox" x-model="animationsEnabled" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700">
+                                <label for="animationsEnabled" class="ml-3 text-sm text-gray-700 dark:text-gray-300">启用动画效果</label>
+                            </div>
+                            
+                            <div>
+                                <label for="contentWidth" class="block text-sm font-medium text-gray-700 dark:text-gray-300">内容宽度</label>
+                                <select id="contentWidth" x-model="contentWidth" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    <option value="narrow">窄屏</option>
+                                    <option value="medium">中等</option>
+                                    <option value="wide">宽屏</option>
+                                    <option value="full">全屏</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 保存设置按钮 -->
+                    <div class="flex justify-end pt-4">
+                        <button type="button" @click="resetToDefaults" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            恢复默认
+                        </button>
+                        <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            保存设置
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function appearanceSettings() {
+            return {
+                // 主题设置
+                currentTheme: 'light', // light, dark, system
+                currentAccentColor: 'blue',
+                accentColors: [
+                    { name: 'blue', value: '#3b82f6' },
+                    { name: 'indigo', value: '#6366f1' },
+                    { name: 'purple', value: '#8b5cf6' },
+                    { name: 'pink', value: '#ec4899' },
+                    { name: 'red', value: '#ef4444' },
+                    { name: 'orange', value: '#f97316' },
+                    { name: 'yellow', value: '#eab308' },
+                    { name: 'green', value: '#22c55e' },
+                    { name: 'teal', value: '#14b8a6' },
+                    { name: 'gray', value: '#6b7280' },
+                ],
+                
+                // 字体设置
+                fontFamily: 'sans',
+                fontSize: 16,
+                
+                // 布局设置
+                compactMode: false,
+                animationsEnabled: true,
+                contentWidth: 'medium',
+                
+                // 主题切换方法
+                setTheme(theme) {
+                    this.currentTheme = theme;
+                    // 这里可以添加保存到本地存储的逻辑
+                },
+                
+                setAccentColor(color) {
+                    this.currentAccentColor = color;
+                    // 这里可以添加应用强调色的逻辑
+                },
+                
+                getFontFamily() {
+                    const fontMap = {
+                        'sans': 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                        'serif': 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
+                        'mono': 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
+                    };
+                    return fontMap[this.fontFamily] || fontMap.sans;
+                },
+                
+                resetToDefaults() {
+                    this.currentTheme = 'light';
+                    this.currentAccentColor = 'blue';
+                    this.fontFamily = 'sans';
+                    this.fontSize = 16;
+                    this.compactMode = false;
+                    this.animationsEnabled = true;
+                    this.contentWidth = 'medium';
+                },
+                
+                saveAppearanceSettings() {
+                    // 保存设置的逻辑
+                    // 这里可以添加保存到本地存储或发送到服务器的代码
+                    alert('外观设置已保存');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
