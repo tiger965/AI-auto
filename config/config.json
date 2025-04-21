@@ -1,57 +1,27 @@
 {
-  "system": {
-    "debug_mode": false,
-    "log_level": "INFO",
-    "log_file": "logs/system.log",
-    "max_threads": 4,
-    "environment": "production"
-  },
+  "app_name": "AI自动化系统",
+  "version": "1.0.0",
+  "debug": true,
+  "log_level": "debug",
   "api": {
-    "enabled": true,
-    "host": "127.0.0.1",
-    "port": 8080,
-    "timeout": 30,
-    "max_connections": 100,
-    "rate_limit": 60
+      "enabled": true,
+      "port": 8000,
+      "host": "127.0.0.1"
   },
   "modules": {
-    "knowledge_core": {
-      "enabled": true,
-      "database_path": "data/knowledge.db",
-      "max_entries": 10000,
-      "auto_save": true,
-      "save_interval": 300
-    },
-    "training_local": {
-      "enabled": true,
-      "model_path": "models/local_model",
-      "batch_size": 32,
-      "learning_rate": 0.001,
-      "epochs": 10,
-      "validation_split": 0.2
-    },
-    "repair_backup": {
-      "enabled": true,
-      "backup_dir": "backups/",
-      "max_backups": 5,
-      "backup_interval": 86400,
-      "compression": true
-    }
+      "nlp": true,
+      "vision": true,
+      "audio": true,
+      "data": true,
+      "trading": false
   },
-  "ui": {
-    "default_mode": "console",
-    "theme": "dark",
-    "auto_refresh": true,
-    "refresh_interval": 5,
-    "console": {
-      "color_enabled": true,
-      "history_size": 1000
-    },
-    "gui": {
-      "width": 1024,
-      "height": 768,
-      "fullscreen": false,
-      "font_size": 12
-    }
+  "paths": {
+      "data": "data",
+      "logs": "logs",
+      "temp": "temp"
+  },
+  "security": {
+      "encryption_enabled": false,
+      "auth_required": false
   }
 }

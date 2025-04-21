@@ -1,105 +1,126 @@
+# -*- coding: utf-8 -*-
 """
 配置模块
-
-该模块提供应用程序配置管理功能，包括API配置、应用设置、
-凭证管理、路径管理、日志配置和交易配置。
 """
-from typing import Dict, Any, Optional
+
+import os
+import json
 import logging
+from typing import Dict, Any, Optional
 
-# 全局环境变量前缀
-ENV_PREFIX = "MYAPP"
+# 模块级变量
+config = {}  # 全局配置对象
+config_file = None  # 配置文件路径
+logger = logging.getLogger(__name__)
 
-# 导入配置管理类
-from config.api_config import APIConfig
-from config.app_settings import AppSettings
-from config.credentials import Credentials
-from config.paths import Paths
-from config.logging_config import LoggingConfig
-from config.trading_config import TradingConfig
 
-# 导入配置加载工具
-from config.config_loader import (
-    load_config,
-    load_yaml_config,
-    clear_config_cache,
-    get_standardized_env_var_name,
-    get_config_directories,
-    create_config_directories
-)
-
-# 创建配置管理器实例
-api_config = APIConfig()
-app_settings = AppSettings()
-credentials = Credentials()
-paths = Paths()
-logging_config = LoggingConfig()
-trading_config = TradingConfig()
-
-def get_all_configs(environment: str = "development") -> Dict[str, Dict[str, Any]]:
+def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
     """
-    获取所有配置
-    
-    参数:
-        environment: 环境名称，默认为"development"
-        
-    返回:
-        包含所有配置的字典
+    加载配置文件
+
+    Args:
+        config_path: 配置文件路径，None则使用默认路径
+
+    Returns:
+        Dict: 配置字典
+    """
+    global config
+
+    # 确定配置文件路径
+    if config_path is None:
+        config_dir = os.path.dirname(os.path.abspath(__file__))
+        config_path = os.path.join(config_dir, "config.json")
+
+    # 记录配置文件路径
+    global config_file
+    config_file = config_path
+
+    # 读取配置文件
+    try:
+        with open(config_path, "r", encoding="utf-8") as f:
+            config = json.load(f)
+        logger.info(f"配置已加载: {config_path}")
+    except FileNotFoundError:
+        logger.warning(f"配置文件不存在: {config_path}，使用默认配置")
+        config = get_default_config()
+    except json.JSONDecodeError:
+        logger.error(f"配置文件格式错误: {config_path}，使用默认配置")
+        config = get_default_config()
+    except Exception as e:
+        logger.error(f"加载配置失败: {str(e)}，使用默认配置")
+        config = get_default_config()
+
+    return config
+
+
+def get_default_config() -> Dict[str, Any]:
+    """
+    获取默认配置
+
+    Returns:
+        Dict: 默认配置字典
     """
     return {
-        "api": api_config.get_config(environment),
-        "app": app_settings.get_config(environment),
-        "credentials": credentials.get_config(environment),
-        "paths": paths.get_config(environment),
-        "logging": logging_config.get_config(environment),
-        "trading": trading_config.get_config(environment)
+        "app_name": "AI自动化系统",
+        "version": "1.0.0",
+        "debug": True,
+        "log_level": "info",
+        "api": {"enabled": True, "port": 8000, "host": "127.0.0.1"},
+        "paths": {"data": "data", "logs": "logs", "temp": "temp"},
     }
 
-def validate_all_configs(environment: str = "development") -> None:
-    """
-    验证所有配置
-    
-    参数:
-        environment: 环境名称，默认为"development"
-        
-    抛出:
-        如果任何配置验证失败，则抛出异常
-    """
-    # 获取所有配置会触发验证
-    get_all_configs(environment)
-    logging.info(f"所有配置验证通过，环境: {environment}")
 
-def initialize(environment: str = "development") -> None:
+def save_config() -> bool:
     """
-    初始化配置模块
-    
-    参数:
-        environment: 环境名称，默认为"development"
-    """
-    # 创建配置目录结构
-    create_config_directories()
-    
-    # 配置日志系统
-    logging_config.setup_basic_logging()
-    
-    # 确保路径存在
-    paths.ensure_directories_exist()
-    
-    # 验证所有配置
-    validate_all_configs(environment)
-    
-    # 配置完整日志系统
-    logging_config.configure_logging(environment)
-    
-    logging.info(f"配置模块已初始化，环境: {environment}")
+    保存配置到文件
 
-def get_environment() -> str:
+    Returns:
+        bool: 是否成功
     """
-    获取当前环境
-    
-    返回:
-        当前环境名称
+    global config, config_file
+
+    if config_file is None:
+        logger.error("未指定配置文件路径")
+        return False
+
+    try:
+        # 确保目录存在
+        os.makedirs(os.path.dirname(config_file), exist_ok=True)
+
+        # 写入配置
+        with open(config_file, "w", encoding="utf-8") as f:
+            json.dump(config, f, indent=4, ensure_ascii=False)
+
+        logger.info(f"配置已保存: {config_file}")
+        return True
+    except Exception as e:
+        logger.error(f"保存配置失败: {str(e)}")
+        return False
+
+
+def get_config() -> Dict[str, Any]:
     """
-    import os
-    env_var = get_standardized_env_var_name("ENVIRONMENT")
-    return os.environ.get(env_var, "development")
+    获取当前配置
+
+    Returns:
+        Dict: 配置字典
+    """
+    global config
+    return config
+
+
+def update_config(key: str, value: Any) -> None:
+    """
+    更新配置项
+
+    Args:
+        key: 配置键
+        value: 配置值
+    """
+    global config
+    config[key] = value
+
+
+# 初始化时加载配置
+if not config:
+    load_config()

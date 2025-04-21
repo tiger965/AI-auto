@@ -1,0 +1,36 @@
+2025-04-20 17:10:14,966 - AI_Trading_Test - INFO - 开始测试模块: modules.audio
+2025-04-20 17:10:14,966 - AI_Trading_Test - INFO - 开始测试: ModulesAudioTestCase
+2025-04-20 17:10:14,966 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 17:10:14,966 - AI_Trading_Test - INFO - 模块 modules.audio 初始化成功
+2025-04-20 17:10:14,966 - AI_Trading_Test - INFO - 成功实例化类: AudioAnalyzer
+2025-04-20 17:10:14,966 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 17:10:14,966 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 17:10:14,983 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.02秒
+2025-04-20 17:10:14,983 - AI_Trading_Test - INFO - 完成测试: ModulesAudioTestCase, 耗时: 0.02秒
+2025-04-20 17:10:14,985 - AI_Trading_Test - INFO - 开始测试模块: modules.nlp
+2025-04-20 17:10:14,985 - AI_Trading_Test - INFO - 开始测试: ModulesNlpTestCase
+2025-04-20 17:10:14,985 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 17:10:14,985 - AI_Trading_Test - INFO - 模块 modules.nlp 初始化成功
+2025-04-20 17:10:14,985 - AI_Trading_Test - INFO - 成功实例化类: NlpAnalyzer
+2025-04-20 17:10:14,985 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 17:10:14,986 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 17:10:14,986 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.00秒
+2025-04-20 17:10:14,986 - AI_Trading_Test - INFO - 完成测试: ModulesNlpTestCase, 耗时: 0.00秒
+2025-04-20 17:10:14,987 - AI_Trading_Test - INFO - 开始测试模块: modules.video
+2025-04-20 17:10:14,987 - AI_Trading_Test - INFO - 开始测试: ModulesVideoTestCase
+2025-04-20 17:10:14,988 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 17:10:14,988 - AI_Trading_Test - INFO - 模块 modules.video 初始化成功
+2025-04-20 17:10:14,988 - AI_Trading_Test - INFO - 成功实例化类: VideoAnalyzer
+2025-04-20 17:10:14,988 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 17:10:14,988 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 17:10:14,988 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.00秒
+2025-04-20 17:10:14,988 - AI_Trading_Test - INFO - 完成测试: ModulesVideoTestCase, 耗时: 0.00秒
+2025-04-20 17:10:14,989 - AI_Trading_Test - INFO - 开始测试模块: modules.vision
+2025-04-20 17:10:14,989 - AI_Trading_Test - INFO - 开始测试: ModulesVisionTestCase
+2025-04-20 17:10:14,989 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 17:10:14,989 - AI_Trading_Test - INFO - 模块 modules.vision 初始化成功
+2025-04-20 17:10:14,989 - AI_Trading_Test - INFO - 成功实例化类: VisionAnalyzer
+2025-04-20 17:10:14,989 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 17:10:14,989 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 17:10:14,989 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.00秒
+2025-04-20 17:10:14,989 - AI_Trading_Test - INFO - 完成测试: ModulesVisionTestCase, 耗时: 0.00秒

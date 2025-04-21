@@ -8,6 +8,7 @@
 """
 
 # 版本信息
+from .. config.config_loader import ConfigLoader
 __version__ = "1.0.0"
 
 # 导出子模块类和函数
@@ -20,10 +21,9 @@ logger.info(f"视频处理模块初始化完成，版本 {__version__}")
 
 # 从配置加载器加载视频模块特定配置
 try:
-    from ...config.config_loader import ConfigLoader
-    # 初始化配置加载器
-    config_loader = ConfigLoader()
-    VIDEO_CONFIG = config_loader.load("modules.video")
+   # 初始化配置加载器
+   config_loader = ConfigLoader()
+   VIDEO_CONFIG = config_loader.load("modules.video")
 except ImportError:
     import warnings
     warnings.warn("配置加载器未找到，使用默认视频模块配置")
@@ -45,10 +45,11 @@ __all__ = [
     "get_video_config"
 ]
 
+
 def get_video_config():
     """
     获取视频模块配置
-    
+
     返回:
         dict: 视频模块的配置字典
     """

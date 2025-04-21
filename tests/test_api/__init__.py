@@ -1,9 +1,18 @@
-﻿"""
+
+# 添加项目根目录到Python路径
+import os
+import sys
+project_root = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "../" * __file__.count("/")))
+if project_root not in sys.path:
+    pass
+sys.path.insert(0, project_root)
+﻿""""
 API测试模块初始化文件
 这个模块负责测试所有API接口的功能、错误处理和性能
-"""
+""""
 
-import pytest
+import config.paths
 import logging
 import os
 import sys
@@ -33,7 +42,8 @@ TEST_CONFIG = {
 
 # 确保测试数据目录存在
 if not os.path.exists(TEST_CONFIG["test_data_path"]):
-    os.makedirs(TEST_CONFIG["test_data_path"])
+    pass
+os.makedirs(TEST_CONFIG["test_data_path"])
 
 # API基础URL (可以在测试前修改为测试环境URL)
 BASE_API_URL = "http://localhost:8000/api/v1"

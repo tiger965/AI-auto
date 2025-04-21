@@ -1,0 +1,48 @@
+2025-04-20 16:11:29,684 - AI_Trading_Test - INFO - 开始测试模块: ui.dashboard
+2025-04-20 16:11:29,684 - AI_Trading_Test - INFO - 开始测试: UiDashboardTestCase
+2025-04-20 16:11:29,684 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 16:11:29,684 - AI_Trading_Test - INFO - 模块 ui.dashboard 初始化成功
+2025-04-20 16:11:29,684 - AI_Trading_Test - INFO - 成功实例化类: Dashboard
+2025-04-20 16:11:29,684 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 16:11:29,684 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 16:11:29,691 - AI_Trading_Test - INFO - 尝试调用方法: render
+2025-04-20 16:11:29,691 - AI_Trading_Test - INFO - 方法调用成功: render
+2025-04-20 16:11:29,691 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.01秒
+2025-04-20 16:11:29,691 - AI_Trading_Test - INFO - 完成测试: UiDashboardTestCase, 耗时: 0.01秒
+2025-04-20 16:11:29,693 - AI_Trading_Test - INFO - 开始测试模块: ui.charts
+2025-04-20 16:11:29,693 - AI_Trading_Test - INFO - 开始测试: UiChartsTestCase
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 模块 ui.charts 初始化成功
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 成功实例化类: Chart
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 尝试调用方法: render
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 方法调用成功: render
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.00秒
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 完成测试: UiChartsTestCase, 耗时: 0.00秒
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 开始测试模块: ui.controls
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 开始测试: UiControlsTestCase
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 模块 ui.controls 初始化成功
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 成功实例化类: Control
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 尝试调用方法: disable
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 方法调用成功: disable
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 尝试调用方法: enable
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 方法调用成功: enable
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 尝试调用方法: render
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 方法调用成功: render
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.00秒
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 完成测试: UiControlsTestCase, 耗时: 0.00秒
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 开始测试模块: ui.reports
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 开始测试: UiReportsTestCase
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 16:11:29,694 - AI_Trading_Test - INFO - 模块 ui.reports 初始化成功
+2025-04-20 16:11:29,702 - AI_Trading_Test - INFO - 成功实例化类: Report
+2025-04-20 16:11:29,702 - AI_Trading_Test - INFO - 尝试调用方法: generate
+2025-04-20 16:11:29,702 - AI_Trading_Test - INFO - 方法调用成功: generate
+2025-04-20 16:11:29,702 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 16:11:29,702 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 16:11:29,702 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.01秒
+2025-04-20 16:11:29,702 - AI_Trading_Test - INFO - 完成测试: UiReportsTestCase, 耗时: 0.01秒

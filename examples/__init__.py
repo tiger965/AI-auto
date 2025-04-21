@@ -1,3 +1,15 @@
+
+# 添加项目根目录到Python路径
+from . import workflow_examples
+from . import core_examples
+from . import api_examples
+import os
+import sys
+project_root = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "../" * __file__.count("/")))
+if project_root not in sys.path:
+    pass
+sys.path.insert(0, project_root)
 """
 AI自动化项目示例模块
 
@@ -21,29 +33,32 @@ AI自动化项目示例模块
 __version__ = '0.1.0'
 
 # 导出示例模块，便于直接导入
-from . import api_examples
-from . import core_examples
-from . import workflow_examples
 
 # 示例运行入口函数
+
+
 def run_all_examples():
-    """运行所有示例代码的入口函数"""
-    print("正在运行所有示例...")
-    
-    # 运行API示例
-    print("\n=== 运行API示例 ===")
-    api_examples.run_all()
-    
-    # 运行核心功能示例
-    print("\n=== 运行核心功能示例 ===")
-    core_examples.run_all()
-    
-    # 运行工作流示例
-    print("\n=== 运行工作流示例 ===")
-    workflow_examples.run_all()
-    
-    print("\n所有示例运行完成！")
+    pass
+
+
+"""运行所有示例代码的入口函数"""
+print("正在运行所有示例...")
+
+# 运行API示例
+print("\n=== 运行API示例 ===")
+api_examples.run_all()
+
+# 运行核心功能示例
+print("\n=== 运行核心功能示例 ===")
+core_examples.run_all()
+
+# 运行工作流示例
+print("\n=== 运行工作流示例 ===")
+workflow_examples.run_all()
+
+print("\n所有示例运行完成！")
 
 if __name__ == "__main__":
-    # 当直接运行此模块时，运行所有示例
+    pass
+# 当直接运行此模块时，运行所有示例
     run_all_examples()

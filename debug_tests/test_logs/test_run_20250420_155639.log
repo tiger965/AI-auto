@@ -1,0 +1,8 @@
+2025-04-20 15:56:42,675 - AI_Trading_Test - ERROR - 检查模块 modules.audio 时出错: expected 'except' or 'finally' block (__init__.py, line 27)
+2025-04-20 15:56:42,675 - AI_Trading_Test - WARNING - 跳过不存在的模块: modules.audio
+2025-04-20 15:56:42,675 - AI_Trading_Test - ERROR - 检查模块 modules.nlp 时出错: expected 'except' or 'finally' block (__init__.py, line 27)
+2025-04-20 15:56:42,675 - AI_Trading_Test - WARNING - 跳过不存在的模块: modules.nlp
+2025-04-20 15:56:42,675 - AI_Trading_Test - ERROR - 检查模块 modules.video 时出错: expected 'except' or 'finally' block (__init__.py, line 27)
+2025-04-20 15:56:42,675 - AI_Trading_Test - WARNING - 跳过不存在的模块: modules.video
+2025-04-20 15:56:42,687 - AI_Trading_Test - ERROR - 检查模块 modules.vision 时出错: expected 'except' or 'finally' block (__init__.py, line 27)
+2025-04-20 15:56:42,687 - AI_Trading_Test - WARNING - 跳过不存在的模块: modules.vision

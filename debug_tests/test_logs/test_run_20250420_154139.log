@@ -1,0 +1,8 @@
+2025-04-20 15:42:27,775 - AI_Trading_Test - WARNING - 模块 data.collector 不存在
+2025-04-20 15:42:27,775 - AI_Trading_Test - WARNING - 跳过不存在的模块: data.collector
+2025-04-20 15:42:27,775 - AI_Trading_Test - WARNING - 模块 data.processor 不存在
+2025-04-20 15:42:27,775 - AI_Trading_Test - WARNING - 跳过不存在的模块: data.processor
+2025-04-20 15:42:27,776 - AI_Trading_Test - WARNING - 模块 data.storage 不存在
+2025-04-20 15:42:27,776 - AI_Trading_Test - WARNING - 跳过不存在的模块: data.storage
+2025-04-20 15:42:27,777 - AI_Trading_Test - WARNING - 模块 data.validator 不存在
+2025-04-20 15:42:27,780 - AI_Trading_Test - WARNING - 跳过不存在的模块: data.validator

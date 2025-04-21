@@ -1,4 +1,4 @@
-"""
+""""
 无障碍功能支持模块 - Accessibility Utilities
 
 这个模块提供了应用程序的无障碍功能支持，确保界面对所有用户可用，包括残障人士。
@@ -16,7 +16,7 @@
 
 作者: AI助手
 日期: 2025-04-19
-"""
+""""
 
 import logging
 import re
@@ -91,19 +91,19 @@ class AccessibilitySettings:
 
 
 class AccessibilityManager:
-    """
+    """"
     无障碍管理器类
     
     负责管理应用程序的无障碍特性和设置
-    """
+    """"
     
     def __init__(self, settings: Optional[AccessibilitySettings] = None):
-        """
+        """"
         初始化无障碍管理器
         
         参数:
             settings: 无障碍设置，如果为None则使用默认设置
-        """
+        """"
         self.settings = settings or AccessibilitySettings()
         
         # 特性状态缓存
@@ -140,21 +140,21 @@ class AccessibilityManager:
         }
     
     def get_settings(self) -> AccessibilitySettings:
-        """
+        """"
         获取当前无障碍设置
         
         返回:
             AccessibilitySettings: 无障碍设置对象
-        """
+        """"
         return self.settings
     
     def update_settings(self, new_settings: AccessibilitySettings) -> None:
-        """
+        """"
         更新无障碍设置
         
         参数:
             new_settings: 新的无障碍设置
-        """
+        """"
         old_settings = self.settings
         self.settings = new_settings
         
@@ -169,7 +169,7 @@ class AccessibilityManager:
                 logger.error(f"执行设置变更回调时出错: {e}")
     
     def toggle_feature(self, feature: AccessibilityFeature) -> bool:
-        """
+        """"
         切换无障碍特性
         
         参数:
@@ -177,7 +177,7 @@ class AccessibilityManager:
         
         返回:
             bool: 切换后的状态
-        """
+        """"
         old_settings = AccessibilitySettings(**vars(self.settings))
         
         if feature == AccessibilityFeature.SCREEN_READER:
@@ -214,7 +214,7 @@ class AccessibilityManager:
         return self._feature_status[feature]
     
     def is_feature_enabled(self, feature: AccessibilityFeature) -> bool:
-        """
+        """"
         检查无障碍特性是否启用
         
         参数:
@@ -222,29 +222,29 @@ class AccessibilityManager:
         
         返回:
             bool: 是否启用
-        """
+        """"
         return self._feature_status.get(feature, False)
     
     def get_color_blind_type(self) -> Optional[ColorBlindType]:
-        """
+        """"
         获取当前色盲模式类型
         
         返回:
             Optional[ColorBlindType]: 色盲类型，如果未启用则为None
-        """
+        """"
         return self.settings.color_blind_mode
     
     def add_settings_change_callback(self, callback: Callable[[AccessibilitySettings, AccessibilitySettings], None]) -> None:
-        """
+        """"
         添加设置变更回调
         
         参数:
             callback: 回调函数，接收两个参数：old_settings和new_settings
-        """
+        """"
         self.settings_change_callbacks.append(callback)
     
     def simulate_color_blindness(self, hex_color: str) -> str:
-        """
+        """"
         模拟色盲视觉下的颜色
         
         参数:
@@ -252,7 +252,7 @@ class AccessibilityManager:
         
         返回:
             str: 模拟后的十六进制颜色
-        """
+        """"
         if self.settings.color_blind_mode is None:
             return hex_color
         
@@ -301,10 +301,10 @@ class AccessibilityManager:
             logger.error(f"模拟色盲视觉时出错: {e}")
             return hex_color
     
-    def register_focusable_element(self, element_id: str, tab_index: int = 0, 
+def register_focusable_element(self, element_id: str, tab_index: int = 0,:
                                    group: Optional[str] = None, 
                                    accessible_name: Optional[str] = None) -> None:
-        """
+        """"
         注册可聚焦元素
         
         参数:
@@ -312,7 +312,7 @@ class AccessibilityManager:
             tab_index: 选项卡索引，控制焦点顺序
             group: 元素组，用于按组导航
             accessible_name: 无障碍名称，用于屏幕阅读器
-        """
+        """"
         # 检查元素是否已存在
         for i, elem in enumerate(self.focus_elements):
             if elem["id"] == element_id:
@@ -337,7 +337,7 @@ class AccessibilityManager:
         self.focus_elements.sort(key=lambda x: x["tab_index"])
     
     def unregister_focusable_element(self, element_id: str) -> bool:
-        """
+        """"
         取消注册可聚焦元素
         
         参数:
@@ -345,7 +345,7 @@ class AccessibilityManager:
         
         返回:
             bool: 是否成功取消注册
-        """
+        """"
         for i, elem in enumerate(self.focus_elements):
             if elem["id"] == element_id:
                 # 如果当前焦点在该元素上，重置焦点
@@ -359,7 +359,7 @@ class AccessibilityManager:
         return False
     
     def move_focus(self, direction: FocusDirection) -> Optional[Dict[str, Any]]:
-        """
+        """"
         移动焦点
         
         参数:
@@ -367,7 +367,7 @@ class AccessibilityManager:
         
         返回:
             Optional[Dict[str, Any]]: 新的焦点元素，如果没有可聚焦元素则返回None
-        """
+        """"
         if not self.focus_elements:
             return None
         
@@ -401,7 +401,7 @@ class AccessibilityManager:
         return new_focus_element
     
     def set_focus(self, element_id: str) -> bool:
-        """
+        """"
         设置焦点到指定元素
         
         参数:
@@ -409,7 +409,7 @@ class AccessibilityManager:
         
         返回:
             bool: 是否成功设置焦点
-        """
+        """"
         for i, elem in enumerate(self.focus_elements):
             if elem["id"] == element_id:
                 old_focus_index = self.current_focus_index
@@ -430,42 +430,42 @@ class AccessibilityManager:
         return False
     
     def add_focus_change_callback(self, callback: Callable[[Optional[Dict[str, Any]], Dict[str, Any]], None]) -> None:
-        """
+        """"
         添加焦点变化回调
         
         参数:
             callback: 回调函数，接收两个参数：old_focus_element和new_focus_element
-        """
+        """"
         self.focus_change_callbacks.append(callback)
     
     def get_current_focus(self) -> Optional[Dict[str, Any]]:
-        """
+        """"
         获取当前焦点元素
         
         返回:
             Optional[Dict[str, Any]]: 当前焦点元素，如果没有则返回None
-        """
+        """"
         if 0 <= self.current_focus_index < len(self.focus_elements):
             return self.focus_elements[self.current_focus_index]
         return None
     
-    def register_keyboard_shortcut(self, key_combination: str, action: Callable[[], None], 
+def register_keyboard_shortcut(self, key_combination: str, action: Callable[[], None],:
                                   description: str) -> None:
-        """
+        """"
         注册键盘快捷键
         
         参数:
             key_combination: 按键组合，例如"Alt+S"
             action: 要执行的操作
             description: 快捷键描述
-        """
+        """"
         self.keyboard_shortcuts[key_combination] = {
             "action": action,
             "description": description
         }
     
     def execute_keyboard_shortcut(self, key_combination: str) -> bool:
-        """
+        """"
         执行键盘快捷键
         
         参数:
@@ -473,7 +473,7 @@ class AccessibilityManager:
         
         返回:
             bool: 是否成功执行
-        """
+        """"
         if key_combination in self.keyboard_shortcuts:
             try:
                 self.keyboard_shortcuts[key_combination]["action"]()
@@ -484,21 +484,21 @@ class AccessibilityManager:
         return False
     
     def get_keyboard_shortcuts(self) -> Dict[str, str]:
-        """
+        """"
         获取键盘快捷键列表
         
         返回:
             Dict[str, str]: 键盘快捷键字典，键为按键组合，值为描述
-        """
+        """"
         return {key: value["description"] for key, value in self.keyboard_shortcuts.items()}
     
     def get_accessibility_css(self) -> str:
-        """
+        """"
         获取无障碍CSS样式
         
         返回:
             str: CSS样式字符串
-        """
+        """"
         css = []
         
         # 基础CSS
@@ -592,21 +592,21 @@ class AccessibilityManager:
         return "\n".join(css)
     
     def set_aria_attribute(self, element_id: str, attribute: str, value: str) -> None:
-        """
+        """"
         设置ARIA属性
         
         参数:
             element_id: 元素ID
             attribute: 属性名
             value: 属性值
-        """
+        """"
         if element_id not in self.aria_attributes:
             self.aria_attributes[element_id] = {}
         
         self.aria_attributes[element_id][attribute] = value
     
     def get_aria_attributes(self, element_id: str) -> Dict[str, str]:
-        """
+        """"
         获取元素的ARIA属性
         
         参数:
@@ -614,11 +614,11 @@ class AccessibilityManager:
         
         返回:
             Dict[str, str]: ARIA属性字典
-        """
+        """"
         return self.aria_attributes.get(element_id, {})
     
     def generate_aria_markup(self, element_id: str) -> str:
-        """
+        """"
         生成ARIA标记
         
         参数:
@@ -626,7 +626,7 @@ class AccessibilityManager:
         
         返回:
             str: ARIA属性标记
-        """
+        """"
         attributes = self.get_aria_attributes(element_id)
         if not attributes:
             return ""
@@ -638,7 +638,7 @@ class AccessibilityManager:
         return " ".join(aria_markup)
     
     def save_settings(self, file_path: str) -> bool:
-        """
+        """"
         保存设置到文件
         
         参数:
@@ -646,7 +646,7 @@ class AccessibilityManager:
         
         返回:
             bool: 是否成功保存
-        """
+        """"
         try:
             # 转换设置为字典
             settings_dict = vars(self.settings)
@@ -667,7 +667,7 @@ class AccessibilityManager:
             return False
     
     def load_settings(self, file_path: str) -> bool:
-        """
+        """"
         从文件加载设置
         
         参数:
@@ -675,7 +675,7 @@ class AccessibilityManager:
         
         返回:
             bool: 是否成功加载
-        """
+        """"
         try:
             # 读取文件
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -700,16 +700,16 @@ class AccessibilityManager:
 
 
 class AccessibilityChecker:
-    """
+    """"
     无障碍检查器类
     
     用于检查界面元素的无障碍性
-    """
+    """"
     
     @staticmethod
-    def check_text_contrast(text_color: str, background_color: str, 
+def check_text_contrast(text_color: str, background_color: str,:
                            level: AccessibilityLevel = AccessibilityLevel.AA) -> Tuple[bool, float]:
-        """
+        """"
         检查文本对比度
         
         参数:
@@ -719,7 +719,7 @@ class AccessibilityChecker:
         
         返回:
             Tuple[bool, float]: (是否通过检查, 对比度值)
-        """
+        """"
         try:
             # 计算对比度
             if 'Color' in globals():
@@ -763,7 +763,7 @@ class AccessibilityChecker:
     
     @staticmethod
     def check_element_labels(element_data: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """
+        """"
         检查元素标签的无障碍性
         
         参数:
@@ -771,7 +771,7 @@ class AccessibilityChecker:
         
         返回:
             List[Dict[str, Any]]: 问题列表
-        """
+        """"
         issues = []
         
         # 检查是否有可访问名称
@@ -813,7 +813,7 @@ class AccessibilityChecker:
     
     @staticmethod
     def check_keyboard_navigation(elements: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """
+        """"
         检查键盘导航的无障碍性
         
         参数:
@@ -821,7 +821,7 @@ class AccessibilityChecker:
         
         返回:
             List[Dict[str, Any]]: 问题列表
-        """
+        """"
         issues = []
         
         # 检查是否有可聚焦元素
@@ -859,7 +859,7 @@ class AccessibilityChecker:
     
     @staticmethod
     def check_aria_attributes(aria_attributes: Dict[str, Dict[str, str]]) -> List[Dict[str, Any]]:
-        """
+        """"
         检查ARIA属性的无障碍性
         
         参数:
@@ -867,7 +867,7 @@ class AccessibilityChecker:
         
         返回:
             List[Dict[str, Any]]: 问题列表
-        """
+        """"
         issues = []
         
         # 有效的ARIA属性列表
@@ -914,7 +914,7 @@ class AccessibilityChecker:
     
     @staticmethod
     def check_color_usage(elements: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """
+        """"
         检查颜色使用的无障碍性
         
         参数:
@@ -922,7 +922,7 @@ class AccessibilityChecker:
         
         返回:
             List[Dict[str, Any]]: 问题列表
-        """
+        """"
         issues = []
         
         for elem in elements:
@@ -951,7 +951,7 @@ class AccessibilityChecker:
     
     @staticmethod
     def check_html_structure(html_content: str) -> List[Dict[str, Any]]:
-        """
+        """"
         检查HTML结构的无障碍性
         
         参数:
@@ -959,11 +959,11 @@ class AccessibilityChecker:
         
         返回:
             List[Dict[str, Any]]: 问题列表
-        """
+        """"
         issues = []
         
         # 检查HTML语言设置
-        if 'lang="' not in html_content.lower():
+if 'lang="' not in html_content.lower():":
             issues.append({
                 "type": "missing_lang",
                 "severity": "medium",
@@ -1006,7 +1006,7 @@ class AccessibilityChecker:
         imgs = re.findall(img_pattern, html_content)
         
         for img in imgs:
-            if 'alt="' not in img.lower() and 'alt=' not in img.lower():
+if 'alt="' not in img.lower() and 'alt=' not in img.lower():":
                 issues.append({
                     "type": "missing_alt",
                     "severity": "high",
@@ -1016,10 +1016,10 @@ class AccessibilityChecker:
         return issues
     
     @staticmethod
-    def get_accessibility_report(elements: List[Dict[str, Any]], 
+def get_accessibility_report(elements: List[Dict[str, Any]],:
                                 html_content: Optional[str] = None,
                                 aria_attributes: Optional[Dict[str, Dict[str, str]]] = None) -> Dict[str, Any]:
-        """
+        """"
         生成无障碍报告
         
         参数:
@@ -1029,7 +1029,7 @@ class AccessibilityChecker:
         
         返回:
             Dict[str, Any]: 无障碍报告
-        """
+        """"
         report = {
             "timestamp": None,  # 在Python中获取当前时间
             "issues": [],
@@ -1113,15 +1113,15 @@ class AccessibilityChecker:
 # 适配器和帮助类
 
 class ColorBlindSimulator:
-    """
+    """"
     色盲模拟器类
     
     用于模拟不同类型色盲下的视觉效果
-    """
+    """"
     
     @staticmethod
     def apply_color_blind_filter(hex_color: str, color_blind_type: ColorBlindType) -> str:
-        """
+        """"
         应用色盲滤镜到颜色
         
         参数:
@@ -1130,7 +1130,7 @@ class ColorBlindSimulator:
         
         返回:
             str: 模拟后的十六进制颜色
-        """
+        """"
         # 解析颜色
         hex_color = hex_color.lstrip('#')
         r, g, b = tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
@@ -1168,7 +1168,7 @@ class ColorBlindSimulator:
     
     @staticmethod
     def generate_colorblind_palette(colors: List[str], color_blind_type: ColorBlindType) -> Dict[str, str]:
-        """
+        """"
         为色盲用户生成调色板
         
         参数:
@@ -1177,7 +1177,7 @@ class ColorBlindSimulator:
         
         返回:
             Dict[str, str]: 原始颜色到色盲适配颜色的映射
-        """
+        """"
         palette = {}
         
         for color in colors:
@@ -1188,7 +1188,7 @@ class ColorBlindSimulator:
     
     @staticmethod
     def get_colorblind_safe_colors(count: int = 5) -> List[str]:
-        """
+        """"
         获取色盲安全的颜色列表
         
         参数:
@@ -1196,7 +1196,7 @@ class ColorBlindSimulator:
         
         返回:
             List[str]: 颜色列表
-        """
+        """"
         # 预定义的对比度高、色盲友好的颜色
         safe_colors = [
             "#000000",  # 黑色
@@ -1216,15 +1216,15 @@ class ColorBlindSimulator:
 
 
 class ScreenReaderHelper:
-    """
+    """"
     屏幕阅读器助手类
     
     提供生成屏幕阅读器友好内容的工具
-    """
+    """"
     
     @staticmethod
     def generate_sr_text(content: Dict[str, Any]) -> str:
-        """
+        """"
         生成屏幕阅读器友好的文本
         
         参数:
@@ -1232,7 +1232,7 @@ class ScreenReaderHelper:
         
         返回:
             str: 屏幕阅读器文本
-        """
+        """"
         sr_text = []
         
         # 提取标题
@@ -1275,7 +1275,7 @@ class ScreenReaderHelper:
     
     @staticmethod
     def get_aria_description(element: Dict[str, Any]) -> str:
-        """
+        """"
         获取元素的ARIA描述
         
         参数:
@@ -1283,7 +1283,7 @@ class ScreenReaderHelper:
         
         返回:
             str: ARIA描述
-        """
+        """"
         descriptions = []
         
         # 添加基本信息
@@ -1320,7 +1320,7 @@ class ScreenReaderHelper:
     
     @staticmethod
     def get_element_instructions(element: Dict[str, Any]) -> str:
-        """
+        """"
         获取元素的使用说明
         
         参数:
@@ -1328,7 +1328,7 @@ class ScreenReaderHelper:
         
         返回:
             str: 使用说明
-        """
+        """"
         element_type = element.get("type", "").lower()
         
         if element_type == "button":
@@ -1354,20 +1354,20 @@ class ScreenReaderHelper:
 
 
 class KeyboardNavigationHelper:
-    """
+    """"
     键盘导航助手类
     
     提供键盘导航的辅助工具
-    """
+    """"
     
     @staticmethod
     def get_keyboard_shortcut_help() -> str:
-        """
+        """"
         获取键盘快捷键帮助文本
         
         返回:
             str: 帮助文本
-        """
+        """"
         shortcuts = [
             ("Tab", "移动到下一个可聚焦元素"),
             ("Shift+Tab", "移动到上一个可聚焦元素"),
@@ -1399,7 +1399,7 @@ class KeyboardNavigationHelper:
     
     @staticmethod
     def create_keyboard_trap_warning(element_type: str) -> str:
-        """
+        """"
         创建键盘陷阱警告
         
         参数:
@@ -1407,12 +1407,12 @@ class KeyboardNavigationHelper:
         
         返回:
             str: 警告文本
-        """
+        """"
         return f"警告: {element_type}元素可能会创建键盘陷阱，请确保用户可以使用Tab键或Esc键离开该元素。"
     
     @staticmethod
     def generate_focus_order(elements: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """
+        """"
         生成焦点顺序列表
         
         参数:
@@ -1420,7 +1420,7 @@ class KeyboardNavigationHelper:
         
         返回:
             List[Dict[str, Any]]: 排序后的元素列表
-        """
+        """"
         # 根据tabIndex排序
         # tabIndex为0或未设置的元素按DOM顺序排列
         # tabIndex大于0的元素按tabIndex值排序
@@ -1508,4 +1508,4 @@ def example_usage():
 if __name__ == "__main__":
     # 如果直接运行该模块，展示使用示例
     example_usage()
-                if
+                if:

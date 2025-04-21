@@ -1,4 +1,4 @@
-"""
+""""
 工作流示例模块
 
 本模块展示完整的AI自动化工作流程示例，将各个功能模块组合起来完成端到端任务，包括：
@@ -16,25 +16,25 @@
 
 预期输出：
 展示完整工作流的运行过程和结果
-"""
+""""
 
 import os
 import sys
 import time
 import json
 import logging
-import pandas as pd
+import config.paths as pd
 from typing import Dict, List, Any, Optional
 
 # 添加项目根目录到路径，以便导入项目模块
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # 导入项目中的模块（根据实际项目结构调整导入路径）
-from myproject.core import model, data_processor, post_processor
-from myproject.api import client
-from myproject.utils import config, file_utils
-from myproject.workflow import workflow_manager, task
-from myproject.exceptions import WorkflowError
+from core import model
+from api import client
+from trading.utils import config
+from core.workflow import workflow_manager
+from misc.exceptions import WorkflowError
 
 # 设置日志
 logging.basicConfig(level=logging.INFO)
@@ -62,11 +62,11 @@ def run_all():
     print("工作流示例运行完成！")
 
 def run_text_classification_workflow():
-    """
+    """"
     文本分类工作流示例
     
     展示如何构建一个完整的文本分类流程
-    """
+    """"
     print("\n--- 文本分类工作流示例 ---")
     
     try:
@@ -129,7 +129,7 @@ def run_text_classification_workflow():
             generated_contents = {}
             
             # 1. 生成文章内容
-            article_content = f"""
+            article_content = f""""
             # {topic_data['main_topic']}：技术与应用
 
             在当今数字化时代，{topic_data['main_topic']}正在各个领域掀起变革浪潮。本文将探讨三个关键领域的最新进展：{topic_data['subtopics'][0]}、{topic_data['subtopics'][1]}和{topic_data['subtopics'][2]}。
@@ -145,11 +145,11 @@ def run_text_classification_workflow():
 
             # 未来展望
             随着{topic_data['keywords'][3]}的快速发展，我们预计未来{topic_data['main_topic']}将向更高精度、更强解释性和更广应用场景方向发展，为企业和社会创造更大价值。
-            """
+            """"
             generated_contents["article"] = article_content
             
             # 2. 生成社交媒体内容
-            social_media_content = f"""
+            social_media_content = f""""
             📱 #{topic_data['keywords'][0]} #{topic_data['keywords'][3]} #{topic_data['main_topic'].replace(' ', '')}
 
             🔍 想了解{topic_data['main_topic']}如何改变我们的世界吗？
@@ -159,11 +159,11 @@ def run_text_classification_workflow():
             💡 无论是提升效率还是创造新可能，{topic_data['main_topic']}都将是未来技术发展的核心驱动力。
             
             👉 点击链接了解更多关于{topic_data['main_topic']}的最新研究和应用案例！#技术创新
-            """
+            """"
             generated_contents["social_media"] = social_media_content
             
             # 3. 生成邮件营销内容
-            email_content = f"""
+            email_content = f""""
             主题: 探索{topic_data['main_topic']}为您的业务带来的革命性变化
             
             尊敬的决策者：
@@ -185,7 +185,7 @@ def run_text_classification_workflow():
             此致
             
             AI解决方案团队
-            """
+            """"
             generated_contents["email"] = email_content
             
             print(f"成功生成{len(generated_contents)}种类型的内容")
@@ -291,7 +291,7 @@ def run_text_classification_workflow():
                 "content_types": list(optimization_results.keys()),
                 "optimization_metrics": {
                     content_type: result["metrics"]
-                    for content_type, result in optimization_results.items()
+for content_type, result in optimization_results.items():
                 },
                 "exported_files": exported_files
             }
@@ -323,11 +323,11 @@ def run_text_classification_workflow():
         print(f"未预期错误: {e}")
 
 def run_error_handling_workflow():
-    """
+    """"
     错误处理工作流示例
     
     展示如何在工作流中处理各种异常情况
-    """
+    """"
     print("\n--- 错误处理工作流示例 ---")
     
     try:
@@ -515,11 +515,11 @@ def run_error_handling_workflow():
         print(f"未预期错误: {e}")
 
 def run_custom_workflow_builder_example():
-    """
+    """"
     自定义工作流构建示例
     
     展示如何使用低级API构建和执行自定义工作流
-    """
+    """"
     print("\n--- 自定义工作流构建示例 ---")
     
     try:
@@ -792,11 +792,11 @@ if __name__ == "__main__":
         print(f"未预期错误: {e}")
 
 def run_data_analysis_workflow():
-    """
+    """"
     数据分析工作流示例
     
     展示如何构建一个数据分析和可视化的完整流程
-    """
+    """"
     print("\n--- 数据分析工作流示例 ---")
     
     try:
@@ -984,7 +984,7 @@ def run_data_analysis_workflow():
             )
             
             # 准备报告内容
-            report_content = f"""
+            report_content = f""""
             <html>
             <head>
                 <title>销售数据分析报告</title>
@@ -1027,20 +1027,20 @@ def run_data_analysis_workflow():
                         <th>总销售额</th>
                         <th>平均销售额</th>
                     </tr>
-            """
+            """"
             
             # 添加各产品类别的详细数据
             for category in analysis_results['category_sales']:
-                report_content += f"""
+                report_content += f""""
                     <tr>
                         <td>{category}</td>
                         <td>{analysis_results['category_sales'][category]} 元</td>
                         <td>{analysis_results['category_avg_sales'][category]:.2f} 元</td>
                     </tr>
-                """
+                """"
             
             # 完成报告内容
-            report_content += """
+            report_content += """"
                 </table>
                 
                 <h2>结论与建议</h2>
@@ -1052,7 +1052,7 @@ def run_data_analysis_workflow():
                 </ul>
             </body>
             </html>
-            """
+            """"
             
             # 写入报告文件
             with open(report_path, 'w', encoding='utf-8') as f:
@@ -1077,14 +1077,20 @@ def run_data_analysis_workflow():
         print(f"未预期错误: {e}")
 
 def run_content_generation_workflow():
-    """
+    """"
     内容生成工作流示例
     
     展示如何构建一个内容生成和优化的完整流程
-    """
+    """"
     print("\n--- 内容生成工作流示例 ---")
     
     try:
+        
+    
+    except Exception as e:
+        
+    
+        print(f"错误: {str(e)}")
         # 1. 定义工作流配置
         workflow_config = {
             "name": "content_generation_workflow",

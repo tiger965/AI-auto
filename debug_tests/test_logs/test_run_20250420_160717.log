@@ -1,0 +1,10 @@
+2025-04-20 16:07:21,363 - AI_Trading_Test - ERROR - 检查模块 trading.connectors 时出错: unexpected indent (__init__.py, line 45)
+2025-04-20 16:07:21,363 - AI_Trading_Test - WARNING - 跳过不存在的模块: trading.connectors
+2025-04-20 16:07:21,363 - AI_Trading_Test - ERROR - 检查模块 trading.api 时出错: unexpected indent (__init__.py, line 45)
+2025-04-20 16:07:21,363 - AI_Trading_Test - WARNING - 跳过不存在的模块: trading.api
+2025-04-20 16:07:21,363 - AI_Trading_Test - ERROR - 检查模块 trading.strategy 时出错: unexpected indent (__init__.py, line 45)
+2025-04-20 16:07:21,381 - AI_Trading_Test - WARNING - 跳过不存在的模块: trading.strategy
+2025-04-20 16:07:21,382 - AI_Trading_Test - ERROR - 检查模块 trading.execution 时出错: unexpected indent (__init__.py, line 45)
+2025-04-20 16:07:21,382 - AI_Trading_Test - WARNING - 跳过不存在的模块: trading.execution
+2025-04-20 16:07:21,384 - AI_Trading_Test - ERROR - 检查模块 trading.backtest 时出错: unexpected indent (__init__.py, line 45)
+2025-04-20 16:07:21,384 - AI_Trading_Test - WARNING - 跳过不存在的模块: trading.backtest

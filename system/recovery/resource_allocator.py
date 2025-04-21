@@ -1,4 +1,4 @@
-"""
+""""
 Resource Allocator Module for AI System Recovery.
 
 This module implements resource allocation and management for the system,
@@ -14,7 +14,7 @@ Functions:
     allocate_resources(requirements): Allocate resources based on requirements.
     release_resources(resource_id): Release previously allocated resources.
     get_resource_usage(): Get current resource usage statistics.
-"""
+""""
 
 import logging
 import time
@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
 
 
 class ResourceRequirement:
-    """
+    """"
     Representation of a resource requirement.
     
     Attributes:
@@ -45,9 +45,9 @@ class ResourceRequirement:
         gpu (Optional[int]): GPU memory required in bytes.
         priority (int): Priority level (higher values indicate higher priority).
         exclusive (bool): Whether the resources should be exclusive.
-    """
+    """"
     
-    def __init__(self, 
+def __init__(self,:
                  component: str,
                  cpu: Optional[float] = None,
                  memory: Optional[int] = None,
@@ -56,7 +56,7 @@ class ResourceRequirement:
                  gpu: Optional[int] = None,
                  priority: int = 5,
                  exclusive: bool = False):
-        """
+        """"
         Initialize a new ResourceRequirement.
         
         Args:
@@ -68,7 +68,7 @@ class ResourceRequirement:
             gpu (Optional[int]): GPU memory required in bytes.
             priority (int): Priority level (1-10, higher values indicate higher priority).
             exclusive (bool): Whether the resources should be exclusive.
-        """
+        """"
         self.component = component
         self.cpu = cpu
         self.memory = memory
@@ -97,7 +97,7 @@ class ResourceRequirement:
 
 
 class ResourceAllocator:
-    """
+    """"
     Manager for system resource allocation.
     
     This class coordinates resource allocation across the system,
@@ -108,7 +108,7 @@ class ResourceAllocator:
         resource_pool (ResourcePool): The available system resources.
         allocations (Dict[str, ResourceAllocation]): Active resource allocations.
         pending_requests (List[ResourceRequirement]): Pending resource requests.
-    """
+    """"
     
     def __init__(self):
         """Initialize a new ResourceAllocator."""
@@ -120,7 +120,7 @@ class ResourceAllocator:
         self.initialized = False
         
     def request_resources(self, requirement: ResourceRequirement) -> Optional[str]:
-        """
+        """"
         Request resources based on a requirement.
         
         Args:
@@ -128,7 +128,7 @@ class ResourceAllocator:
             
         Returns:
             Optional[str]: Allocation ID if successful, None otherwise.
-        """
+        """"
         with self.lock:
             # Check if the resource pool can allocate immediately
             if self.resource_pool.can_allocate(requirement):
@@ -153,7 +153,7 @@ class ResourceAllocator:
             return None
             
     def release_resources(self, allocation_id: str) -> bool:
-        """
+        """"
         Release allocated resources.
         
         Args:
@@ -161,7 +161,7 @@ class ResourceAllocator:
             
         Returns:
             bool: True if the resources were released, False otherwise.
-        """
+        """"
         with self.lock:
             if allocation_id not in self.allocations:
                 logger.warning(f"Attempted to release unknown allocation: {allocation_id}")
@@ -186,13 +186,13 @@ class ResourceAllocator:
             return True
             
     def _preempt_for_high_priority(self, high_priority_req: ResourceRequirement):
-        """
+        """"
         Attempt to free resources for a high-priority request by
         preempting lower-priority allocations.
         
         Args:
             high_priority_req (ResourceRequirement): The high-priority request.
-        """
+        """"
         # Find low-priority allocations that could be preempted
         low_priority_allocations = sorted(
             [a for a in self.allocations.values() if a.requirement.priority < high_priority_req.priority - 2],
@@ -294,7 +294,7 @@ class ResourceAllocator:
             del self.pending_requests[i]
             
     def get_allocation(self, allocation_id: str) -> Optional[ResourceAllocation]:
-        """
+        """"
         Get information about a specific allocation.
         
         Args:
@@ -302,12 +302,12 @@ class ResourceAllocator:
             
         Returns:
             Optional[ResourceAllocation]: The allocation if found, None otherwise.
-        """
+        """"
         with self.lock:
             return self.allocations.get(allocation_id)
             
     def get_active_allocations(self, component: Optional[str] = None) -> List[ResourceAllocation]:
-        """
+        """"
         Get active resource allocations.
         
         Args:
@@ -315,7 +315,7 @@ class ResourceAllocator:
             
         Returns:
             List[ResourceAllocation]: Active allocations matching the filter.
-        """
+        """"
         with self.lock:
             allocations = list(self.allocations.values())
             if component:
@@ -323,7 +323,7 @@ class ResourceAllocator:
             return allocations
             
     def get_pending_requests(self, component: Optional[str] = None) -> List[ResourceRequirement]:
-        """
+        """"
         Get pending resource requests.
         
         Args:
@@ -331,14 +331,14 @@ class ResourceAllocator:
             
         Returns:
             List[ResourceRequirement]: Pending requests matching the filter.
-        """
+        """"
         with self.lock:
             if component:
                 return [r for r in self.pending_requests if r.component == component]
             return list(self.pending_requests)
             
     def get_allocation_history(self, limit: int = 100) -> List[Dict]:
-        """
+        """"
         Get resource allocation history.
         
         Args:
@@ -346,17 +346,17 @@ class ResourceAllocator:
             
         Returns:
             List[Dict]: Allocation history records.
-        """
+        """"
         with self.lock:
             return list(reversed(self.allocation_history[-limit:]))
             
     def get_overall_usage(self) -> Dict:
-        """
+        """"
         Get overall resource usage statistics.
         
         Returns:
             Dict: Resource usage statistics.
-        """
+        """"
         with self.lock:
             usage = self.resource_pool.get_usage()
             usage["allocations_count"] = len(self.allocations)
@@ -390,19 +390,19 @@ class ResourceAllocator:
 _resource_allocator = None
 
 def get_resource_allocator() -> ResourceAllocator:
-    """
+    """"
     Get the global resource allocator instance.
     
     Returns:
         ResourceAllocator: The global resource allocator.
-    """
+    """"
     global _resource_allocator
     if _resource_allocator is None:
         _resource_allocator = ResourceAllocator()
     return _resource_allocator
 
 def allocate_resources(requirements: Dict) -> Optional[str]:
-    """
+    """"
     Allocate resources based on requirements.
     
     Args:
@@ -412,7 +412,7 @@ def allocate_resources(requirements: Dict) -> Optional[str]:
                             
     Returns:
         Optional[str]: Allocation ID if successful, None otherwise.
-    """
+    """"
     allocator = get_resource_allocator()
     
     # Extract component name from caller if not provided
@@ -438,7 +438,7 @@ def allocate_resources(requirements: Dict) -> Optional[str]:
     return allocator.request_resources(requirement)
 
 def release_resources(allocation_id: str) -> bool:
-    """
+    """"
     Release previously allocated resources.
     
     Args:
@@ -446,16 +446,16 @@ def release_resources(allocation_id: str) -> bool:
         
     Returns:
         bool: True if the resources were released, False otherwise.
-    """
+    """"
     return get_resource_allocator().release_resources(allocation_id)
 
 def get_resource_usage() -> Dict:
-    """
+    """"
     Get current resource usage statistics.
     
     Returns:
         Dict: Resource usage statistics.
-    """
+    """"
     return get_resource_allocator().get_overall_usage()
 
 def initialize_resource_allocator():
@@ -502,7 +502,7 @@ initialize_resource_allocator()
 
 
 class ResourceAllocation:
-    """
+    """"
     Representation of an active resource allocation.
     
     Attributes:
@@ -515,15 +515,15 @@ class ResourceAllocation:
         allocated_gpu (Optional[int]): Allocated GPU memory in bytes.
         start_time (float): When the allocation was made.
         expiry_time (Optional[float]): When the allocation expires (if temporary).
-    """
+    """"
     
     def __init__(self, requirement: ResourceRequirement):
-        """
+        """"
         Initialize a new ResourceAllocation.
         
         Args:
             requirement (ResourceRequirement): The original requirement.
-        """
+        """"
         self.id = requirement.id
         self.requirement = requirement
         self.allocated_cpu = None
@@ -535,13 +535,13 @@ class ResourceAllocation:
         self.expiry_time = None
         self.status = "pending"
         
-    def set_allocation(self, 
+def set_allocation(self,:
                        cpu: Optional[float] = None,
                        memory: Optional[int] = None,
                        disk: Optional[int] = None,
                        network: Optional[int] = None,
                        gpu: Optional[int] = None):
-        """
+        """"
         Set the allocated resources.
         
         Args:
@@ -550,7 +550,7 @@ class ResourceAllocation:
             disk (Optional[int]): Allocated disk space in bytes.
             network (Optional[int]): Allocated network bandwidth in bytes/s.
             gpu (Optional[int]): Allocated GPU memory in bytes.
-        """
+        """"
         self.allocated_cpu = cpu
         self.allocated_memory = memory
         self.allocated_disk = disk
@@ -559,12 +559,12 @@ class ResourceAllocation:
         self.status = "active"
         
     def set_expiry(self, duration: float):
-        """
+        """"
         Set the allocation to expire after a duration.
         
         Args:
             duration (float): Duration in seconds.
-        """
+        """"
         self.expiry_time = time.time() + duration
         
     def is_expired(self) -> bool:
@@ -613,7 +613,7 @@ class ResourceAllocation:
 
 
 class ResourcePool:
-    """
+    """"
     Container for available system resources.
     
     This class tracks all available resources and their current allocation status.
@@ -627,7 +627,7 @@ class ResourcePool:
         reserved_cpu (float): Reserved CPU cores for system use.
         reserved_memory (int): Reserved memory for system use.
         reserved_disk (int): Reserved disk space for system use.
-    """
+    """"
     
     def __init__(self):
         """Initialize a new ResourcePool based on system capabilities."""
@@ -663,12 +663,12 @@ class ResourcePool:
                     f"{self.total_gpu / 1024 / 1024 / 1024:.1f if self.total_gpu > 0 else 0} GB GPU")
     
     def get_available(self) -> Dict:
-        """
+        """"
         Get available (unallocated) resources.
         
         Returns:
             Dict: Available resources.
-        """
+        """"
         return {
             "cpu": max(0, self.total_cpu - self.reserved_cpu - self.allocated_cpu),
             "memory": max(0, self.total_memory - self.reserved_memory - self.allocated_memory),
@@ -678,7 +678,7 @@ class ResourcePool:
         }
         
     def can_allocate(self, requirement: ResourceRequirement) -> bool:
-        """
+        """"
         Check if the required resources can be allocated.
         
         Args:
@@ -686,7 +686,7 @@ class ResourcePool:
             
         Returns:
             bool: True if the resources can be allocated, False otherwise.
-        """
+        """"
         available = self.get_available()
         
         # Check each resource type
@@ -708,7 +708,7 @@ class ResourcePool:
         return True
         
     def allocate(self, requirement: ResourceRequirement) -> Optional[ResourceAllocation]:
-        """
+        """"
         Allocate resources based on a requirement.
         
         Args:
@@ -716,7 +716,7 @@ class ResourcePool:
             
         Returns:
             Optional[ResourceAllocation]: The allocation if successful, None otherwise.
-        """
+        """"
         if not self.can_allocate(requirement):
             return None
             
@@ -750,12 +750,12 @@ class ResourcePool:
         return allocation
         
     def release(self, allocation: ResourceAllocation):
-        """
+        """"
         Release allocated resources.
         
         Args:
             allocation (ResourceAllocation): The allocation to release.
-        """
+        """"
         if allocation.allocated_cpu is not None:
             self.allocated_cpu -= allocation.allocated_cpu
             
@@ -775,12 +775,12 @@ class ResourcePool:
         logger.info(f"Released resources: {allocation}")
     
     def get_usage(self) -> Dict:
-        """
+        """"
         Get current resource usage.
         
         Returns:
             Dict: Resource usage statistics.
-        """
+        """"
         return {
             "cpu": {
                 "total": self.total_cpu,

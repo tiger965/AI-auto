@@ -1,0 +1,8 @@
+2025-04-20 16:10:05,443 - AI_Trading_Test - ERROR - 检查模块 ui.dashboard 时出错: expected 'except' or 'finally' block (__init__.py, line 15)
+2025-04-20 16:10:05,443 - AI_Trading_Test - WARNING - 跳过不存在的模块: ui.dashboard
+2025-04-20 16:10:05,443 - AI_Trading_Test - ERROR - 检查模块 ui.charts 时出错: expected 'except' or 'finally' block (__init__.py, line 15)
+2025-04-20 16:10:05,443 - AI_Trading_Test - WARNING - 跳过不存在的模块: ui.charts
+2025-04-20 16:10:05,443 - AI_Trading_Test - ERROR - 检查模块 ui.controls 时出错: expected 'except' or 'finally' block (__init__.py, line 15)
+2025-04-20 16:10:05,459 - AI_Trading_Test - WARNING - 跳过不存在的模块: ui.controls
+2025-04-20 16:10:05,460 - AI_Trading_Test - ERROR - 检查模块 ui.reports 时出错: expected 'except' or 'finally' block (__init__.py, line 15)
+2025-04-20 16:10:05,460 - AI_Trading_Test - WARNING - 跳过不存在的模块: ui.reports

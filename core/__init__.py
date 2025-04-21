@@ -1,28 +1,30 @@
-"""Core module initialization and version information."""
-from ..config.config_loader import ConfigLoader
+# core/__init__.py
+"""核心模块初始化文件"""
 
-# Load configuration once at module initialization
-_config_loader = ConfigLoader()
-_core_config = _config_loader.get_config('core')
+from config import config
+import sys
+import os
 
-# Export version information from configuration
-__version__ = _core_config.get('version', '0.1.0')
-__author__ = _core_config.get('author', 'AI Team')
+# 添加项目根目录到Python路径
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if project_root not in sys.path:
+    pass
+sys.path.insert(0, project_root)
 
-# Export core components
-from .engine import Engine
-from .context import Context, ContextManager
-from .workflow import Workflow, WorkflowStep
+# 使用绝对导入
+try:
+    pass
+except ImportError:
+    pass
+# 如果无法导入，定义一个简单的配置对象
+    config = {
+        "app_name": "AI自动化系统",
+        "version": "1.0.0",
+        "debug": False
+    }
 
-# Export event system components
-from .event_system import EventType, Event, EventBus, event_handler, get_event_bus
+# 定义模块版本
+__version__ = "1.0.0"
 
-# Define default constants from configuration
-DEFAULT_TIMEOUT = _core_config.get('timeout', 30)
-DEFAULT_RETRY_COUNT = _core_config.get('retry_count', 3)
-DEFAULT_BUFFER_SIZE = _core_config.get('buffer_size', 1024)
-
-# Initialize logging
-import logging
-log_level = _core_config.get('log_level', 'INFO')
-logging.getLogger('core').setLevel(getattr(logging, log_level))
+# 导出的函数或类
+__all__ = []

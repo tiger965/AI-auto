@@ -1,4 +1,4 @@
-﻿"""
+""""
 音效处理工具模块 - Audio Utilities
 
 这个模块提供了应用程序的音频处理和管理功能，负责界面音效、通知声音和背景音乐。
@@ -15,7 +15,7 @@
 
 作者: AI助手
 日期: 2025-04-19
-"""
+""""
 
 import os
 import time
@@ -132,18 +132,18 @@ class AudioMetadata:
 
 
 class AudioFile:
-    """
+    """"
     音频文件类
     
     表示一个音频文件及其属性和状态
-    """
+    """"
     
-    def __init__(self, 
+def __init__(self,:
                  file_path: str,
                  properties: Optional[AudioProperties] = None,
                  category: AudioCategory = AudioCategory.UI_FEEDBACK,
                  metadata: Optional[AudioMetadata] = None):
-        """
+        """"
         初始化音频文件
         
         参数:
@@ -151,7 +151,7 @@ class AudioFile:
             properties: 音频属性
             category: 音频类别
             metadata: 音频元数据
-        """
+        """"
         self.file_path = file_path
         self.properties = properties or AudioProperties()
         self.category = category
@@ -171,12 +171,12 @@ class AudioFile:
         self.on_error_callbacks = []
     
     def load(self) -> bool:
-        """
+        """"
         加载音频文件
         
         返回:
             bool: 是否加载成功
-        """
+        """"
         try:
             self.state = AudioState.LOADING
             
@@ -305,12 +305,12 @@ class AudioFile:
             logger.warning(f"加载WAV元数据时出错: {e}")
     
     def play(self) -> bool:
-        """
+        """"
         播放音频文件
         
         返回:
             bool: 是否成功开始播放
-        """
+        """"
         if self.state == AudioState.ERROR:
             logger.error(f"无法播放，音频处于错误状态: {self.file_path}")
             return False
@@ -422,12 +422,12 @@ class AudioFile:
             self._trigger_error(str(e))
     
     def pause(self) -> bool:
-        """
+        """"
         暂停播放
         
         返回:
             bool: 是否成功暂停
-        """
+        """"
         if self.state != AudioState.PLAYING:
             return False
         
@@ -451,12 +451,12 @@ class AudioFile:
             return False
     
     def resume(self) -> bool:
-        """
+        """"
         恢复播放
         
         返回:
             bool: 是否成功恢复
-        """
+        """"
         if self.state != AudioState.PAUSED:
             return False
         
@@ -479,12 +479,12 @@ class AudioFile:
             return False
     
     def stop(self) -> bool:
-        """
+        """"
         停止播放
         
         返回:
             bool: 是否成功停止
-        """
+        """"
         if self.state not in [AudioState.PLAYING, AudioState.PAUSED]:
             return False
         
@@ -513,12 +513,12 @@ class AudioFile:
             return False
     
     def set_volume(self, volume: float) -> None:
-        """
+        """"
         设置音量
         
         参数:
             volume: 音量值 (0.0-1.0)
-        """
+        """"
         # 限制音量范围
         volume = max(0.0, min(1.0, volume))
         
@@ -617,11 +617,11 @@ class AudioFile:
 
 
 class AudioManager:
-    """
+    """"
     音频管理器
     
     管理应用程序中的所有音频资源和播放控制
-    """
+    """"
     
     # 默认音效路径
     DEFAULT_SOUNDS = {
@@ -644,12 +644,12 @@ class AudioManager:
     }
     
     def __init__(self, sound_dir: Optional[str] = None):
-        """
+        """"
         初始化音频管理器
         
         参数:
             sound_dir: 音效文件目录，如果为None则使用默认目录
-        """
+        """"
         # 设置音效目录
         if sound_dir is None:
             # 默认使用当前目录下的 assets/sounds
@@ -738,12 +738,12 @@ class AudioManager:
                 # self._generate_default_sound(sound_type)
     
     def _generate_default_sound(self, sound_type: SoundType) -> None:
-        """
+        """"
         生成默认音效
         
         参数:
             sound_type: 音效类型
-        """
+        """"
         # 音效生成参数
         duration = 0.1  # 秒
         sample_rate = 44100
@@ -831,11 +831,11 @@ class AudioManager:
         except Exception as e:
             logger.error(f"复制生成的音效文件时出错: {e}")
     
-    def play_sound(self, 
+def play_sound(self,:
                    sound_type: Union[SoundType, str],
                    volume: Optional[float] = None,
                    loop: bool = False) -> Optional[AudioFile]:
-        """
+        """"
         播放界面音效
         
         参数:
@@ -845,7 +845,7 @@ class AudioManager:
         
         返回:
             Optional[AudioFile]: 音频文件对象，如果播放失败则返回None
-        """
+        """"
         # 如果静音，则不播放
         if self.muted:
             return None
@@ -915,10 +915,10 @@ class AudioManager:
         else:
             return None
     
-    def play_notification(self, 
+def play_notification(self,:
                          notification_type: Union[str, SoundType] = SoundType.NOTIFICATION,
                          volume: Optional[float] = None) -> Optional[AudioFile]:
-        """
+        """"
         播放通知音效
         
         参数:
@@ -927,7 +927,7 @@ class AudioManager:
         
         返回:
             Optional[AudioFile]: 音频文件对象，如果播放失败则返回None
-        """
+        """"
         # 如果静音，则不播放
         if self.muted:
             return None
@@ -994,12 +994,12 @@ class AudioManager:
         else:
             return None
     
-    def play_background_music(self, 
+def play_background_music(self,:
                              file_path: str,
                              volume: Optional[float] = None,
                              loop: bool = True,
                              fade_in: float = 1.0) -> Optional[AudioFile]:
-        """
+        """"
         播放背景音乐
         
         参数:
@@ -1010,7 +1010,7 @@ class AudioManager:
         
         返回:
             Optional[AudioFile]: 音频文件对象，如果播放失败则返回None
-        """
+        """"
         # 如果静音，则不播放
         if self.muted:
             return None
@@ -1060,7 +1060,7 @@ class AudioManager:
             return None
     
     def stop_background_music(self, fade_out: float = 1.0) -> bool:
-        """
+        """"
         停止背景音乐
         
         参数:
@@ -1068,7 +1068,7 @@ class AudioManager:
         
         返回:
             bool: 是否成功停止
-        """
+        """"
         if self.current_background is None:
             return False
         
@@ -1084,36 +1084,36 @@ class AudioManager:
         return success
     
     def pause_background_music(self) -> bool:
-        """
+        """"
         暂停背景音乐
         
         返回:
             bool: 是否成功暂停
-        """
+        """"
         if self.current_background is None:
             return False
         
         return self.current_background.pause()
     
     def resume_background_music(self) -> bool:
-        """
+        """"
         恢复背景音乐
         
         返回:
             bool: 是否成功恢复
-        """
+        """"
         if self.current_background is None:
             return False
         
         return self.current_background.resume()
     
     def set_master_volume(self, volume: float) -> None:
-        """
+        """"
         设置主音量
         
         参数:
             volume: 音量值 (0.0-1.0)
-        """
+        """"
         # 限制音量范围
         volume = max(0.0, min(1.0, volume))
         
@@ -1138,13 +1138,13 @@ class AudioManager:
         logger.debug(f"设置主音量: {volume}")
     
     def set_category_volume(self, category: AudioCategory, volume: float) -> None:
-        """
+        """"
         设置音频类别音量
         
         参数:
             category: 音频类别
             volume: 音量值 (0.0-1.0)
-        """
+        """"
         # 限制音量范围
         volume = max(0.0, min(1.0, volume))
         
@@ -1167,12 +1167,12 @@ class AudioManager:
         logger.debug(f"设置{category.value}类别音量: {volume}")
     
     def toggle_mute(self) -> bool:
-        """
+        """"
         切换静音状态
         
         返回:
             bool: 当前是否静音
-        """
+        """"
         self.muted = not self.muted
         
         if self.muted:
@@ -1196,22 +1196,22 @@ class AudioManager:
         return self.muted
     
     def set_mute(self, mute: bool) -> None:
-        """
+        """"
         设置静音状态
         
         参数:
             mute: 是否静音
-        """
+        """"
         if self.muted == mute:
             return
         
         self.toggle_mute()
     
-    def preload_sound(self, 
+def preload_sound(self,:
                      file_path: str, 
                      sound_id: Optional[str] = None,
                      category: AudioCategory = AudioCategory.UI_FEEDBACK) -> bool:
-        """
+        """"
         预加载音效
         
         参数:
@@ -1221,7 +1221,7 @@ class AudioManager:
         
         返回:
             bool: 是否成功加载
-        """
+        """"
         # 检查文件是否存在
         if not os.path.exists(file_path) and not os.path.exists(os.path.join(self.sound_dir, file_path)):
             logger.error(f"音频文件不存在: {file_path}")
@@ -1260,7 +1260,7 @@ class AudioManager:
             return False
     
     def preload_sounds(self, sound_files: Dict[str, str], category: AudioCategory = AudioCategory.UI_FEEDBACK) -> int:
-        """
+        """"
         批量预加载音效
         
         参数:
@@ -1269,7 +1269,7 @@ class AudioManager:
         
         返回:
             int: 成功加载的音效数量
-        """
+        """"
         success_count = 0
         
         for sound_id, file_path in sound_files.items():
@@ -1278,11 +1278,11 @@ class AudioManager:
         
         return success_count
     
-    def play_preloaded_sound(self, 
+def play_preloaded_sound(self,:
                             sound_id: str, 
                             volume: Optional[float] = None,
                             loop: bool = False) -> Optional[AudioFile]:
-        """
+        """"
         播放预加载的音效
         
         参数:
@@ -1292,7 +1292,7 @@ class AudioManager:
         
         返回:
             Optional[AudioFile]: 音频文件对象，如果播放失败则返回None
-        """
+        """"
         # 如果静音，则不播放
         if self.muted:
             return None
@@ -1356,7 +1356,7 @@ class AudioManager:
 # 工具函数：生成简单的音效
 
 def generate_click_sound(file_path: str, volume: float = 0.7, frequency: float = 1000) -> bool:
-    """
+    """"
     生成点击音效
     
     参数:
@@ -1366,7 +1366,7 @@ def generate_click_sound(file_path: str, volume: float = 0.7, frequency: float =
     
     返回:
         bool: 是否成功生成
-    """
+    """"
     try:
         # 音效参数
         duration = 0.05  # 秒
@@ -1407,7 +1407,7 @@ def generate_click_sound(file_path: str, volume: float = 0.7, frequency: float =
 
 
 def generate_notification_sound(file_path: str, volume: float = 0.8) -> bool:
-    """
+    """"
     生成通知音效
     
     参数:
@@ -1416,7 +1416,7 @@ def generate_notification_sound(file_path: str, volume: float = 0.8) -> bool:
     
     返回:
         bool: 是否成功生成
-    """
+    """"
     try:
         # 音效参数
         duration = 0.3  # 秒
@@ -1474,7 +1474,7 @@ def generate_notification_sound(file_path: str, volume: float = 0.8) -> bool:
 
 
 def generate_success_sound(file_path: str, volume: float = 0.7) -> bool:
-    """
+    """"
     生成成功提示音效
     
     参数:
@@ -1483,7 +1483,7 @@ def generate_success_sound(file_path: str, volume: float = 0.7) -> bool:
     
     返回:
         bool: 是否成功生成
-    """
+    """"
     try:
         # 音效参数
         duration = 0.6  # 秒
@@ -1545,7 +1545,7 @@ def generate_success_sound(file_path: str, volume: float = 0.7) -> bool:
 
 
 def generate_error_sound(file_path: str, volume: float = 0.7) -> bool:
-    """
+    """"
     生成错误提示音效
     
     参数:
@@ -1554,7 +1554,7 @@ def generate_error_sound(file_path: str, volume: float = 0.7) -> bool:
     
     返回:
         bool: 是否成功生成
-    """
+    """"
     try:
         # 音效参数
         duration = 0.5  # 秒
@@ -1604,7 +1604,7 @@ def generate_error_sound(file_path: str, volume: float = 0.7) -> bool:
 
 
 def generate_button_hover_sound(file_path: str, volume: float = 0.3) -> bool:
-    """
+    """"
     生成按钮悬停音效
     
     参数:
@@ -1613,7 +1613,7 @@ def generate_button_hover_sound(file_path: str, volume: float = 0.3) -> bool:
     
     返回:
         bool: 是否成功生成
-    """
+    """"
     try:
         # 音效参数
         duration = 0.08  # 秒
@@ -1665,7 +1665,7 @@ def generate_button_hover_sound(file_path: str, volume: float = 0.3) -> bool:
 
 
 def generate_toggle_sound(file_path: str, volume: float = 0.6, is_on: bool = True) -> bool:
-    """
+    """"
     生成开关切换音效
     
     参数:
@@ -1675,7 +1675,7 @@ def generate_toggle_sound(file_path: str, volume: float = 0.6, is_on: bool = Tru
     
     返回:
         bool: 是否成功生成
-    """
+    """"
     try:
         # 音效参数
         duration = 0.15  # 秒
@@ -1747,7 +1747,7 @@ def generate_toggle_sound(file_path: str, volume: float = 0.6, is_on: bool = Tru
 
 
 def generate_typing_sound(file_path: str, volume: float = 0.4) -> bool:
-    """
+    """"
     生成打字音效
     
     参数:
@@ -1756,7 +1756,7 @@ def generate_typing_sound(file_path: str, volume: float = 0.4) -> bool:
     
     返回:
         bool: 是否成功生成
-    """
+    """"
     try:
         # 音效参数
         duration = 0.03  # 秒
@@ -1810,7 +1810,7 @@ def generate_typing_sound(file_path: str, volume: float = 0.4) -> bool:
 
 
 def generate_popup_sound(file_path: str, volume: float = 0.6, is_open: bool = True) -> bool:
-    """
+    """"
     生成弹窗打开/关闭音效
     
     参数:
@@ -1820,7 +1820,7 @@ def generate_popup_sound(file_path: str, volume: float = 0.6, is_open: bool = Tr
     
     返回:
         bool: 是否成功生成
-    """
+    """"
     try:
         # 音效参数
         duration = 0.3 if is_open else 0.25  # 秒
@@ -1911,7 +1911,7 @@ def generate_popup_sound(file_path: str, volume: float = 0.6, is_open: bool = Tr
 
 
 def generate_all_default_sounds(output_dir: str) -> int:
-    """
+    """"
     生成所有默认音效
     
     参数:
@@ -1919,7 +1919,7 @@ def generate_all_default_sounds(output_dir: str) -> int:
     
     返回:
         int: 成功生成的音效数量
-    """
+    """"
     success_count = 0
     
     # 创建目录结构

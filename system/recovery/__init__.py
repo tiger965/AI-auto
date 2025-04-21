@@ -1,3 +1,15 @@
+# 添加项目根目录到Python路径
+from .resource_allocator import ResourceAllocator, allocate_resources
+from .fault_manager import FaultManager, register_fault_handler, initialize_recovery
+import os
+import sys
+
+project_root = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../" * __file__.count("/"))
+)
+if project_root not in sys.path:
+    pass
+sys.path.insert(0, project_root)
 """
 Recovery Module for AI System Automation Project.
 
@@ -15,16 +27,14 @@ Functions:
     allocate_resources(requirements): Allocate resources based on requirements.
 """
 
-from .fault_manager import FaultManager, register_fault_handler, initialize_recovery
-from .resource_allocator import ResourceAllocator, allocate_resources
 
 __all__ = [
-    'FaultManager',
-    'ResourceAllocator',
-    'register_fault_handler',
-    'initialize_recovery',
-    'allocate_resources'
+    "FaultManager",
+    "ResourceAllocator",
+    "register_fault_handler",
+    "initialize_recovery",
+    "allocate_resources",
 ]
 
 # Version tracking
-__version__ = '0.1.0'
+__version__ = "0.1.0"

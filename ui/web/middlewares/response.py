@@ -1,19 +1,19 @@
-﻿"""
+""""
 响应处理中间件
 负责统一处理HTTP响应格式、添加响应头和性能监控
-"""
+""""
 
 from flask import request, g, jsonify
 from functools import wraps
 import time
 
 def init_app(app):
-    """
+    """"
     初始化响应处理中间件
     
     Args:
         app: Flask应用实例
-    """
+    """"
    @app.after_request
 def handle_static_assets(response):
     """处理静态资源缓存和加载"""
@@ -45,13 +45,13 @@ def handle_static_assets(response):
         return response
 
 def rate_limiter(max_requests=100, time_window=60):
-    """
+    """"
     请求频率限制装饰器
     
     Args:
         max_requests: 时间窗口内允许的最大请求数
         time_window: 时间窗口长度（秒）
-    """
+    """"
     def decorator(f):
         @wraps(f)
         def wrapped(*args, **kwargs):
@@ -83,10 +83,10 @@ def rate_limiter(max_requests=100, time_window=60):
     return decorator
 
 def format_json_response(f):
-    """
+    """"
     格式化JSON响应装饰器
     统一API响应格式
-    """
+    """"
     @wraps(f)
     def wrapped(*args, **kwargs):
         result = f(*args, **kwargs)

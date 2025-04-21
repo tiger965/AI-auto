@@ -1,0 +1,8 @@
+2025-04-20 15:49:14,050 - AI_Trading_Test - WARNING - 模块 organized_project.data.collector 不存在: No module named 'organized_project'
+2025-04-20 15:49:14,050 - AI_Trading_Test - WARNING - 跳过不存在的模块: organized_project.data.collector
+2025-04-20 15:49:14,051 - AI_Trading_Test - WARNING - 模块 organized_project.data.processor 不存在: No module named 'organized_project'
+2025-04-20 15:49:14,052 - AI_Trading_Test - WARNING - 跳过不存在的模块: organized_project.data.processor
+2025-04-20 15:49:14,052 - AI_Trading_Test - WARNING - 模块 organized_project.data.storage 不存在: No module named 'organized_project'
+2025-04-20 15:49:14,055 - AI_Trading_Test - WARNING - 跳过不存在的模块: organized_project.data.storage
+2025-04-20 15:49:14,055 - AI_Trading_Test - WARNING - 模块 organized_project.data.validator 不存在: No module named 'organized_project'
+2025-04-20 15:49:14,056 - AI_Trading_Test - WARNING - 跳过不存在的模块: organized_project.data.validator

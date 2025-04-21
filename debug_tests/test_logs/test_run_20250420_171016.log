@@ -1,0 +1,53 @@
+2025-04-20 17:10:18,696 - AI_Trading_Test - INFO - 开始测试模块: trading.connectors
+2025-04-20 17:10:18,696 - AI_Trading_Test - INFO - 开始测试: TradingConnectorsTestCase
+2025-04-20 17:10:18,696 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 17:10:18,696 - AI_Trading_Test - INFO - 模块 trading.connectors 初始化成功
+2025-04-20 17:10:18,696 - AI_Trading_Test - INFO - 成功实例化类: ExchangeConnector
+2025-04-20 17:10:18,696 - AI_Trading_Test - INFO - 尝试调用方法: connect
+2025-04-20 17:10:18,696 - AI_Trading_Test - INFO - 方法调用成功: connect
+2025-04-20 17:10:18,696 - AI_Trading_Test - INFO - 尝试调用方法: disconnect
+2025-04-20 17:10:18,696 - AI_Trading_Test - INFO - 方法调用成功: disconnect
+2025-04-20 17:10:18,696 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 17:10:18,708 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 17:10:18,708 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.01秒
+2025-04-20 17:10:18,708 - AI_Trading_Test - INFO - 完成测试: TradingConnectorsTestCase, 耗时: 0.01秒
+2025-04-20 17:10:18,710 - AI_Trading_Test - INFO - 开始测试模块: trading.api
+2025-04-20 17:10:18,710 - AI_Trading_Test - INFO - 开始测试: TradingApiTestCase
+2025-04-20 17:10:18,710 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 17:10:18,710 - AI_Trading_Test - INFO - 模块 trading.api 初始化成功
+2025-04-20 17:10:18,710 - AI_Trading_Test - INFO - 成功实例化类: TradingAPI
+2025-04-20 17:10:18,711 - AI_Trading_Test - INFO - 尝试调用方法: authenticate
+2025-04-20 17:10:18,711 - AI_Trading_Test - INFO - 方法调用成功: authenticate
+2025-04-20 17:10:18,711 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 17:10:18,711 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 17:10:18,712 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.00秒
+2025-04-20 17:10:18,712 - AI_Trading_Test - INFO - 完成测试: TradingApiTestCase, 耗时: 0.00秒
+2025-04-20 17:10:18,713 - AI_Trading_Test - INFO - 开始测试模块: trading.strategy
+2025-04-20 17:10:18,713 - AI_Trading_Test - INFO - 开始测试: TradingStrategyTestCase
+2025-04-20 17:10:18,713 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 17:10:18,714 - AI_Trading_Test - INFO - 模块 trading.strategy 初始化成功
+2025-04-20 17:10:18,714 - AI_Trading_Test - INFO - 成功实例化类: TradingStrategy
+2025-04-20 17:10:18,714 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 17:10:18,714 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 17:10:18,715 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.00秒
+2025-04-20 17:10:18,715 - AI_Trading_Test - INFO - 完成测试: TradingStrategyTestCase, 耗时: 0.00秒
+2025-04-20 17:10:18,715 - AI_Trading_Test - INFO - 开始测试模块: trading.execution
+2025-04-20 17:10:18,715 - AI_Trading_Test - INFO - 开始测试: TradingExecutionTestCase
+2025-04-20 17:10:18,715 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 17:10:18,715 - AI_Trading_Test - INFO - 模块 trading.execution 初始化成功
+2025-04-20 17:10:18,715 - AI_Trading_Test - INFO - 成功实例化类: OrderExecutor
+2025-04-20 17:10:18,715 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 17:10:18,715 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 17:10:18,715 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.00秒
+2025-04-20 17:10:18,715 - AI_Trading_Test - INFO - 完成测试: TradingExecutionTestCase, 耗时: 0.00秒
+2025-04-20 17:10:18,720 - AI_Trading_Test - INFO - 开始测试模块: trading.backtest
+2025-04-20 17:10:18,720 - AI_Trading_Test - INFO - 开始测试: TradingBacktestTestCase
+2025-04-20 17:10:18,720 - AI_Trading_Test - INFO - 运行测试: test_module_init
+2025-04-20 17:10:18,720 - AI_Trading_Test - INFO - 模块 trading.backtest 初始化成功
+2025-04-20 17:10:18,721 - AI_Trading_Test - INFO - 成功实例化类: Backtester
+2025-04-20 17:10:18,721 - AI_Trading_Test - INFO - 尝试调用方法: get_performance_metrics
+2025-04-20 17:10:18,721 - AI_Trading_Test - INFO - 方法调用成功: get_performance_metrics
+2025-04-20 17:10:18,721 - AI_Trading_Test - INFO - 尝试调用方法: method1
+2025-04-20 17:10:18,721 - AI_Trading_Test - INFO - 方法调用成功: method1
+2025-04-20 17:10:18,721 - AI_Trading_Test - INFO - 测试完成: test_module_init, 耗时: 0.00秒
+2025-04-20 17:10:18,722 - AI_Trading_Test - INFO - 完成测试: TradingBacktestTestCase, 耗时: 0.00秒

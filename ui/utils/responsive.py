@@ -1,4 +1,4 @@
-"""
+""""
 响应式设计辅助模块 - Responsive Design Utilities
 
 这个模块提供了应用程序的响应式设计支持，确保界面在不同屏幕尺寸和设备上正常显示。
@@ -15,7 +15,7 @@
 
 作者: AI助手
 日期: 2025-04-19
-"""
+""""
 
 import os
 import json
@@ -75,11 +75,11 @@ class Breakpoint:
 
 
 class ResponsiveManager:
-    """
+    """"
     响应式管理器类
     
     负责处理屏幕尺寸检测、设备识别和响应式布局控制
-    """
+    """"
     
     # 默认断点配置
     DEFAULT_BREAKPOINTS = [
@@ -128,12 +128,12 @@ class ResponsiveManager:
     }
     
     def __init__(self, custom_breakpoints: Optional[List[Breakpoint]] = None):
-        """
+        """"
         初始化响应式管理器
         
         参数:
             custom_breakpoints: 自定义断点列表，如果为None则使用默认断点
-        """
+        """"
         self.breakpoints = custom_breakpoints or self.DEFAULT_BREAKPOINTS
         
         # 当前视口信息
@@ -159,18 +159,18 @@ class ResponsiveManager:
         # 调试模式
         self.debug_mode = False
     
-    def update_viewport(self,
+def update_viewport(self,:
                         width: Optional[int] = None,
                         height: Optional[int] = None,
                         device_pixel_ratio: Optional[float] = None) -> None:
-        """
+        """"
         更新视口信息
         
         参数:
             width: 视口宽度
             height: 视口高度
             device_pixel_ratio: 设备像素比
-        """
+        """"
         old_breakpoint = self.get_current_breakpoint()
         old_orientation = self.current_viewport.orientation
         
@@ -210,12 +210,12 @@ class ResponsiveManager:
                         f"方向: {new_orientation.value}")
     
     def get_current_breakpoint(self) -> str:
-        """
+        """"
         获取当前断点名称
         
         返回:
             str: 断点名称
-        """
+        """"
         if self._current_breakpoint is not None:
             return self._current_breakpoint
         
@@ -231,12 +231,12 @@ class ResponsiveManager:
         return self._current_breakpoint
     
     def get_device_type(self) -> DeviceType:
-        """
+        """"
         获取当前设备类型
         
         返回:
             DeviceType: 设备类型枚举
-        """
+        """"
         if self._current_device_type is not None:
             return self._current_device_type
         
@@ -249,9 +249,9 @@ class ResponsiveManager:
             max_width = features.get("max_width", float('inf'))
             ratio_range = features.get("pixel_ratio_range", (0, float('inf')))
             
-            if (min_width <= width <= max_width and 
+if (min_width <= width <= max_width and:
                 ratio_range[0] <= pixel_ratio <= ratio_range[1]):
-                
+                    
                 # 特殊情况：区分平板和手机
                 if device_type in [DeviceType.MOBILE, DeviceType.TABLET]:
                     if width >= 600 and width <= 1024:
@@ -278,52 +278,52 @@ class ResponsiveManager:
         return self._current_device_type
     
     def is_mobile(self) -> bool:
-        """
+        """"
         检查当前是否是移动设备
         
         返回:
             bool: 是否是移动设备
-        """
+        """"
         return self.get_device_type() in [DeviceType.MOBILE, DeviceType.WATCH]
     
     def is_tablet(self) -> bool:
-        """
+        """"
         检查当前是否是平板设备
         
         返回:
             bool: 是否是平板设备
-        """
+        """"
         return self.get_device_type() == DeviceType.TABLET
     
     def is_desktop(self) -> bool:
-        """
+        """"
         检查当前是否是桌面设备
         
         返回:
             bool: 是否是桌面设备
-        """
+        """"
         return self.get_device_type() in [DeviceType.DESKTOP, DeviceType.LAPTOP]
     
     def is_portrait(self) -> bool:
-        """
+        """"
         检查当前是否是竖屏模式
         
         返回:
             bool: 是否是竖屏模式
-        """
+        """"
         return self.current_viewport.orientation == Orientation.PORTRAIT
     
     def is_landscape(self) -> bool:
-        """
+        """"
         检查当前是否是横屏模式
         
         返回:
             bool: 是否是横屏模式
-        """
+        """"
         return self.current_viewport.orientation == Orientation.LANDSCAPE
     
     def is_breakpoint_up(self, breakpoint: Union[str, BreakpointSize]) -> bool:
-        """
+        """"
         检查当前断点是否大于等于指定断点
         
         参数:
@@ -331,7 +331,7 @@ class ResponsiveManager:
         
         返回:
             bool: 是否大于等于指定断点
-        """
+        """"
         bp_name = breakpoint.value if isinstance(breakpoint, BreakpointSize) else breakpoint
         current_bp = self.get_current_breakpoint()
         
@@ -344,7 +344,7 @@ class ResponsiveManager:
         return bp_names.index(current_bp) >= bp_names.index(bp_name)
     
     def is_breakpoint_down(self, breakpoint: Union[str, BreakpointSize]) -> bool:
-        """
+        """"
         检查当前断点是否小于等于指定断点
         
         参数:
@@ -352,7 +352,7 @@ class ResponsiveManager:
         
         返回:
             bool: 是否小于等于指定断点
-        """
+        """"
         bp_name = breakpoint.value if isinstance(breakpoint, BreakpointSize) else breakpoint
         current_bp = self.get_current_breakpoint()
         
@@ -365,7 +365,7 @@ class ResponsiveManager:
         return bp_names.index(current_bp) <= bp_names.index(bp_name)
     
     def is_breakpoint_only(self, breakpoint: Union[str, BreakpointSize]) -> bool:
-        """
+        """"
         检查当前断点是否等于指定断点
         
         参数:
@@ -373,14 +373,14 @@ class ResponsiveManager:
         
         返回:
             bool: 是否等于指定断点
-        """
+        """"
         bp_name = breakpoint.value if isinstance(breakpoint, BreakpointSize) else breakpoint
         return self.get_current_breakpoint() == bp_name
     
-    def is_breakpoint_between(self, 
+def is_breakpoint_between(self,:
                              start_bp: Union[str, BreakpointSize], 
                              end_bp: Union[str, BreakpointSize]) -> bool:
-        """
+        """"
         检查当前断点是否在指定范围内
         
         参数:
@@ -389,7 +389,7 @@ class ResponsiveManager:
         
         返回:
             bool: 是否在指定范围内
-        """
+        """"
         start_name = start_bp.value if isinstance(start_bp, BreakpointSize) else start_bp
         end_name = end_bp.value if isinstance(end_bp, BreakpointSize) else end_bp
         current_bp = self.get_current_breakpoint()
@@ -397,7 +397,7 @@ class ResponsiveManager:
         # 获取所有断点名称，按从小到大排序
         bp_names = [bp.name for bp in self.breakpoints]
         
-        if (start_name not in bp_names or 
+if (start_name not in bp_names or:
             end_name not in bp_names or 
             current_bp not in bp_names):
             return False
@@ -409,7 +409,7 @@ class ResponsiveManager:
         return start_idx <= current_idx <= end_idx
     
     def get_responsive_value(self, values: Dict[str, Any], default: Any = None) -> Any:
-        """
+        """"
         根据当前断点获取响应式值
         
         参数:
@@ -418,7 +418,7 @@ class ResponsiveManager:
         
         返回:
             Any: 当前断点对应的值或默认值
-        """
+        """"
         current_bp = self.get_current_breakpoint()
         
         # 直接匹配当前断点
@@ -442,22 +442,22 @@ class ResponsiveManager:
         return default
     
     def on_breakpoint_change(self, callback: Callable[[str, str], None]) -> None:
-        """
+        """"
         添加断点变化回调
         
         参数:
             callback: 回调函数，接收两个参数：old_breakpoint, new_breakpoint
-        """
+        """"
         self.breakpoint_change_callbacks.append(callback)
     
     def _trigger_breakpoint_change(self, old_breakpoint: str, new_breakpoint: str) -> None:
-        """
+        """"
         触发断点变化回调
         
         参数:
             old_breakpoint: 旧断点名称
             new_breakpoint: 新断点名称
-        """
+        """"
         for callback in self.breakpoint_change_callbacks:
             try:
                 callback(old_breakpoint, new_breakpoint)
@@ -465,22 +465,22 @@ class ResponsiveManager:
                 logger.error(f"执行断点变化回调时出错: {e}")
     
     def on_orientation_change(self, callback: Callable[[Orientation, Orientation], None]) -> None:
-        """
+        """"
         添加方向变化回调
         
         参数:
             callback: 回调函数，接收两个参数：old_orientation, new_orientation
-        """
+        """"
         self.orientation_change_callbacks.append(callback)
     
     def _trigger_orientation_change(self, old_orientation: Orientation, new_orientation: Orientation) -> None:
-        """
+        """"
         触发方向变化回调
         
         参数:
             old_orientation: 旧屏幕方向
             new_orientation: 新屏幕方向
-        """
+        """"
         for callback in self.orientation_change_callbacks:
             try:
                 callback(old_orientation, new_orientation)
@@ -488,7 +488,7 @@ class ResponsiveManager:
                 logger.error(f"执行方向变化回调时出错: {e}")
     
     def get_breakpoint_info(self, breakpoint: Optional[Union[str, BreakpointSize]] = None) -> Breakpoint:
-        """
+        """"
         获取断点信息
         
         参数:
@@ -496,7 +496,7 @@ class ResponsiveManager:
         
         返回:
             Breakpoint: 断点数据类实例
-        """
+        """"
         if breakpoint is None:
             breakpoint = self.get_current_breakpoint()
         else:
@@ -510,7 +510,7 @@ class ResponsiveManager:
         return self.breakpoints[0]
     
     def get_scaling_factor(self, base_width: int = 1920) -> float:
-        """
+        """"
         计算缩放因子，用于调整UI元素大小
         
         参数:
@@ -518,14 +518,14 @@ class ResponsiveManager:
         
         返回:
             float: 缩放因子
-        """
+        """"
         return min(1.0, self.current_viewport.width / base_width)
     
-    def calculate_responsive_size(self, 
+def calculate_responsive_size(self,:
                                  base_size: int, 
                                  min_size: Optional[int] = None,
                                  max_size: Optional[int] = None) -> int:
-        """
+        """"
         计算响应式尺寸
         
         参数:
@@ -535,7 +535,7 @@ class ResponsiveManager:
         
         返回:
             int: 计算后的响应式尺寸
-        """
+        """"
         # 计算缩放因子
         scale = self.get_scaling_factor()
         
@@ -552,7 +552,7 @@ class ResponsiveManager:
         return size
     
     def get_responsive_font_size(self, base_size: int) -> int:
-        """
+        """"
         获取响应式字体大小
         
         参数:
@@ -560,12 +560,12 @@ class ResponsiveManager:
         
         返回:
             int: 计算后的响应式字体大小
-        """
+        """"
         min_size = max(12, int(base_size * 0.6))  # 最小不小于12px
         return self.calculate_responsive_size(base_size, min_size=min_size)
     
     def get_responsive_padding(self, base_size: int) -> int:
-        """
+        """"
         获取响应式内边距
         
         参数:
@@ -573,12 +573,12 @@ class ResponsiveManager:
         
         返回:
             int: 计算后的响应式内边距
-        """
+        """"
         min_size = max(4, int(base_size * 0.5))  # 最小不小于4px
         return self.calculate_responsive_size(base_size, min_size=min_size)
     
     def get_responsive_margin(self, base_size: int) -> int:
-        """
+        """"
         获取响应式外边距
         
         参数:
@@ -586,17 +586,17 @@ class ResponsiveManager:
         
         返回:
             int: 计算后的响应式外边距
-        """
+        """"
         min_size = max(0, int(base_size * 0.5))  # 最小不小于0px
         return self.calculate_responsive_size(base_size, min_size=min_size)
     
     def get_grid_columns(self) -> int:
-        """
+        """"
         获取当前断点下的网格列数
         
         返回:
             int: 网格列数
-        """
+        """"
         # 默认的响应式网格列数
         columns_by_breakpoint = {
             "xs": 4,   # 超小屏幕4列
@@ -610,12 +610,12 @@ class ResponsiveManager:
         return self.get_responsive_value(columns_by_breakpoint, default=12)
     
     def generate_responsive_css(self) -> str:
-        """
+        """"
         生成响应式CSS变量
         
         返回:
             str: 包含响应式断点的CSS变量
-        """
+        """"
         css_vars = [":root {"]
         
         # 添加断点变量
@@ -656,12 +656,12 @@ class ResponsiveManager:
         return "\n".join(css_vars)
     
     def generate_media_queries(self) -> Dict[str, str]:
-        """
+        """"
         生成媒体查询字符串字典
         
         返回:
             Dict[str, str]: 媒体查询字典，键为断点名称和修饰符，值为媒体查询字符串
-        """
+        """"
         media_queries = {}
         
         # 为每个断点创建媒体查询
@@ -696,23 +696,23 @@ class ResponsiveManager:
 
 
 class ResponsiveLayoutGenerator:
-    """
+    """"
     响应式布局生成器
     
     用于生成常见的响应式布局模式
-    """
+    """"
     
     def __init__(self, responsive_manager: ResponsiveManager):
-        """
+        """"
         初始化响应式布局生成器
         
         参数:
             responsive_manager: 响应式管理器实例
-        """
+        """"
         self.responsive_manager = responsive_manager
     
     def generate_grid_system(self, container_width: Optional[int] = None) -> Dict[str, Any]:
-        """
+        """"
         生成响应式网格系统
         
         参数:
@@ -720,7 +720,7 @@ class ResponsiveLayoutGenerator:
         
         返回:
             Dict[str, Any]: 网格系统配置
-        """
+        """"
         if container_width is None:
             container_width = self.responsive_manager.current_viewport.width
         
@@ -740,13 +740,13 @@ class ResponsiveLayoutGenerator:
             "device_type": self.responsive_manager.get_device_type().value
         }
     
-    def calculate_element_dimensions(self, 
+def calculate_element_dimensions(self,:
                                     base_width: int, 
                                     base_height: Optional[int] = None,
                                     aspect_ratio: Optional[float] = None,
                                     max_width: Optional[int] = None,
                                     min_width: Optional[int] = None) -> Tuple[int, int]:
-        """
+        """"
         计算元素的响应式尺寸
         
         参数:
@@ -758,7 +758,7 @@ class ResponsiveLayoutGenerator:
         
         返回:
             Tuple[int, int]: (宽度, 高度)
-        """
+        """"
         # 计算响应式宽度
         width = self.responsive_manager.calculate_responsive_size(
             base_width, min_size=min_width, max_size=max_width
@@ -778,11 +778,11 @@ class ResponsiveLayoutGenerator:
         
         return (width, height)
     
-    def generate_card_layout(self, 
+def generate_card_layout(self,:
                            base_card_width: int = 300,
                            aspect_ratio: float = 1.5,
                            gap: Optional[int] = None) -> Dict[str, Any]:
-        """
+        """"
         生成响应式卡片布局
         
         参数:
@@ -792,7 +792,7 @@ class ResponsiveLayoutGenerator:
         
         返回:
             Dict[str, Any]: 卡片布局配置
-        """
+        """"
         # 获取当前视口宽度
         container_width = self.responsive_manager.current_viewport.width
         
@@ -837,7 +837,7 @@ class ResponsiveLayoutGenerator:
         }
     
     def generate_responsive_layout(self, layout_type: str, **kwargs) -> Dict[str, Any]:
-        """
+        """"
         生成响应式布局配置
         
         参数:
@@ -846,7 +846,7 @@ class ResponsiveLayoutGenerator:
         
         返回:
             Dict[str, Any]: 布局配置
-        """
+        """"
         if layout_type == "grid":
             return self.generate_grid_system(**kwargs)
         
@@ -934,15 +934,15 @@ class ResponsiveLayoutGenerator:
 
 
 class ResponsiveHelper:
-    """
+    """"
     响应式助手类
     
     提供常用的响应式设计辅助方法
-    """
+    """"
     
     @staticmethod
     def px_to_rem(px_value: int, base_font_size: int = 16) -> float:
-        """
+        """"
         将像素值转换为rem单位
         
         参数:
@@ -951,12 +951,12 @@ class ResponsiveHelper:
         
         返回:
             float: rem值
-        """
+        """"
         return px_value / base_font_size
     
     @staticmethod
     def rem_to_px(rem_value: float, base_font_size: int = 16) -> int:
-        """
+        """"
         将rem值转换为像素单位
         
         参数:
@@ -965,12 +965,12 @@ class ResponsiveHelper:
         
         返回:
             int: 像素值
-        """
+        """"
         return int(rem_value * base_font_size)
     
     @staticmethod
     def px_to_vw(px_value: int, viewport_width: int = 1920) -> float:
-        """
+        """"
         将像素值转换为vw单位
         
         参数:
@@ -979,12 +979,12 @@ class ResponsiveHelper:
         
         返回:
             float: vw值
-        """
+        """"
         return (px_value / viewport_width) * 100
     
     @staticmethod
     def vw_to_px(vw_value: float, viewport_width: int = 1920) -> int:
-        """
+        """"
         将vw值转换为像素单位
         
         参数:
@@ -993,12 +993,12 @@ class ResponsiveHelper:
         
         返回:
             int: 像素值
-        """
+        """"
         return int((vw_value / 100) * viewport_width)
     
     @staticmethod
     def calculate_aspect_ratio(width: int, height: int) -> str:
-        """
+        """"
         计算宽高比
         
         参数:
@@ -1007,7 +1007,7 @@ class ResponsiveHelper:
         
         返回:
             str: 宽高比字符串，如"16:9"
-        """
+        """"
         def gcd(a, b):
             """计算最大公约数"""
             while b:
@@ -1025,7 +1025,7 @@ class ResponsiveHelper:
     
     @staticmethod
     def parse_css_unit(value: str) -> Tuple[float, str]:
-        """
+        """"
         解析CSS单位
         
         参数:
@@ -1033,8 +1033,8 @@ class ResponsiveHelper:
         
         返回:
             Tuple[float, str]: (数值, 单位)
-        """
-        match = re.match(r'^([+-]?(?:\d+(?:\.\d*)?|\.\d+))([a-zA-Z%]*)
+        """"
+        match = re.match(r'^([+-]?(?:\d+(?:\.\d*)?|\.\d+))([a-zA-Z%]*))'
         , value)
         
         if match:
@@ -1046,7 +1046,7 @@ class ResponsiveHelper:
     
     @staticmethod
     def convert_unit(value: str, target_unit: str, base_font_size: int = 16, viewport_width: int = 1920) -> str:
-        """
+        """"
         转换CSS单位
         
         参数:
@@ -1057,7 +1057,7 @@ class ResponsiveHelper:
         
         返回:
             str: 转换后的CSS值
-        """
+        """"
         try:
             number, unit = ResponsiveHelper.parse_css_unit(value)
         except ValueError:
@@ -1095,7 +1095,7 @@ class ResponsiveHelper:
     
     @staticmethod
     def generate_fluid_typography(min_size: int, max_size: int, min_width: int = 320, max_width: int = 1920) -> str:
-        """
+        """"
         生成流体排版CSS
         
         参数:
@@ -1106,7 +1106,7 @@ class ResponsiveHelper:
         
         返回:
             str: 流体排版CSS代码
-        """
+        """"
         # 计算斜率和截距 (使用 y = mx + b 线性方程)
         # m = (max_size - min_size) / (max_width - min_width)
         # b = min_size - m * min_width
@@ -1135,7 +1135,7 @@ class ResponsiveHelper:
     
     @staticmethod
     def generate_responsive_space_utility(prefix: str, values: Dict[str, int]) -> List[str]:
-        """
+        """"
         生成响应式间距工具类
         
         参数:
@@ -1144,7 +1144,7 @@ class ResponsiveHelper:
         
         返回:
             List[str]: CSS规则列表
-        """
+        """"
         css_rules = []
         
         # 默认规则（不带断点修饰符）
@@ -1242,4 +1242,4 @@ def example_usage():
 
 if __name__ == "__main__":
     # 如果直接运行该模块，展示使用示例
-    example_usage()
+    example_usage()}

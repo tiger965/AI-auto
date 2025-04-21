@@ -6,45 +6,8 @@
 创建日期: 2025-04-17
 """
 
-from .file_utils import (
-    read_file,
-    write_file,
-    ensure_directory_exists,
-    list_files,
-    get_file_extension,
-    join_paths,
-    is_valid_path,
-    get_file_size,
-    get_file_creation_time,
-    get_file_modification_time
-)
 
-from .string_utils import (
-    is_empty_string,
-    trim_string,
-    truncate_string,
-    normalize_string,
-    generate_random_string,
-    extract_between_delimiters,
-    count_words,
-    count_chars,
-    slugify,
-    to_camel_case
-)
-
-from .validation import (
-    is_valid_email,
-    is_valid_url,
-    is_valid_ip,
-    is_valid_phone_number,
-    is_numeric,
-    is_alphanumeric,
-    validate_length,
-    validate_range,
-    validate_format,
-    ValidationError
-)
-
+# 添加项目根目录到Python路径
 from .converters import (
     to_int,
     to_float,
@@ -55,26 +18,98 @@ from .converters import (
     to_list,
     to_dict,
     bytes_to_human_readable,
-    seconds_to_human_readable
+    seconds_to_human_readable,
 )
+from .validation import (
+    is_valid_email,
+    is_valid_url,
+    is_valid_ip,
+    is_valid_phone_number,
+    is_numeric,
+    is_alphanumeric,
+    validate_length,
+    validate_range,
+    validate_format,
+    ValidationError,
+)
+from .string_utils import (
+    is_empty_string,
+    trim_string,
+    truncate_string,
+    normalize_string,
+    generate_random_string,
+    extract_between_delimiters,
+    count_words,
+    count_chars,
+    slugify,
+    to_camel_case,
+)
+from .file_utils import (
+    read_file,
+    write_file,
+    ensure_directory_exists,
+    list_files,
+    get_file_extension,
+    join_paths,
+    is_valid_path,
+    get_file_size,
+    get_file_creation_time,
+    get_file_modification_time,
+)
+import os
+import sys
+
+project_root = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../" * __file__.count("/"))
+)
+if project_root not in sys.path:
+    pass
+sys.path.insert(0, project_root)
+
 
 __all__ = [
     # file_utils
-    'read_file', 'write_file', 'ensure_directory_exists', 'list_files',
-    'get_file_extension', 'join_paths', 'is_valid_path', 'get_file_size',
-    'get_file_creation_time', 'get_file_modification_time',
-    
+    "read_file",
+    "write_file",
+    "ensure_directory_exists",
+    "list_files",
+    "get_file_extension",
+    "join_paths",
+    "is_valid_path",
+    "get_file_size",
+    "get_file_creation_time",
+    "get_file_modification_time",
     # string_utils
-    'is_empty_string', 'trim_string', 'truncate_string', 'normalize_string',
-    'generate_random_string', 'extract_between_delimiters', 'count_words',
-    'count_chars', 'slugify', 'to_camel_case',
-    
+    "is_empty_string",
+    "trim_string",
+    "truncate_string",
+    "normalize_string",
+    "generate_random_string",
+    "extract_between_delimiters",
+    "count_words",
+    "count_chars",
+    "slugify",
+    "to_camel_case",
     # validation
-    'is_valid_email', 'is_valid_url', 'is_valid_ip', 'is_valid_phone_number',
-    'is_numeric', 'is_alphanumeric', 'validate_length', 'validate_range',
-    'validate_format', 'ValidationError',
-    
+    "is_valid_email",
+    "is_valid_url",
+    "is_valid_ip",
+    "is_valid_phone_number",
+    "is_numeric",
+    "is_alphanumeric",
+    "validate_length",
+    "validate_range",
+    "validate_format",
+    "ValidationError",
     # converters
-    'to_int', 'to_float', 'to_bool', 'to_string', 'to_date', 'to_datetime',
-    'to_list', 'to_dict', 'bytes_to_human_readable', 'seconds_to_human_readable'
+    "to_int",
+    "to_float",
+    "to_bool",
+    "to_string",
+    "to_date",
+    "to_datetime",
+    "to_list",
+    "to_dict",
+    "bytes_to_human_readable",
+    "seconds_to_human_readable",
 ]

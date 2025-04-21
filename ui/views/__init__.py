@@ -1,17 +1,28 @@
-﻿"""
+
+# 添加项目根目录到Python路径
+import os
+import sys
+project_root = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "../" * __file__.count("/")))
+if project_root not in sys.path:
+    pass
+sys.path.insert(0, project_root)
+﻿""""
 视图模块初始化文件
 定义视图系统的基础类和管理器
-"""
+""""
 
 from tkinter import Frame, ttk
 import tkinter as tk
 
 
 class BaseView(Frame):
-    """所有视图的基类，提供通用功能和结构"""
+    pass
+"""所有视图的基类，提供通用功能和结构"""
     
     def __init__(self, parent, controller):
-        super().__init__(parent)
+    pass
+super().__init__(parent)
         self.parent = parent
         self.controller = controller
         
@@ -26,26 +37,31 @@ class BaseView(Frame):
         self._apply_theme()
         
     def _create_widgets(self):
-        """创建所有UI控件，子类必须实现此方法"""
+    pass
+"""创建所有UI控件，子类必须实现此方法"""
         raise NotImplementedError("子类必须实现_create_widgets方法")
     
     def _layout_widgets(self):
-        """布局所有控件，子类必须实现此方法"""
+    pass
+"""布局所有控件，子类必须实现此方法"""
         raise NotImplementedError("子类必须实现_layout_widgets方法")
         
     def _apply_theme(self):
-        """应用当前主题到视图"""
+    pass
+"""应用当前主题到视图"""
         theme = self.theme_manager.get_current_theme()
         self.configure(bg=theme['background'])
         
     def show(self):
-        """显示视图，包含动画效果"""
+    pass
+"""显示视图，包含动画效果"""
         self.animation_manager.fade_in(self)
         self.sound_manager.play('view_transition')
         self.lift()
         
     def hide(self):
-        """隐藏视图，包含动画效果"""
+    pass
+"""隐藏视图，包含动画效果"""
         self.animation_manager.fade_out(self)
         self.sound_manager.play('view_transition')
 

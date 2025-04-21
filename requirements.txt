@@ -1,1 +1,35 @@
-# ���ڴ��г�������
+# 基础依赖
+numpy>=1.19.0
+pandas>=1.1.0
+requests>=2.25.0
+PyYAML>=5.4.0
+
+# UI和交互
+pyreadline3>=3.4.0; sys_platform == 'win32'  # Windows平台
+readline>=8.1.0; sys_platform != 'win32'     # 非Windows平台
+colorama>=0.4.4                              # 终端颜色支持
+
+# API和网络
+flask>=2.0.0
+fastapi>=0.68.0
+uvicorn>=0.15.0
+aiohttp>=3.7.4
+
+# 数据处理和分析
+scikit-learn>=0.24.0
+matplotlib>=3.4.0
+seaborn>=0.11.0
+
+# NLP相关
+transformers>=4.9.0
+nltk>=3.6.0
+
+# 系统工具
+psutil>=5.8.0
+schedule>=1.1.0
+
+# 量化交易相关（Window9）
+# freqtrade>=2022.3  # 取消注释以启用Window9开发
+
+# 测试工具
+pytest>=6.2.5

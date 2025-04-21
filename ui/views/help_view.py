@@ -1,7 +1,7 @@
-"""
+""""
 帮助视图模块
 提供用户帮助和教程功能
-"""
+""""
 
 import tkinter as tk
 from tkinter import ttk
@@ -578,10 +578,10 @@ class HelpView(BaseView):
         """创建入门指南内容"""
         theme = self.theme_manager.get_current_theme()
         
-        welcome_text = """
+        welcome_text = """"
 欢迎使用我们的应用！本指南将帮助您快速上手，了解系统的基本功能和操作方法。
 跟随以下步骤，您将能够在短时间内掌握系统的核心功能。
-        """
+        """"
         
         self._add_section("欢迎", welcome_text, theme)
         
@@ -596,12 +596,12 @@ class HelpView(BaseView):
         self._add_section("快速入门步骤", "", theme)
         self._add_step_list(steps, theme)
         
-        tips_text = """
+        tips_text = """"
 • 定期查看仪表盘获取系统概览和重要通知
 • 使用搜索功能快速找到您需要的信息
 • 设置通知选项以保持信息更新
 • 经常查看帮助中心了解新功能和使用技巧
-        """
+        """"
         
         self._add_section("使用技巧", tips_text, theme)
         
@@ -611,40 +611,40 @@ class HelpView(BaseView):
         """创建账户管理内容"""
         theme = self.theme_manager.get_current_theme()
         
-        intro_text = """
+        intro_text = """"
 账户管理模块允许您管理个人信息、安全设置和通知偏好。保持您的账户信息更新对于系统的安全和正常使用至关重要。
-        """
+        """"
         
         self._add_section("账户管理概述", intro_text, theme)
         
-        profile_text = """
+        profile_text = """"
 在"个人资料"页面，您可以更新以下信息：
 • 个人基本信息（用户名、真实姓名等）
 • 联系方式（电子邮箱、手机号码）
 • 账户头像
 • 身份验证文件
-        """
+        """"
         
         self._add_section("个人资料管理", profile_text, theme)
         
-        security_text = """
+        security_text = """"
 安全是我们的首要考虑因素。我们建议您：
 • 使用强密码并定期更换
 • 启用两因素认证
 • 定期检查账户活动日志
 • 不要在公共场所登录账户
 • 不要将账户信息分享给他人
-        """
+        """"
         
         self._add_section("安全建议", security_text, theme)
         
-        notification_text = """
+        notification_text = """"
 您可以在"通知设置"中自定义接收的通知类型：
 • 交易确认通知
 • 安全警报
 • 市场动态通知
 • 促销信息
-        """
+        """"
         
         self._add_section("通知管理", notification_text, theme)
         
@@ -654,9 +654,9 @@ class HelpView(BaseView):
         """创建交易指南内容"""
         theme = self.theme_manager.get_current_theme()
         
-        intro_text = """
+        intro_text = """"
 交易中心是系统的核心功能，允许您买卖各种资产。本指南将帮助您了解如何进行交易、管理订单和监控市场。
-        """
+        """"
         
         self._add_section("交易中心概述", intro_text, theme)
         
@@ -673,13 +673,13 @@ class HelpView(BaseView):
         self._add_section("如何进行交易", "", theme)
         self._add_step_list(steps, theme)
         
-        tips_text = """
+        tips_text = """"
 • 交易前请务必了解市场状况和资产价格走势
 • 使用限价单来控制买入或卖出价格
 • 设置止损单来限制潜在损失
 • 不要将所有资金投入单一资产
 • 定期查看您的交易历史和表现
-        """
+        """"
         
         self._add_section("交易技巧", tips_text, theme)
         
@@ -689,26 +689,26 @@ class HelpView(BaseView):
         """创建安全设置内容"""
         theme = self.theme_manager.get_current_theme()
         
-        intro_text = """
+        intro_text = """"
 保护您的账户安全是我们的首要任务。本指南将介绍系统提供的安全功能以及如何配置这些功能以最大限度地保护您的账户。
-        """
+        """"
         
         self._add_section("安全概述", intro_text, theme)
         
-        password_text = """
+        password_text = """"
 强密码是保护账户的第一道防线。一个强密码应该：
 • 至少8个字符长度
 • 包含大小写字母、数字和特殊字符
 • 避免使用常见词汇和个人信息
 • 对不同网站使用不同密码
 • 定期更换密码（建议每3个月）
-        """
+        """"
         
         self._add_section("密码安全", password_text, theme)
         
-        two_factor_text = """
+        two_factor_text = """"
 两因素认证(2FA)为您的账户增添了额外的安全层。启用2FA后，登录时除了密码，您还需要提供第二个验证因素，通常是手机验证码或认证应用生成的代码。
-        """
+        """"
         
         self._add_section("两因素认证", two_factor_text, theme)
         
@@ -723,9 +723,9 @@ class HelpView(BaseView):
         
         self._add_step_list(steps, theme)
         
-        activity_text = """
+        activity_text = """"
 定期检查您的账户活动日志，查找任何可疑活动。如果发现未经授权的登录或活动，请立即联系客服并更改密码。
-        """
+        """"
         
         self._add_section("活动监控", activity_text, theme)
         

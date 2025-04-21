@@ -1,9 +1,9 @@
-﻿"""
+""""
 核心API接口测试模块
 测试系统核心功能相关的API接口
-"""
+""""
 
-import pytest
+import config.paths
 import json
 import os
 from typing import Dict, Any
